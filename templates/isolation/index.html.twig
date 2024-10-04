@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Solutions acoustiques{% endblock %}
+
+{% block body %}
+ <h2 class="solutions-acoustiques">Solutions acoustiques</h2>
+<div class="isolation">
+    <div class="circle-image-container">
+        <div class="circle-image">
+            <img src="{{ asset('images/image1.jpg') }}" alt="isolation" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="text-section-acoustique">
+       
+        <p>
+            Les solutions acoustiques et l'isolation sont essentielles pour garantir un environnement confortable et serein, que ce soit dans les espaces de vie ou de travail. Une bonne isolation acoustique permet de réduire les bruits indésirables, favorisant ainsi la concentration et le bien-être.
+        </p>
+        <p>
+          En parallèle, une isolation thermique performante contribue à réguler la température intérieure, réduisant les pertes énergétiques et améliorant l'efficacité énergétique des bâtiments. Grâce à des technologies de pointe et des matériaux innovants, nos solutions acoustiques et d'isolation vous assurent à la fois confort sonore et économie d’énergie, tout en s'intégrant harmonieusement à vos espaces.
+        </p>
+    </div>
+</div>
+<h2 class="title-section-acoustique"> les différentes solutions acoustiques</h2>
+
+<div class="container-acoustique">
+    <div class="card-acoustique">
+        <h3>Panneaux acoustiques</h3>
+        <p>Ces panneaux absorbent les sons et réduisent les échos dans une pièce. Ils peuvent être montés sur les murs ou les plafonds pour améliorer l'acoustique intérieure.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Cloisons acoustiques</h3>
+        <p>Des cloisons mobiles ou fixes peuvent être installées pour réduire la transmission du bruit entre les pièces, notamment dans les espaces ouverts ou les bureaux partagés.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Portes acoustiques</h3>
+        <p>Les portes acoustiques sont spécialement conçues pour réduire la transmission des sons entre les pièces, souvent utilisées dans les studios d'enregistrement, les bureaux ou les salles de réunion.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Plafonds acoustiques</h3>
+        <p>Les plafonds acoustiques sont conçus pour absorber les bruits aériens et améliorer la qualité sonore dans une pièce. Ils sont souvent utilisés dans les bureaux, les salles de conférence et les auditoriums.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Rideaux acoustiques</h3>
+        <p>Ces rideaux épais et lourds permettent de réduire les bruits provenant de l'extérieur. Ils sont souvent utilisés dans les théâtres ou les grands espaces avec de nombreuses fenêtres.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Dalles de sol acoustiques</h3>
+        <p>Installées sous les revêtements de sol, elles permettent de réduire les bruits d'impact (bruits de pas, chutes d'objets, etc.).</p>
+    </div>
+</div>
+
+<h2 class="title-section-acoustique"> les différentes solutions d'isolation thermique</h2>
+
+<div class="container-acoustique">
+    <div class="card-acoustique">
+        <h3>Isolation par l’extérieur (ITE)</h3>
+        <p>Il s'agit de poser une couche d'isolant sur les murs extérieurs du bâtiment, ce qui permet d'améliorer l'efficacité thermique sans perdre d'espace intérieur.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Isolation par l’intérieur (ITI)</h3>
+        <p>Cette méthode consiste à poser des panneaux isolants à l'intérieur des murs, plafonds ou sols. Elle est particulièrement utile pour les bâtiments existants où l'isolation par l’extérieur n'est pas possible.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Isolation des combles</h3>
+        <p>Les combles sont une source importante de déperditions thermiques. L'isolation des combles perdus ou aménagés, avec des matériaux comme la laine de verre, de roche ou des panneaux isolants, est cruciale pour maintenir la chaleur.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Isolation des planchers</h3>
+        <p>Installer une isolation sous les planchers ou dans les caves permet de réduire les pertes thermiques vers les sous-sols et d’éviter le froid venant du sol.</p>
+    </div>
+    <div class="card-acoustique">
+        <h3>Fenêtres à double ou triple vitrage</h3>
+        <p>Ces types de vitrages permettent de réduire considérablement les pertes de chaleur par les fenêtres tout en améliorant l'isolation acoustique.</p>
+    </div>
+   
+    <div class="card-acoustique">
+        <h3>Matériaux isolants écologiques</h3>
+        <p>Il existe aussi des isolants naturels comme la laine de mouton, le chanvre, la ouate de cellulose ou le liège, qui sont à la fois écologiques et efficaces pour isoler tout en respectant l'environnement.</p>
+    </div>
+</div>
+<div class="container services">
+    <div class="row">
+        <!-- Autres services -->
+        <div class="col-md-6 autres-services">
+            <h2>Autres services</h2>
+            <ul>
+            <li><i class="fa fa-chevron-right"></i> Démolition et curage</li>
+                <li><i class="fa fa-chevron-right"></i> Maçonnerie</li>
+                <li><i class="fa fa-chevron-right"></i> Peinture</li>
+                <li><i class="fa fa-chevron-right"></i> Sols et revêtements muraux</li>
+                <li><i class="fa fa-chevron-right"></i> Cloisons mobiles et plafonds</li>
+            </ul>
+        </div>
+
+        <!-- Image et bouton -->
+        <div class="col-md-6 image-et-bouton">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Image description" class="img-fluid">
+            <button class="dm-etude">Demandez votre étude</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

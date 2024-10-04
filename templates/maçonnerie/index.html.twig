@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Maçonnerie{% endblock %}
+
+{% block body %}
+<h1 class="text-center maconnerie">Maçonnerie</h1>
+
+<section class="maconnerie-content">
+<div class="text-content-maconnerie">
+            <p>
+                La maçonnerie est un élément clé dans tout projet de construction ou de rénovation. Chez HomeRenov91, nous réalisons des travaux de maçonnerie avec une grande précision pour assurer la solidité et la durabilité de vos ouvrages. 
+            </p>
+            <p>
+                Que ce soit pour la construction de murs porteurs, la création d'ouvertures, la pose de cloisons ou encore la restauration de structures existantes, notre équipe de professionnels expérimentés utilise des techniques adaptées à chaque projet.
+            </p>
+            <p>Grâce à un savoir-faire maîtrisé et des matériaux de qualité, nous vous garantissons un résultat esthétique et conforme aux normes de sécurité en vigueur.</p>
+           
+            
+        </div>
+        <div class="image-section-maconnerie">
+    <div class="main-image-maconnerie">
+        <img src="{{ asset('images/image1.jpg') }}" alt="Main Image" class="img-fluid">
+    </div>
+    <div class="image-thumbnails-maconnerie">
+        <div class="thumbnail-item-maconnerie">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Sols beton" class="img-fluid">
+            <p>Sols beton</p>
+        </div>
+        <div class="thumbnail-item-maconnerie">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Murs et cloisons" class="img-fluid">
+            <p>Murs et cloisons</p>
+        </div>
+        <div class="thumbnail-item-maconnerie">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Terrasses" class="img-fluid">
+            <p>Terrasses</p>
+        </div>
+        
+    </div>
+</div>
+
+        
+    </section>
+
+    <section class="macon">
+    <div class="row">
+        <!-- Première colonne : Autres services -->
+        <div class="col-md-4 domaines-options">
+            
+               <h2>Autres services</h2>
+            <ul>
+               <li><i class="fa fa-chevron-right"></i> Démolition et curage</li>
+               <li><i class="fa fa-chevron-right"></i> Sols et revêtements muraux</li>
+               <li><i class="fa fa-chevron-right"></i> Peinture</li>
+               <li><i class="fa fa-chevron-right"></i> Cloisons mobiles et plafond</li>
+               <li><i class="fa fa-chevron-right"></i> Solutions acoustiques</li>
+            </ul>
+               
+            
+        </div>
+
+        <!-- Deuxième colonne : Evacuation et mise en déchetterie -->
+        <div class="col-md-4">
+            
+            <h3>Travaux de maçonnerie</h3>
+            <p>
+                Nous ne réalisons pas de gros-œuvre au sens strict (construction de bâtiments) mais nous intervenons sur tout le second œuvre en maçonnerie. Par exemple : ouverture de murs porteurs, pose d’IPN, chape de reprise de sol, murs en parpaings. Mais aussi création de structures métalliques,  modifications de plancher, cloisonnements maçonnés ou placoplâtre, etc.
+            </p>
+        </div>
+
+        <!-- Troisième colonne : Recyclage -->
+        <div class="col-md-4">
+           
+            <h3>Gros oeuvre</h3>
+            <p>
+               nous intervenons également dans la création d’aménagements extérieurs tels que : construction d’annexes , terrasses (béton, bois ou composite), murs de soutènements,  carports, etc.
+            </p>
+        </div>
+    </div>
+</section>
+ <button class="btn-study">Demandez votre étude</button>
+{% endblock %}

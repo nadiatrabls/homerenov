@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Démolition et curage{% endblock %}
+
+{% block body %}
+<h1 class="text-center demo">Démolition et curage</h1>
+
+<section class="demolition-content">
+        <div class="image-section">
+    <div class="main-image">
+        <img src="{{ asset('images/image1.jpg') }}" alt="Main Image" class="img-fluid">
+    </div>
+    <div class="image-thumbnails">
+        <div class="thumbnail-item">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Démolition" class="img-fluid">
+            <p>Démolition</p>
+        </div>
+        <div class="thumbnail-item">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Evacuation gravats" class="img-fluid">
+            <p>curage</p>
+        </div>
+        <div class="thumbnail-item">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Désamiantage" class="img-fluid">
+            <p>Evacuation</p>
+        </div>
+        <div class="thumbnail-item">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Recyclage" class="img-fluid">
+            <p>Recyclage</p>
+        </div>
+    </div>
+</div>
+
+        <div class="text-content">
+            <p>
+                Le service de démolition et de curage constitue une étape cruciale dans la préparation de tout projet de rénovation, qu'il s'agisse d'espaces résidentiels, commerciaux ou industriels. Notre équipe d'experts en démolition intervient avec soin et précision pour démanteler les structures existantes tout en préservant les éléments essentiels qui doivent être conservés.
+            </p>
+            <p>
+                La phase de démolition inclut non seulement la destruction contrôlée des murs, cloisons et autres structures, mais également une évaluation minutieuse des zones à démolir pour éviter tout impact sur les infrastructures critiques. Chaque intervention est réalisée en tenant compte des normes de sécurité les plus strictes, garantissant ainsi un chantier sécurisé pour toutes les parties prenantes.
+            </p>
+            <p>Le curage, quant à lui, consiste à vider les espaces des éléments superflus et encombrants, tels que les gravats, équipements vétustes, et autres déchets. Que ce soit pour la rénovation intérieure ou pour la transformation complète d’un bâtiment, nous veillons à ce que chaque étape du processus soit réalisée dans les meilleures conditions. </p>
+            <p>Grâce à notre savoir-faire et à notre approche méthodique, nous assurons non seulement la sécurité du site, mais également sa propreté et sa viabilité pour les travaux à venir. Nos équipes expérimentées garantissent un environnement parfaitement préparé pour accueillir de nouvelles constructions ou des réaménagements, tout en respectant les délais et les exigences spécifiques de chaque projet.</p>
+            
+        </div>
+    </section>
+   <section class="evacuation">
+    <div class="row">
+        <!-- Première colonne : Autres services -->
+        <div class="col-md-4 domaines-options">
+            
+               <h2>Autres services</h2>
+            <ul>
+               <li><i class="fa fa-chevron-right"></i> Maçonnerie</li>
+               <li><i class="fa fa-chevron-right"></i> Sols et revêtements muraux</li>
+               <li><i class="fa fa-chevron-right"></i> Peinture</li>
+               <li><i class="fa fa-chevron-right"></i> Cloisons mobiles et plafond</li>
+               <li><i class="fa fa-chevron-right"></i> Solutions acoustiques</li>
+            </ul>
+               
+            
+        </div>
+
+        <!-- Deuxième colonne : Evacuation et mise en déchetterie -->
+        <div class="col-md-4">
+            <img src="{{ asset('images/evacuation.jpg') }}" alt="Evacuation et mise en déchetterie" class="img-fluid">
+            <h3>Evacuation et mise en déchetterie</h3>
+            <p>
+                L'évacuation des gravats et autres déchets de chantier est une étape essentielle pour garantir un environnement de travail propre et sécurisé. Nous nous chargeons de collecter et de transporter ces matériaux vers des sites de déchetterie agréés, conformément aux normes environnementales en vigueur.
+            </p>
+        </div>
+
+        <!-- Troisième colonne : Recyclage -->
+        <div class="col-md-4">
+            <img src="{{ asset('images/recyclage.jpg') }}" alt="Recyclage" class="img-fluid">
+            <h3>Recyclage</h3>
+            <p>
+                Le recyclage fait partie intégrante de notre engagement pour la protection de l'environnement. Nous trions et recyclons une grande partie des matériaux de construction pour leur donner une nouvelle vie, réduisant ainsi l'empreinte écologique de nos chantiers.
+            </p>
+        </div>
+    </div>
+</section>
+ <button class="btn-study">Demandez votre étude</button>
+
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cloisons mobiles et plafonds{% endblock %}
+
+{% block body %}
+<h2 class="section-title-cloisons">Cloisons mobiles et plafonds</h2>
+<div class=" container section-cloisons">
+    <p class="section-text-cloisons">
+        L'installation de cloisons mobiles et de plafonds en plaques de plâtre BA13 offre une solution idéale pour la création d'espaces modulables dans vos intérieurs, que ce soit pour des environnements résidentiels ou professionnels. Ces cloisons permettent de redéfinir rapidement et facilement la disposition des pièces, offrant une flexibilité maximale pour s'adapter à vos besoins.
+    </p>
+    <p class="section-text-cloisons">
+        Grâce à des finitions soignées et à une isolation optimale, ces installations garantissent un confort acoustique et thermique tout en préservant l'esthétique de vos espaces. Les plafonds en BA13, reconnus pour leur robustesse et leur finition impeccable, apportent une touche moderne et élégante, idéale pour tous types de projets.
+    </p>
+</div>
+
+<div class="container section-cloisons-plafonds">
+    <div class="row cloisons-images">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Cloisons mobiles 1" class="img-fluid img-hover-cloisons">
+                </div>
+                <div class="col-6">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Cloisons mobiles 2" class="img-fluid img-hover-cloisons">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Cloisons mobiles 3" class="img-fluid img-hover-cloisons">
+                </div>
+                <div class="col-6">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Cloisons mobiles 4" class="img-fluid img-hover-cloisons">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 cloisons-text">
+            <h3>Cloisons mobiles</h3>
+            <p>L'installation de cloisons mobiles en BA13 permet de structurer vos espaces de manière flexible et fonctionnelle. Ces cloisons modulaires s'adaptent parfaitement aux intérieurs, offrant une solution rapide et pratique pour diviser ou créer des pièces sans travaux majeurs. Grâce à leur légèreté et à leur finition soignée, elles apportent une touche moderne tout en assurant un bon niveau d'isolation acoustique et thermique.</p>
+            <br>
+            <h3>Plafonds</h3>
+            <p>
+Les plafonds en BA13 sont une solution idéale pour moderniser et améliorer vos intérieurs. Reconnu pour sa légèreté et sa facilité d’installation, le BA13 permet de créer des finitions lisses et élégantes, adaptées à tous types de pièces. Que ce soit pour abaisser une hauteur sous plafond, intégrer des systèmes d’éclairage ou améliorer l’isolation acoustique et thermique, les plafonds en plaques de plâtre BA13 offrent une grande polyvalence. Ils s’intègrent aussi bien dans les projets de rénovation que dans les nouvelles constructions, garantissant un résultat propre et professionnel.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container services">
+    <div class="row">
+        <!-- Autres services -->
+        <div class="col-md-6 autres-services">
+            <h2>Autres services</h2>
+            <ul>
+            <li><i class="fa fa-chevron-right"></i> Démolition et curage</li>
+                <li><i class="fa fa-chevron-right"></i> Maçonnerie</li>
+                <li><i class="fa fa-chevron-right"></i> Peinture</li>
+                <li><i class="fa fa-chevron-right"></i> Sols et revêtements muraux</li>
+                <li><i class="fa fa-chevron-right"></i> Solutions acoustiques</li>
+            </ul>
+        </div>
+
+        <!-- Image et bouton -->
+        <div class="col-md-6 image-et-bouton">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Image description" class="img-fluid">
+            <button class="dm-etude">Demandez votre étude</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

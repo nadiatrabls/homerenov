@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Realisations{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center nos-realisations">Nos réalisations</h1>
+
+    <!-- Section de présentation des chantiers -->
+    <section class="realisation-presentation mt-5 text-center">
+        <p>
+            Découvrez nos chantiers récents où nous avons transformé des espaces avec passion et expertise. 
+            Chaque projet reflète notre engagement envers la qualité et le souci du détail. Que ce soit pour une rénovation complète ou des améliorations spécifiques, nos réalisations 
+            illustrent notre capacité à répondre aux besoins variés de nos clients avec des solutions sur mesure.
+        </p>
+       
+        <p>
+            Chaque réalisation est le fruit de notre collaboration étroite avec nos clients, en veillant à respecter 
+            les délais et en garantissant un résultat à la hauteur de leurs attentes.
+        </p>
+    </section>
+
+   <div class="container my-5">
+    <div class="row">
+        <!-- Première carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 1">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 1</h5>
+                    <p class="card-text-realisations">Rénovation d'un appartement avec installation de cloisons acoustiques et faux plafonds.</p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deuxième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 2">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 2</h5>
+                    <p class="card-text-realisations">Réfection complète des sols et des plafonds d'une maison individuelle.</p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troisième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 3">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 3</h5>
+                    <p class="card-text-realisations">Modernisation des bureaux avec des solutions acoustiques et isolation thermique.</p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Quatrième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 4">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 4</h5>
+                    <p class="card-text-realisations">Création d'espaces de coworking avec des cloisons modulables et insonorisation.</p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cinquième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 5">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 5</h5>
+                    <p class="card-text-realisations">Rénovation énergétique complète d'un immeuble de bureaux avec solutions acoustiques </p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sixième carte -->
+        <div class="col-md-4 mb-4">
+            <div class="card-realisations">
+                <img src="{{ asset('images/image1.jpg') }}" class="card-img-realisations" alt="Chantier 6">
+                <div class="card-body">
+                    <h5 class="card-title-realisations">Chantier 6</h5>
+                    <p class="card-text-realisations">Transformation d'un entrepôt en espaces de bureaux avec des finitions acoustiques de haute</p>
+                    <a href="#" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+    <div class="text-center mt-5">
+        <button class="btn btn-primary button-realisations">Demander une étude</button>
+    </div>
+</div>
+{% endblock %}

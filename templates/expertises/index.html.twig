@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Domaines d'interventions{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center expertises">Domaines d'interventions</h1>
+
+    <section class="intervention-section">
+        <h2>Nous intervenons dans tous les corps d’état nécessaires à votre chantier de rénovation</h2>
+        <p>
+            Dans le cadre de notre offre de rénovation globale pour réaliser vos projets de rénovation, 
+            nous pouvons intervenir sur l’ensemble des périmètres principaux détaillés ci-dessous. 
+            Que nous intervenions de bout en bout dans le cadre d’une proposition clé en main ou sur un périmètre réduit, 
+            nous sommes à vos côtés pour faire de votre chantier une réussite.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores voluptatem omnis necessitatibus, 
+            suscipit nulla dolores fugiat, quos eos accusamus officia possimus nobis nesciunt nihil optio labore 
+            recusandae veritatis dolorum veniam. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <button class="btn btn-primary">Demander une étude</button>
+    </section>
+
+    <!-- Section avant/après -->
+    <section class="before-after-section mt-5 text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ asset('images/image1.jpg') }}" alt="Avant notre intervention" class="img-fluid">
+                <p>Avant notre intervention</p>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/image1.jpg') }}" alt="Après notre intervention" class="img-fluid">
+                <p>Après notre intervention</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section des domaines techniques -->
+    <section class="technical-domains mt-5 text-center">
+        <h3 class="domaines">Domaines techniques en second œuvre</h3>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <a href="{{ path('app_demolition') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Démolition et curage" class="img-fluid">
+                    <p>Démolition et curage</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ path('app_maconnerie') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Maçonnerie" class="img-fluid">
+                    <p>Maçonnerie</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ path('app_revetements') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Sols et revêtements muraux" class="img-fluid">
+                    <p>Sols et revêtements muraux</p>
+                </a>
+            </div>
+        </div>
+        <div class="row mt-4 justify-content-center deuxieme-partie">
+        <div class="col-md-4">
+                <a href="{{ path('app_peinture') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="peinture" class="img-fluid">
+                    <p>Peinture</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ path('app_cloisons') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Cloisons mobiles et plafond" class="img-fluid">
+                    <p>Cloisons mobiles et plafond</p>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ path('app_isolation') }}">
+                    <img src="{{ asset('images/image1.jpg') }}" alt="Solutions acoustiques" class="img-fluid">
+                    <p>Solutions acoustiques</p>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sols et revêtements muraux{% endblock %}
+
+{% block body %}
+<h1 class="text-center revetement">Sols et revêtements muraux</h1>
+
+<section class="revetement-content">
+        <div class="image-section-revetement">
+    <div class="main-image">
+        <img src="{{ asset('images/image1.jpg') }}" alt="Main Image" class="img-fluid">
+    </div>
+    <div class="image-thumbnails-revetement">
+        <div class="thumbnail-item-revetement">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Sols souples" class="img-fluid">
+            <p>Sols souples</p>
+        </div>
+        <div class="thumbnail-item-revetement">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Carrelage" class="img-fluid">
+            <p>Carrelage</p>
+        </div>
+        <div class="thumbnail-item-revetement">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Revêtements muraux décoratifs" class="img-fluid">
+            <p>Revêtements muraux décoratifs</p>
+        </div>
+        <div class="thumbnail-item-revetement">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Peinture" class="img-fluid">
+            <p>Peinture</p>
+        </div>
+    </div>
+</div>
+
+        <div class="text-content-revetement">
+            <p>
+                Notre service de pose de sols et de revêtements muraux s’adapte à tous les styles et besoins. Nous proposons un large éventail de solutions pour habiller vos sols, allant du parquet chaleureux et classique, aux carrelages modernes et résistants, en passant par des sols en vinyle pratiques ou encore des finitions en béton ciré pour un aspect contemporain et épuré. Chaque type de sol est posé avec soin, dans le respect des normes, pour garantir une durabilité optimale.
+            </p>
+            <p>
+                Pour les murs, nous vous offrons diverses options de revêtements muraux : du papier peint traditionnel ou vinyle, aux enduits décoratifs ou panneaux muraux innovants. Que vous souhaitiez une ambiance sobre, minimaliste ou colorée, nous vous conseillons dans vos choix et assurons une pose irréprochable pour un rendu esthétique qui s’intègre harmonieusement dans votre espace. Nos équipes interviennent sur tous types de chantiers, qu’il s’agisse de rénovations complètes ou de simples modifications d'intérieur, avec un souci constant de la qualité et de la finition.
+            </p>
+            
+            
+        </div>
+    </section>
+  
+<div class="container revetements">
+    <div class="row types-revetement">
+        <div class="col-md-3 tp">
+            <h3 class="types">Sols souples</h3>
+            <p class="tp-revetement">Les sols souples, comme le vinyle, le linoléum, le parquet flottant, les moquettes et le pvc, offrent une solution économique et pratique pour des revêtements confortables et faciles à entretenir.</p>
+        </div>
+        <div class="col-md-3 tp">
+            <h3 class="types">Carrelage</h3>
+            <p class="tp-revetement">Le carrelage est idéal pour les zones humides et à fort passage, offrant une grande résistance et un large choix de designs modernes ou traditionnels.</p>
+        </div>
+        <div class="col-md-3 tp">
+            <h3 class="types">Revêtements muraux décoratifs</h3>
+            <p class="tp-revetement">Les revêtements muraux décoratifs personnalisent vos espaces avec style, offrant des solutions variées comme les enduits, les panneaux muraux ou les papiers peints.</p>
+        </div>
+        <div class="col-md-3 tp">
+            <h3 class="types">Peinture</h3>
+            <p class="tp-revetement">La peinture est un moyen rapide et efficace de transformer vos murs. De la finition mate à la laque brillante, elle s'adapte à toutes vos envies.</p>
+            <a href="#" class="text-primary sur-peinture">+ sur peinture</a>
+        </div>
+    </div>
+</div>
+<div class="container services">
+    <div class="row">
+        <!-- Autres services -->
+        <div class="col-md-6 autres-services">
+            <h2>Autres services</h2>
+            <ul>
+            <li><i class="fa fa-chevron-right"></i> Démolition et curage</li>
+                <li><i class="fa fa-chevron-right"></i> Maçonnerie</li>
+                <li><i class="fa fa-chevron-right"></i> Peinture</li>
+                <li><i class="fa fa-chevron-right"></i> Cloisons mobiles et plafond</li>
+                <li><i class="fa fa-chevron-right"></i> Solutions acoustiques</li>
+            </ul>
+        </div>
+
+        <!-- Image et bouton -->
+        <div class="col-md-6 image-et-bouton">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Image description" class="img-fluid">
+            <button class="dm-etude">Demandez votre étude</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

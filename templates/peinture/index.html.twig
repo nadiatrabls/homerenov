@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peinture{% endblock %}
+
+{% block body %}
+<h1 class="text-center peinture">Peinture</h1>
+<div class="container-peinture">
+    
+    <div class="main-image-peinture">
+        <img src="{{ asset('images/image1.jpg') }}" alt="Main Image" class="img-fluid">
+    </div>
+
+    <div class="thumbnail-section-peinture">
+        <div class="thumbnail-peinture">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Thumbnail 1" class="img-fluid">
+            <div class="overlay-peinture">
+                <p>Murs et plafonds</p>
+            </div>
+        </div>
+        <div class="thumbnail-peinture">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Thumbnail 2" class="img-fluid">
+            <div class="overlay-peinture">
+                <p>Sols</p>
+            </div>
+        </div>
+        <div class="thumbnail-peinture">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Thumbnail 3" class="img-fluid">
+            <div class="overlay-peinture">
+                <p>Boiseries</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="text-content-peinture">
+        <p>
+            La peinture est un élément essentiel pour personnaliser et transformer vos espaces intérieurs et extérieurs. Que ce soit pour apporter une touche de modernité, de chaleur ou de sobriété, notre équipe de professionnels sélectionne avec soin les types de peinture adaptés à chaque projet.
+        </p>
+        <p>
+            Des finitions mates aux laques brillantes, nous veillons à ce que chaque surface soit traitée avec précision pour un rendu esthétique et durable. Grâce à notre expertise, vos murs et plafonds prennent vie et s'harmonisent parfaitement avec le reste de votre décor.
+        </p>
+    </div>
+<div class="container-peinture-card">
+    <div class="card-peinture">
+        <h3 class="title-peinture">Peinture murs et plafonds</h3>
+        <p class="text-peinture">Nous redéfinissons vos murs et plafonds avec élégance grâce à une large gamme de peintures. Nos prestations incluent la préparation minutieuse des surfaces, avec décapage et ponçage pour garantir une application impeccable de la peinture, transformant ainsi vos espaces en des environnements élégants et soignés.</p>
+    </div>
+    <div class="card-peinture">
+        <h3 class="title-peinture">Peinture sols</h3>
+        <p class="text-peinture">Transformez vos sols avec des solutions esthétiques et durables. Nous proposons des peintures spécialement conçues pour les sols, comme l'époxy et le polyuréthane, qui allient résistance et facilité d'entretien, tout en offrant une nouvelle vie et une allure moderne à vos surfaces.</p>
+    </div>
+    <div class="card-peinture">
+        <h3 class="title-peinture">Peinture boiseries</h3>
+        <p class="text-peinture">Qu'il s'agisse de portes, fenêtres ou autres éléments en bois, nous appliquons des peintures adaptées pour protéger et embellir ces surfaces. Nos solutions allient robustesse et esthétisme, offrant des finitions lisses ou texturées, selon vos préférences, pour sublimer les boiseries intérieures ou extérieures de votre habitation.</p>
+    </div>
+</div>
+<div class="container services">
+    <div class="row">
+        <!-- Autres services -->
+        <div class="col-md-6 autres-services">
+            <h2>Autres services</h2>
+            <ul>
+            <li><i class="fa fa-chevron-right"></i> Démolition et curage</li>
+                <li><i class="fa fa-chevron-right"></i> Maçonnerie</li>
+                <li><i class="fa fa-chevron-right"></i> Sols et revêtements muraux</li>
+                <li><i class="fa fa-chevron-right"></i> Cloisons mobiles et plafond</li>
+                <li><i class="fa fa-chevron-right"></i> Solutions acoustiques</li>
+            </ul>
+        </div>
+
+        <!-- Image et bouton -->
+        <div class="col-md-6 image-et-bouton">
+            <img src="{{ asset('images/image1.jpg') }}" alt="Image description" class="img-fluid">
+            <button class="dm-etude">Demandez votre étude</button>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
