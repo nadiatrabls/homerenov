@@ -17,10 +17,14 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AuthentificationAuthenticator
+            form_login:
+                login_path: app_login    # Route de la page de connexion
+                check_path: app_login    # Route pour vérifier les informations du formulaire
+            entry_point: App\Security\AuthentificationAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
 
             remember_me:
                 secret: '%kernel.secret%'

@@ -15,7 +15,7 @@
         <div class="carousel-item active">
             <img src="{{ asset('images/image1.jpg') }}" class="d-block w-100" alt="Image 1">
             <!-- Texte et bouton sur l'image du carrousel -->
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h1 class="display-1">Homerenov91</h1>
                 <p class="lead">La beauté d'une maison ne réside pas seulement dans son apparence, mais dans la précision et le soin apportés à chaque détail visible ou caché. C'est ce travail invisible qui assure la solidité et la durabilité de toute construction.</p>
                 <a href="{{ path('contact') }}" class="btn btn-primary btn-study-acceuil">DEMANDE D'ÉTUDE</a>
@@ -23,7 +23,7 @@
         </div>
         <div class="carousel-item">
             <img src="{{ asset('images/image2.jpg') }}" class="d-block w-100" alt="Image 2">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h1 class="display-1">Homerenov91</h1>
                 <p class="lead">La beauté d'une maison ne réside pas seulement dans son apparence, mais dans la précision et le soin apportés à chaque détail visible ou caché. C'est ce travail invisible qui assure la solidité et la durabilité de toute construction.</p>
                 <a href="{{ path('contact') }}" class="btn btn-primary btn-study-acceuil">DEMANDE D'ÉTUDE</a>
@@ -31,7 +31,7 @@
         </div>
         <div class="carousel-item">
             <img src="{{ asset('images/image3.jpg') }}" class="d-block w-100" alt="Image 3">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h1 class="display-1">Homerenov91</h1>
                 <p class="lead">La beauté d'une maison ne réside pas seulement dans son apparence, mais dans la précision et le soin apportés à chaque détail visible ou caché. C'est ce travail invisible qui assure la solidité et la durabilité de toute construction.</p>
                 <a href="{{ path('contact') }}" class="btn btn-primary btn-study-acceuil">DEMANDE D'ÉTUDE</a>
@@ -39,7 +39,7 @@
         </div>
         <div class="carousel-item">
             <img src="{{ asset('images/image4.jpg') }}" class="d-block w-100" alt="Image 4">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h1 class="display-1">Homerenov91</h1>
                 <p class="lead">La beauté d'une maison ne réside pas seulement dans son apparence, mais dans la précision et le soin apportés à chaque détail visible ou caché. C'est ce travail invisible qui assure la solidité et la durabilité de toute construction.</p>
                 <a href="{{ path('contact') }}" class="btn btn-primary btn-study-acceuil">DEMANDE D'ÉTUDE</a>
@@ -67,19 +67,28 @@
         </p>
     </section>
 
-    <section class="gallery-section">
-        <div class="gallery">
-            <a href="#">
-                <img src="{{ asset('images/image3.jpg') }}" alt="Image 1">
-            </a>
-            <a href="#">
-                <img src="{{ asset('images/image3.jpg') }}" alt="Image 2">
-            </a>
-            <a href="#">
-                <img src="{{ asset('images/image3.jpg') }}" alt="Image 3">
-            </a>
+   <section class="gallery-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
+                <a href="#">
+                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 1" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
+                <a href="#">
+                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 2" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
+                <a href="#">
+                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 3" class="img-fluid">
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
    <section class="services-section text-center py-5">
         <h1 class="services-tech">Nos services techniques</h1>
         <div class="container">
@@ -261,6 +270,48 @@
             <p><a href="#" class="realisations"> DECOUVREZ NOS AUTRES REALISATIONS</a></p>
         </div>
     </section>
+    <!-- Nouvelle section - Pourquoi s'inscrire -->
+<section class=" py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">Pourquoi créer un compte chez HomeRenov91 ?</h2>
+                <p class="lead">Profitez d'avantages exclusifs en créant un compte sur notre site :</p>
+            </div>
+        </div>
+        <div class="row text-center avantages">
+            <!-- Avantage 1 -->
+            <div class="col-md-4 mb-4 box">
+                <div class="icon-box">
+                    <i class="fas fa-user-circle fa-3x mb-3"></i>
+                    <h4 class="mb-2">Suivi personnalisé</h4>
+                    <p>Accédez à un espace dédié pour suivre vos projets et demandes en temps réel.</p>
+                </div>
+            </div>
+            <!-- Avantage 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="icon-box">
+                    <i class="fas fa-file-alt fa-3x mb-3"></i>
+                    <h4 class="mb-2">Devis et historique des factures</h4>
+                    <p>Obtenez des devis gratuits et conservez l'historique des factures de vos projets passés.</p>
+                </div>
+            </div>
+            <!-- Avantage 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="icon-box">
+                    <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                    <h4 class="mb-2">Demande de rendez-vous</h4>
+                    <p>Même sans être client, vous pouvez demander un rendez-vous en toute simplicité.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center mt-4">
+                <a href="{{ path('app_register') }}" class="btn btn-primary btn-lg">Créer un compte maintenant</a>
+            </div>
+        </div>
+    </div>
+</section>
     <section class="testimonials-section py-5">
         <div class="container">
             <h2 class="text-center mb-4 clients">Avis des clients</h2>
@@ -275,8 +326,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Un travail de professionnel, très beau travail et personnel à l'écoute."</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Nathalie Chalumeau" class="testimonial-avatar">
-                                        <h5 class="card-title">Nathalie Chalumeau</h5>
+                                        
+                                        <h5 class="card-title">N. Chalumeau</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -287,8 +338,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Service impeccable, rien à redire, je recommande. merci à tous"</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Sébastien Grey" class="testimonial-avatar">
-                                        <h5 class="card-title">Sébastien Grey</h5>
+                                        
+                                        <h5 class="card-title">S. Grey</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -299,8 +350,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Très satisfait du travail, je recommande vivement Homerenov91!"</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Caroline Martin" class="testimonial-avatar">
-                                        <h5 class="card-title">Caroline Martin</h5>
+                                        
+                                        <h5 class="card-title">C. Martin</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -317,8 +368,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Travail de qualité, équipe très professionnelle et à l'écoute."</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Julien Dupont" class="testimonial-avatar">
-                                        <h5 class="card-title">Julien Dupont</h5>
+                                        
+                                        <h5 class="card-title">J. Dupont</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -329,8 +380,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Je suis vraiment satisfait, merci pour toute l'équipe."</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Lucie Tremblay" class="testimonial-avatar">
-                                        <h5 class="card-title">Lucie Tremblay</h5>
+                                        
+                                        <h5 class="card-title">L. Tremblay</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -341,8 +392,8 @@
                                         <div class="quote-box">
                                             <p class="avis">"Excellent service et communication impeccable, bonne continuation"</p>
                                         </div>
-                                        <img src="{{ asset('images/avatar.jpg') }}" alt="Marc Lefevre" class="testimonial-avatar">
-                                        <h5 class="card-title">Marc Lefevre</h5>
+                                        
+                                        <h5 class="card-title">M. Lefevre</h5>
                                         <p class="card-text">★★★★★</p>
                                     </div>
                                 </div>
@@ -369,7 +420,7 @@
     </section>
     <section class="contact-section">
     <div class="contact-container">
-        <h2>Nous contactez</h2>
+        <h2>Contactez nous</h2>
         <form action="" method="post">
             <label for="name">Nom et prénom :</label>
             <input type="text" id="name" name="name" required>

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion du site{% endblock %}
+
+{% block body %}
+<div class="container-fluid my-5 back">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white text-center">
+            <h2>Tableau de bord administrateur</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="mb-4">Liste des utilisateurs</h5>
+
+            <!-- Rendre le tableau responsive -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Date de naissance</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.dateNaissance|date('d/m/Y') }}</td>
+                            <td>{{ user.telephone }}</td>
+                            <td>{{ user.adressePostale }}</td>
+                            <td>
+                                <!-- Icône pour voir l'utilisateur -->
+                                <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-info btn-sm mb-1">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <!-- Icône pour modifier l'utilisateur -->
+                                <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning btn-sm mb-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <!-- Icône pour supprimer l'utilisateur -->
+                                <form method="post" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display:inline-block;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">Aucun utilisateur trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

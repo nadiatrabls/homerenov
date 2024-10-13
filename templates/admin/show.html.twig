@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'utilisateur{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Informations de l'utilisateur</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item"><strong>Nom :</strong> {{ user.nom }}</li>
+                        <li class="list-group-item"><strong>Prénom :</strong> {{ user.prenom }}</li>
+                        <li class="list-group-item"><strong>Email :</strong> {{ user.email }}</li>
+                        <li class="list-group-item"><strong>Date de naissance :</strong> {{ user.dateNaissance|date('d/m/Y') }}</li>
+                        <li class="list-group-item"><strong>Téléphone :</strong> {{ user.telephone }}</li>
+                        <li class="list-group-item"><strong>Adresse :</strong> {{ user.adressePostale }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 ajout-facture">
+                
+                    <!-- Formulaire pour ajouter une facture -->
+                    <h3 class="titres">Ajouter une nouvelle facture</h3>
+                    {{ form_start(form_facture) }}
+                        <div class="mb-3">
+                            {{ form_row(form_facture.numero) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form_facture.dateEmission) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form_facture.montant) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form_facture.refChantier) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form_facture.statusPaiement) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form_facture.fichier) }}
+                        </div>
+                        <button type="submit" class="btn btn-success mt-2 w-100">Envoyer la facture</button>
+                    {{ form_end(form_facture) }}
+                </div>
+            </div>
+
+            <!-- Liste des factures en cartes -->
+            <h3 class="mt-5 titres">Liste des factures</h3>
+            <div class="col-md-10 liste">
+            <div class="row">
+                {% for facture in user.factures %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Facture N° {{ facture.numero }}</h5>
+                                <p class="card-text">Date d'émission: {{ facture.dateEmission|date('d/m/Y') }}</p>
+                                <p class="card-text">Montant: {{ facture.montant }} €</p>
+                                {% if facture.fichier %}
+                                    <a href="{{ asset('uploads/factures/' ~ facture.fichier) }}" class="btn btn-primary">Télécharger</a>
+                                {% endif %}
+                                <a href="{{ path('view_facture', {'userId': user.id, 'factureId': facture.id}) }}" class="btn btn-info">Voir</a>
+                                <a href="{{ path('edit_facture', {'userId': user.id, 'factureId': facture.id}) }}" class="btn btn-warning">Modifier</a>
+                                <form method="post" action="{{ path('delete_facture', {'userId': user.id, 'factureId': facture.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette facture ?');" style="display:inline-block;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facture.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center">Aucune facture trouvée pour cet utilisateur.</p>
+                {% endfor %}
+            </div>
+            </div>
+
+            <!-- Formulaire pour ajouter un devis -->
+            <div class="col-md-6 ajout-facture">
+            <h3 class="mt-5 titres">Ajouter un nouveau devis</h3>
+            {{ form_start(form_devis) }}
+                <div class="mb-3">
+                    {{ form_row(form_devis.numero) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form_devis.dateCreation) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form_devis.montant) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form_devis.adressChantier) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form_devis.fichier) }}
+                </div>
+                <button type="submit" class="btn btn-success mt-2 w-100">Envoyer le devis</button>
+            {{ form_end(form_devis) }}
+            </div>
+            <!-- Liste des devis en cartes -->
+            <h3 class="mt-5 titres">Liste des devis</h3>
+            <div class="col-md-10 liste">
+            <div class="row">
+                {% for devis in user.devis %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Devis N° {{ devis.numero }}</h5>
+                                <p class="card-text">Date de création: {{ devis.dateCreation|date('d/m/Y') }}</p>
+                                <p class="card-text">Montant: {{ devis.montant }} €</p>
+                                {% if devis.fichier %}
+                                    <a href="{{ asset('uploads/devis/' ~ devis.fichier) }}" class="btn btn-primary">Télécharger</a>
+                                {% endif %}
+                                <a href="{{ path('view_devis', {'userId': user.id, 'devisId': devis.id}) }}" class="btn btn-info">Voir</a>
+                                <a href="{{ path('edit_devis', {'userId': user.id, 'devisId': devis.id}) }}" class="btn btn-warning">Modifier</a>
+                                <form method="post" action="{{ path('delete_devis', {'userId': user.id, 'devisId': devis.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce devis ?');" style="display:inline-block;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ devis.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center">Aucun devis trouvé pour cet utilisateur.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary">Retour à la liste</a>
+            <a href="{{ path('user_edit', {id: user.id}) }}" class="btn btn-warning">Modifier</a>
+            <form method="post" action="{{ path('user_delete', {id: user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display:inline-block;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

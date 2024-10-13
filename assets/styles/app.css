@@ -38,10 +38,19 @@ body {
     z-index: 9;
     margin: 0 auto;
 }
-
+.btn-login-icon{
+    color: black;
+    font-size: 30px;
+    margin-top: -5px;
+}
+.btn-login-icon:hover {
+    color: #6a6868;
+    font-weight: bold;
+}
 .main-content {
     margin-top: 5rem;
 }
+
 
 /* Carrousel principal */
 .carousel-inner img {
@@ -59,6 +68,8 @@ body {
     transform: translateY(-50%);
     color: white;
     text-align: left;
+    
+   
 }
 /*titre homerenov91*/
 .display-1 {
@@ -284,7 +295,40 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+/*section pourquoi s'inscrire*/
+.icon-box {
+    
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
 
+.icon-box i {
+    color: #003366;
+}
+.avantages{
+    
+    margin-bottom: 80px;
+    color: #000;
+    margin-top: 30px;
+}
+.btn-lg{
+    width: auto !important; /* Laisse la largeur s'adapter au texte */
+    padding: 10px 20px !important; /* Ajuste l'espace intérieur pour réduire la taille */
+    display: inline-block !important; /* Pour que le bouton prenne juste la taille de son contenu */
+    
+    background-color: #003366 !important; /* Garde la couleur de fond */
+    color: white !important; /* Garde la couleur du texte */
+    border: none !important; /* Retire les bordures */
+    border-radius: 20px !important; /* Coins arrondis */
+    font-weight: bold !important;
+    
+}
+.btn-lg:hover {
+    background-color: #215992 !important; /* Couleur bleu encore plus foncé au survol */
+
+}
 /* Section avis clients */
 .testimonials-section {
     background-color: white;
@@ -305,15 +349,7 @@ body {
     margin-top: 20px !important;
 }
 
-.testimonial-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 
 .card-title {
     font-weight: normal !important;
@@ -335,7 +371,7 @@ body {
 
 .quote-box p {
     font-style: italic;
-    background-color: white;
+    
     padding: 10px;
     border-radius: 5px;
 }
@@ -469,13 +505,13 @@ body {
     margin-bottom: 15px;
 }
 
-.intervention-section button {
+.btn-intervention {
     background-color: #003366;
-    border: none;
+    border: 2px solid #003366;
     padding: 12px 24px;
     color: white;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 25px !important;
     margin-top: 20px;
     margin-left: 1% !important;
 }
@@ -1531,43 +1567,197 @@ iframe {
 
 
 /*********************************page insciption******************/
-.inscription{
+
+
+/* Conteneur principal du formulaire */
+.container-inscription {
+    
+    width: 70%;
+    padding: 40px;
     margin-top: 200px !important;
-    font-size: 28px;
-    font-weight: bold;
-    color: #003366;
     text-align: center;
-    margin-bottom: 30px;
+    margin-left: 15%;
+    margin-bottom: 200px !important;
 }
+
+
+
+/* Titre du formulaire */
+.text-center-inscription {
+    font-size: 30px;
+    color: #003366;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.card-inscription {
+   
+    border: none;
+    border-radius: 25px;
+}
+/* Groupe de formulaire */
+.form-group input {
+    
+    padding: 12px 15px;
+    
+    margin-bottom: 20px;
+    width: 100%;
+
+    height: 50px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: 1px solid #003366;
+    box-shadow: none;
+    transition: border 0.3s ease;
+    
+
+}
+
+.form-group input:focus {
+    border: 1px solid #003366;
+}
+
 .inscrire{
 
-    background-color: #003366;
-    color: white;
+    width: 100%;
+    padding: 12px;
+    background-color: rgb(9, 43, 111);
+    color: #ffffff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 30px;
+    font-size: 18px;
     cursor: pointer;
-    margin-bottom: 80px;
-    margin-left: 40%;
-    margin-top: 40px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .inscrire:hover {
-    background-color: #215992;
+    background-color: rgba(11, 49, 93, 0.896);
+    color: #ffffff;
+
+}
+.text-center-inscription a {
+    color: white;
+    text-decoration: underline;
+    font-size: 14px;
 }
 
+.text-center-inscription a:hover {
+    color: #ffffff;
+}
 
+.icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
 
+/*****************************page de connexion***************************/
+.container-connexion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
 
+.form-connexion {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    margin-top: 100px;
+}
 
+.header-connexion {
+    margin-bottom: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
+.icon-connexion {
+    font-size: 90px;
+    color: #163a88;
+    margin-bottom: 10px;
+}
 
+.password {
+    position: relative;
+    margin-bottom: 20px;
+}
 
+.password i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #163a88;
+}
 
+.password input {
+    width: 100%;
+    padding-left: 40px;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 25px;
+    
+    box-shadow: none;
+    transition: border 0.3s ease;
 
+    border: 1px solid #163a88;
+}
 
+.connexion {
+    background-color: #163a88;
+    color: white;
+    border-radius: 25px;
+    padding: 12px 0;
+    font-size: 18px;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
 
+.connexion:hover {
+    background-color: #1d4db5;
+}
 
+.inscrivez-vous a {
+    color: #163a88;
+    margin-top: 15px;
+    display: inline-block;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.inscrivez-vous a:hover{
+    text-decoration: underline;
+}
+
+/*************pages backend******************/
+.back{
+    margin-top: 200px !important;
+}
+.ajout-facture{
+    border: 1px solid black;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.liste{
+    margin: 0 auto;
+}
+
+.titres{
+    text-align: center;
+}
 
 
 
@@ -1695,6 +1885,33 @@ iframe {
 
 /* Ajustement responsive pour les petits écrans */
 @media (max-width: 768px) {
+    .nav-border{
+        z-index: 10;
+    }
+    .carousel-caption h1.display-1 {
+        font-size: 3.5rem; /* Plus grand pour les tablettes */
+        text-align: center !important;
+    }
+.carousel-caption {
+    z-index: 0;
+    bottom: 10%;
+    
+    margin-left: -80px;
+    margin-top: -50px;
+    margin-right: -10px;
+    }
+    .carousel-caption p {
+        font-size: 1.25rem; /* Texte un peu plus grand pour tablettes */
+        text-align: center;
+        margin-left: 10%;
+        width: 90% !important;
+    }
+    .btn-study-acceuil {
+        font-size: 1rem;
+        padding: 10px 20px;
+        margin-top: 5%;
+        margin-left: 38% !important;
+    }
     .team-presentation h2 {
         font-size: 28px;
     }
@@ -1735,6 +1952,121 @@ iframe {
     .cloisons-images img {
         margin-bottom: 15px;
     }
+    /*page demolution*/
+    .demolition-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .image-section {
+        order: 1;
+    }
+
+    .order-2 {
+        order: 2;
+        margin-top: 20px;
+        max-width: 100% !important;
+        text-align: center;
+    }
+    .btn-study{
+        margin-left: 30% !important;
+    }
+    /*page maçonnerie*/
+    .maconnerie-content {
+        display: flex;
+        flex-direction: column;
+    }
+    .text-content-maconnerie{
+        max-width: 100% !important;
+        margin-top: -80px;
+        text-align: center;
+    }
+    .image-section-maconnerie{
+        margin-left: -25px;
+    }
+    /*page revetements*/
+    .revetement-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .image-section-revetement {
+        order: 1;
+    }
+
+    .order-2 {
+        order: 2;
+        margin-top: 20px;
+        max-width: 100% !important;
+        text-align: center;
+    }
+    /*page peinture*/
+    .container-peinture{
+        width: 100%;
+        
+    }
+    .main-image-peinture img{
+        height: 300px;
+    }
+    .thumbnail-section-peinture{
+        height: 300px;
+    }
+    .thumbnail-peinture img{
+        height: 90px;
+    }
+    .container-peinture-card{
+        display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espace entre chaque card */
+    padding: 20px;
+    
+    }
+    .card-peinture{
+        width: 100%;
+    }
+    /*page solutions acoustiques*/
+    .isolation {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .container-acoustique{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        margin-top: 20px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    /*page inscription*/
+    .card-inscription{
+        width: 100%;
+    }
 }
 
 
+@media (min-width: 992px) {
+    .carousel-caption h1.display-1 {
+        font-size: 4.5rem; /* Taille standard pour les grands écrans */
+    }
+
+    .carousel-caption p {
+        font-size: 1.5rem; /* Texte plus grand pour les grands écrans */
+    }
+    .carousel-caption p {
+        font-size: 1.5rem; /* Texte plus grand pour grands écrans */
+    }
+
+
+.btn-study-acceuil {
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+}
+@media (max-width: 576px) {
+    .btn-study-acceuil {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
