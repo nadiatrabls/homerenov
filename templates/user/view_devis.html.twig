@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du devis{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white">
+            <h2 class="text-center">Détails du devis</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-4">
+                <li class="list-group-item"><strong>Numéro de devis :</strong> {{ devis.numero }}</li>
+                <li class="list-group-item"><strong>Date de création :</strong> {{ devis.dateCreation|date('d/m/Y') }}</li>
+                <li class="list-group-item"><strong>Montant :</strong> {{ devis.montant }} €</li>
+                <li class="list-group-item"><strong>Adresse du chantier :</strong> {{ devis.adressChantier }}</li>
+                <li class="list-group-item">
+                    <strong>Fichier PDF :</strong>
+                    {% if devis.fichier %}
+                        <a href="{{ path('user_download_devis', {id: devis.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                    {% else %}
+                        <span>Aucun fichier associé.</span>
+                    {% endif %}
+                </li>
+            </ul>
+            <div class="text-center">
+                <a href="{{ path('user_dashboard', {id: devis.user.id}) }}" class="btn btn-secondary">Retour à l'espace client</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la facture{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Modifier la facture</h2>
+        </div>
+        <div class="card-body">
+            {{ form_start(form_facture) }}
+                {{ form_row(form_facture.numero) }}
+                {{ form_row(form_facture.dateEmission) }}
+                {{ form_row(form_facture.montant) }}
+                {{ form_row(form_facture.refChantier) }}
+                {{ form_row(form_facture.statusPaiement) }}
+
+                <!-- Si le fichier PDF existe, on affiche le lien pour le télécharger -->
+                {% if facture.fichier %}
+                    <div class="mb-3">
+                        <strong>Fichier PDF actuel :</strong>
+                        <a href="{{ asset('uploads/factures/' ~ facture.fichier) }}" class="btn btn-primary" target="_blank">Télécharger le fichier PDF</a>
+                    </div>
+                {% endif %}
+
+                <!-- Option pour télécharger un nouveau fichier PDF -->
+                {{ form_row(form_facture.fichier) }}
+                
+                <button type="submit" class="btn btn-success mt-2">Mettre à jour la facture</button>
+            {{ form_end(form_facture) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

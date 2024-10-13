@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la facture{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Détails de la facture</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-4">
+                <li class="list-group-item"><strong>Numéro de facture :</strong> {{ facture.numero }}</li>
+                <li class="list-group-item"><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</li>
+                <li class="list-group-item"><strong>Montant :</strong> {{ facture.montant }} €</li>
+                <li class="list-group-item"><strong>Référence du chantier :</strong> {{ facture.refChantier }}</li>
+                <li class="list-group-item"><strong>Statut de paiement :</strong> {{ facture.statusPaiement }}</li>
+                <li class="list-group-item">
+                    <strong>Fichier PDF :</strong>
+                    {% if facture.fichier %}
+                        <a href="{{ path('user_download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                    {% else %}
+                        <span>Aucun fichier associé.</span>
+                    {% endif %}
+                </li>
+            </ul>
+            <div class="text-center">
+                <a href="{{ path('user_dashboard', {id: facture.user.id}) }}" class="btn btn-secondary">Retour à l'espace client</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

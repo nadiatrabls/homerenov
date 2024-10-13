@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demander une facture{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Demander une facture</h2>
+        </div>
+        <div class="card-body">
+            <p>Vous pouvez demander une facture en remplissant le formulaire ci-dessous.</p>
+            <form method="post">
+                <div class="form-group mb-3">
+                    <label for="message">Message (facultatif)</label>
+                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Ajoutez un message si nécessaire"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Envoyer la demande</button>
+                <a href="{{ path('user_dashboard', {id: user.id}) }}" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

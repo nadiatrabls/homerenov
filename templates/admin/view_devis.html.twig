@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du devis{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Détails du devis</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-4">
+                <li class="list-group-item"><strong>Numéro de devis :</strong> {{ devis.numero }}</li>
+                <li class="list-group-item"><strong>Date de création :</strong> {{ devis.dateCreation|date('d/m/Y') }}</li>
+                <li class="list-group-item"><strong>Montant :</strong> {{ devis.montant }} €</li>
+                <li class="list-group-item"><strong>Adresse du chantier :</strong> {{ devis.adressChantier }}</li>
+                <li class="list-group-item">
+                    <strong>Fichier PDF :</strong>
+                    {% if devis.fichier %}
+                        <a href="{{ path('download_devis', {id: devis.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                    {% else %}
+                        <span>Aucun fichier associé.</span>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class="text-center">
+                <a href="{{ path('user_show', {id: devis.user.id}) }}" class="btn btn-secondary">Retour aux détails de l'utilisateur</a>
+                <a href="{{ path('edit_devis', {userId: devis.user.id, devisId: devis.id}) }}" class="btn btn-warning">Modifier</a>
+                <form method="post" action="{{ path('delete_devis', {userId: devis.user.id, devisId: devis.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce devis ?');" style="display:inline-block;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ devis.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

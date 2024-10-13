@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le devis{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Modifier le devis</h2>
+        </div>
+        <div class="card-body">
+            {{ form_start(form_devis) }}
+                {{ form_row(form_devis.numero) }}
+                {{ form_row(form_devis.dateCreation) }}
+                {{ form_row(form_devis.montant) }}
+                {{ form_row(form_devis.adressChantier) }}
+                {{ form_row(form_devis.fichier) }}
+                <button type="submit" class="btn btn-success mt-2">Mettre à jour le devis</button>
+            {{ form_end(form_devis) }}
+
+            <div class="text-center mt-3">
+                <a href="{{ path('user_show', {id: devis.user.id}) }}" class="btn btn-secondary">Retour aux détails de l'utilisateur</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

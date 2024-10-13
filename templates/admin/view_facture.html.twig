@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la facture{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Détails de la facture</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group mb-4">
+                <li class="list-group-item"><strong>Numéro de facture :</strong> {{ facture.numero }}</li>
+                <li class="list-group-item"><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</li>
+                <li class="list-group-item"><strong>Montant :</strong> {{ facture.montant }} €</li>
+                <li class="list-group-item"><strong>Référence du chantier :</strong> {{ facture.refChantier }}</li>
+                <li class="list-group-item"><strong>Statut de paiement :</strong> {{ facture.statusPaiement }}</li>
+                <li class="list-group-item">
+                    <strong>Fichier PDF :</strong>
+                    {% if facture.fichier %}
+                      {% if facture.fichier %}
+                        {% if facture.fichier %}
+    <a href="{{ path('download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
+{% endif %}
+
+                    {% endif %}
+
+
+                    {% else %}
+                        <span>Aucun fichier associé.</span>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class="text-center">
+                <a href="{{ path('user_show', {id: facture.user.id}) }}" class="btn btn-secondary">Retour aux détails de l'utilisateur</a>
+                <a href="{{ path('edit_facture', {userId: facture.user.id, factureId: facture.id}) }}" class="btn btn-warning">Modifier</a>
+                <form method="post" action="{{ path('delete_facture', {userId: facture.user.id, factureId: facture.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette facture ?');" style="display:inline-block;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facture.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
