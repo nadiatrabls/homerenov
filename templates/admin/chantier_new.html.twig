@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Chantier{% endblock %}
+
+{% block body %}
+<div class="container mt-5 back">
+    <h1 class="text-center">Ajouter un Chantier</h1>
+
+    {{ form_start(form ) }}
+        <div class="form-group mt-4">
+            {{ form_label(form.nom, 'Nom du Chantier', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="form-group mt-4">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group mt-4">
+            {{ form_label(form.images) }}
+            {{ form_widget(form.images) }}
+            {{ form_errors(form.images) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success">Ajouter le Chantier</button>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

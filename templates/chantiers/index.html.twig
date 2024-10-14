@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ChantiersController!{% endblock %}
+{% block title %}Détails du Chantier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container mt-5 back chantier-detail">
+    <h1 class="text-center nom-chantier">{{ chantier.nom }}</h1>
+    
+    <p class="text-center mt-3 description-chantier">{{ chantier.description }}</p>
+    
+    {# Carrousel d'images s'il y a des images pour le chantier #}
+    {% if chantier.images|length > 0 %}
+        <div id="chantierCarousel" class="carousel slide mt-5" data-ride="carousel">
+            <div class="carousel-inner chantier-inner">
+                {% for image in chantier.images %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %} item-chantier">
+                        <img src="{{ asset(image) }}" class="d-block w-100" alt="Image du chantier">
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev prev-chantier" href="#chantierCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Précédent</span>
+            </a>
+            <a class="carousel-control-next next-chantier" href="#chantierCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suivant</span>
+            </a>
+        </div>
+    {% else %}
+        <p class="text-center mt-4">Aucune image disponible pour ce chantier.</p>
+    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="text-center mt-5">
+        <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/megdi/homerenov/src/Controller/ChantiersController.php</code></li>
-        <li>Your template at <code>C:/Users/megdi/homerenov/templates/chantiers/index.html.twig</code></li>
-    </ul>
+    {# Afficher les boutons "Modifier" et "Supprimer" uniquement si l'utilisateur est admin #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-center mt-4">
+            <a href="{{ path('admin_chantier_edit', {id: chantier.id}) }}" class="btn btn-warning">Modifier le chantier</a>
+       <form action="{{ path('admin_chantier_delete', {id: chantier.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce chantier ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chantier.id) }}">
+    <br>
+    <button type="submit" class="btn btn-danger suppr">Supprimer le chantier</button>
+</form>
+
+
+
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Chantier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ChantiersController extends AbstractController
 {
-    #[Route('/chantiers', name: 'app_chantiers')]
-    public function index(): Response
+    #[Route('/chantier/{id}', name: 'chantier_show', methods: ['GET'])]
+    public function show(Chantier $chantier): Response
     {
+        // Affiche la page de détails pour un chantier
         return $this->render('chantiers/index.html.twig', [
-            'controller_name' => 'ChantiersController',
+            'chantier' => $chantier,
         ]);
     }
 }

@@ -1760,6 +1760,89 @@ iframe {
     text-align: center;
 }
 
+/*detail chantier*/
+.detail-chantier{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.nom-chantier{
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333; 
+}
+
+.description-chantier{
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.chantierCarousel{
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chantier-inner{
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.item-chantier{
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+.item-chantier img{
+    width: 70%;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.prev-chantier, .next-chantier {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0 15px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.prev-chantier{
+    left: 10px;
+}
+.next-chantier {
+    right: 10px;
+}
+
+.retour {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+.retour:hover {
+    background-color: #0056b3;
+}
+
+
+.suppr{
+    margin-bottom: 80px;
+}
+
 
 
 

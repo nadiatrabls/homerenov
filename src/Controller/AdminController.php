@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Abonne; // Remplace par l'entité utilisée pour les abonnés
+use App\Entity\Chantier;
 use App\Entity\Devis;
 use App\Entity\Facture;
 use App\Form\AbonneType; // Remplace par le type de formulaire pour les abonnés
+use App\Form\ChantierType;
 use App\Form\DevisType;
 use App\Form\FactureType;
 use App\Repository\AbonneRepository;
@@ -462,9 +464,93 @@ public function downloadFacture(Facture $facture): Response
 
     return $this->file($filePath, $facture->getFichier(), ResponseHeaderBag::DISPOSITION_INLINE);
 }
+//pour rajouter des nouveaux chantiers
 
 
+      #[Route('/admin/chantier/new', name: 'admin_chantier_new', methods: ["GET", "POST"])]
+     
+    public function newChantier(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        // Vérifier que l'utilisateur est un administrateur
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Créer un nouveau chantier
+        $chantier = new Chantier();
+
+        // Créer le formulaire pour le chantier
+        $form = $this->createForm(ChantierType::class, $chantier);
+        $form->handleRequest($request);
+
+        // Si le formulaire est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des fichiers uploadés
+            $images = $form->get('images')->getData();
+            $uploadedImagePaths = [];
+
+            if ($images) {
+                foreach ($images as $image) {
+                    $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                    // Déplace le fichier dans le répertoire où sont stockées les images
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+
+                    // Sauvegarder le chemin de chaque image
+                    $uploadedImagePaths[] = '/uploads/images/' . $newFilename;
+                }
+
+                // Enregistrer les chemins d'images dans la base de données
+                $chantier->setImages($uploadedImagePaths);
+            }
+
+            // Sauvegarder le chantier dans la base de données
+            $entityManager->persist($chantier);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_realisations');
+        }
+
+        // Rendre la vue du formulaire dans l'administration
+        return $this->render('admin/chantier_new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
  
+//edit un chantier 
+#[Route('/admin/chantier/{id}/edit_chantier', name: 'admin_chantier_edit')]
+public function edit_chantier(Request $request, Chantier $chantier, EntityManagerInterface $em): Response
+{
+    $form = $this->createForm(ChantierType::class, $chantier);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush();
+        return $this->redirectToRoute('chantier_show', ['id' => $chantier->getId()]);
+    }
+
+    return $this->render('admin/chantier_edit.html.twig', [
+        'form' => $form->createView(),
+        'chantier' => $chantier,
+    ]);
+}
+//delete un chantier
+#[Route('/admin/chantier/{id}/delete_chantier', name: 'admin_chantier_delete', methods: ['POST'])]
+public function delete_chantier(Request $request, Chantier $chantier, EntityManagerInterface $em): Response
+{
+    if ($this->isCsrfTokenValid('delete' . $chantier->getId(), $request->request->get('_token'))) {
+        $em->remove($chantier);
+        $em->flush();
+    }
+
+    return $this->redirectToRoute('app_realisations');
+}
+
+
+
 
 
 

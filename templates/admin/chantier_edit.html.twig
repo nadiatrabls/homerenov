@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Chantier{% endblock %}
+
+{% block body %}
+<div class="container mt-5 back">
+    <h1>Modifier le Chantier</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="form-group mt-3">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group mt-3">
+            {{ form_label(form.images) }}
+            {{ form_widget(form.images, {'attr': {'class': 'form-control-file'}}) }}
+            {{ form_errors(form.images) }}
+        </div>
+
+        <button type="submit" class="btn btn-success mt-4">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+
+    <div class="text-center mt-4">
+        <a href="{{ path('chantier_show', {id: chantier.id}) }}" class="btn btn-primary">Annuler</a>
+    </div>
+</div>
+{% endblock %}

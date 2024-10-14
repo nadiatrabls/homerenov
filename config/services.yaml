@@ -6,6 +6,7 @@
 parameters:
  devis_directory: '%kernel.project_dir%/public/uploads/devis'
  facture_directory: '%kernel.project_dir%/public/uploads/factures'
+ images_directory: '%kernel.project_dir%/public/uploads/images'
 services:
     # default configuration for services in *this* file
     _defaults:
