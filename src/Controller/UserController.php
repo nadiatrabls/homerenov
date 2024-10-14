@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonne;
 use App\Entity\Devis;
 use App\Entity\Facture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AbonneRepository;
 use App\Repository\FactureRepository;
 use App\Repository\DevisRepository;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -82,39 +88,66 @@ class UserController extends AbstractController
             'devis' => $devis,
         ]);
     }
-//demande de facture
-    #[Route('/user/{id}/demander-facture', name: 'user_request_facture', methods: ['GET', 'POST'])]
-public function requestFacture(int $id, Request $request, AbonneRepository $abonneRepository, MailerInterface $mailer): Response
+//  méthode demanderFacture avec l'envoi d'email
+#[Route('/user/{id}/demander-facture', name: 'demander_facture', methods: ['GET', 'POST'])]
+public function demanderFacture(Request $request, Abonne $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
 {
-    // Récupérer l'utilisateur
-    $user = $abonneRepository->find($id);
+    $form = $this->createFormBuilder()
+        ->add('referenceChantier', TextType::class, [
+            'label' => 'Référence du chantier',
+            'required' => true,
+            'attr' => ['placeholder' => 'Référence du chantier']
+        ])
+        ->add('factureAuNomDe', TextType::class, [
+            'label' => 'Facture au nom de',
+            'required' => true,
+            'attr' => ['placeholder' => 'Nom de la personne ou société']
+        ])
+        ->add('message', TextareaType::class, [
+            'label' => 'Message (facultatif)',
+            'required' => false,
+            'attr' => ['placeholder' => 'Ajoutez un message si nécessaire']
+        ])
+        ->getForm();
 
-    // Vérifier si l'utilisateur existe
-    if (!$user) {
-        throw $this->createNotFoundException('Utilisateur non trouvé.');
-    }
+    $form->handleRequest($request);
 
-    if ($request->isMethod('POST')) {
-        // Traitement de la demande (par exemple envoyer un email)
-        $message = $request->request->get('message');
-        
-        // Envoyer un email à l'administrateur (ou enregistrer dans une base de données, etc.)
-        $email = (new Email())
-            ->from($user->getEmail())
-            ->to('admin@homerenov.com') // L'adresse email de l'admin
-            ->subject('Demande de facture')
-            ->text("L'utilisateur {$user->getNom()} {$user->getPrenom()} demande une facture. Message : {$message}");
-        
-        $mailer->send($email);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $referenceChantier = $form->get('referenceChantier')->getData();
+        $factureAuNomDe = $form->get('factureAuNomDe')->getData();
+        $message = $form->get('message')->getData();
 
-        // Ajouter un message flash pour informer l'utilisateur que sa demande a été envoyée
-        $this->addFlash('success', 'Votre demande de facture a été envoyée.');
+        try {
+            // Envoyer l'email
+            $email = (new Email())
+                ->from($user->getEmail())  // Utilisez l'email du client
+                ->to('homerenovations91@gmail.com')  // Email de l'admin
+                ->subject('Demande de facture de la part de ' . $user->getNom())
+                ->html(
+                    '<p>Une nouvelle demande de facture a été faite par ' . $user->getPrenom() . ' ' . $user->getNom() . '</p>' .
+                    '<p>Référence du chantier : ' . $referenceChantier . '</p>' .
+                    '<p>Facture au nom de : ' . $factureAuNomDe . '</p>' .
+                    '<p>Message : ' . ($message ?: 'Pas de message fourni') . '</p>'
+                );
+
+            $mailer->send($email);
+
+            // Message de succès
+            $this->addFlash('success', 'Votre demande de facture a bien été envoyée.');
+
+        } catch (\Exception $e) {
+            // Message d'erreur si l'envoi échoue
+            $this->addFlash('error', 'Votre message n\'a pas pu être envoyé. Veuillez réessayer plus tard.');
+        }
 
         return $this->redirectToRoute('user_dashboard', ['id' => $user->getId()]);
     }
 
     return $this->render('user/request_facture.html.twig', [
-        'user' => $user,
+        'form' => $form->createView(),
+        'user' => $user, // Ajouter l'utilisateur ici pour le template
     ]);
 }
+
+
 }

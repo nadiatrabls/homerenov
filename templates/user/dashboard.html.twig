@@ -9,6 +9,20 @@
             <h2>Bienvenue, {{ user.prenom }} {{ user.nom }}</h2>
         </div>
         <div class="card-body">
+
+            <!-- Affichage des messages d'alerte -->
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             <div class="row">
                 <!-- Informations personnelles -->
                 <div class="col-md-6">
@@ -25,7 +39,7 @@
                 <div class="col-md-6">
                     <h5 class="mb-3">Actions :</h5>
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="{{ path('user_request_facture', {id: user.id}) }}" class="btn btn-outline-primary btn-block">Demander une facture</a></li>
+                        <li class="list-group-item"><a href="{{ path('demander_facture', {'id': user.id}) }}" class="btn btn-outline-primary btn-block">Demander une facture</a></li>
                         <li class="list-group-item"><a href="#" class="btn btn-outline-success btn-block">Demander un rendez-vous</a></li>
                         <li class="list-group-item"><a href="#factures" class="btn btn-outline-info btn-block">Consulter vos factures</a></li>
                         <li class="list-group-item"><a href="#devis" class="btn btn-outline-warning btn-block">Consulter vos devis</a></li>
@@ -88,3 +102,4 @@
     </div>
 </div>
 {% endblock %}
+

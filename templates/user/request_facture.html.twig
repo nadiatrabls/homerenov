@@ -9,15 +9,25 @@
             <h2>Demander une facture</h2>
         </div>
         <div class="card-body">
-            <p>Vous pouvez demander une facture en remplissant le formulaire ci-dessous.</p>
-            <form method="post">
-                <div class="form-group mb-3">
-                    <label for="message">Message (facultatif)</label>
-                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Ajoutez un message si nécessaire"></textarea>
+            <p class="text-center">Vous pouvez demander une facture en remplissant le formulaire ci-dessous.</p>
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.referenceChantier, 'Référence du chantier', { 'label_attr': {'class': 'font-weight-bold'} }) }}
+                    {{ form_widget(form.referenceChantier, { 'attr': {'class': 'form-control', 'placeholder': 'Référence du chantier'} }) }}
                 </div>
-                <button type="submit" class="btn btn-success">Envoyer la demande</button>
-                <a href="{{ path('user_dashboard', {id: user.id}) }}" class="btn btn-secondary">Annuler</a>
-            </form>
+                <div class="form-group">
+                    {{ form_label(form.factureAuNomDe, 'Facture au nom de', { 'label_attr': {'class': 'font-weight-bold'} }) }}
+                    {{ form_widget(form.factureAuNomDe, { 'attr': {'class': 'form-control', 'placeholder': 'Nom de la personne ou société'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.message, 'Message (facultatif)', { 'label_attr': {'class': 'font-weight-bold'} }) }}
+                    {{ form_widget(form.message, { 'attr': {'class': 'form-control', 'placeholder': 'Ajoutez un message si nécessaire'} }) }}
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">Envoyer la demande</button>
+                    <a href="{{ path('user_dashboard', {'id': user.id}) }}" class="btn btn-secondary">Annuler</a>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
 </div>
