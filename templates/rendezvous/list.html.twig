@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Disponibilités pour visite de chantier</h1>
+    <ul>
+        {% for rendezvous in rendezvous %}
+            <li>
+                {{ rendezvous.date|date('d/m/Y') }} de {{ rendezvous.heureDebut|date('H:i') }} à {{ rendezvous.heureFin|date('H:i') }}
+                <a href="{{ path('user_rendezvous_reserver', {id: rendezvous.id}) }}" class="btn btn-primary">Réserver</a>
+            </li>
+        {% else %}
+            <li>Aucun créneau disponible pour le moment.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

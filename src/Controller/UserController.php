@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Entity\Abonne;
 use App\Entity\Devis;
 use App\Entity\Facture;
+use App\Entity\RendezVous;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AbonneRepository;
 use App\Repository\FactureRepository;
 use App\Repository\DevisRepository;
-
+use App\Repository\RendezVousRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -148,6 +149,37 @@ public function demanderFacture(Request $request, Abonne $user, EntityManagerInt
         'user' => $user, // Ajouter l'utilisateur ici pour le template
     ]);
 }
+//voir les rdv disponibles
+#[Route('/rendezvous', name: 'user_rendezvous_list')]
+public function listRendezVous(RendezVousRepository $rendezVousRepository): Response
+{
+    // Récupérer uniquement les rendez-vous disponibles
+    $rendezVousDispos = $rendezVousRepository->findBy(['disponible' => true]);
+
+    return $this->render('rendezvous/list.html.twig', [
+        'rendezvous' => $rendezVousDispos,
+    ]);
+}
+//reserver un rdv
+
+#[Route('/rendezvous/{id}/reserver', name: 'user_rendezvous_reserver')]
+public function reserver(RendezVous $rendezVous, EntityManagerInterface $em, Security $security): Response
+{
+    $user = $security->getUser();
+
+    if ($rendezVous->getDisponible()) {
+        $rendezVous->setDisponible(false);
+        $rendezVous->setClient($user); // Associe l'utilisateur au rendez-vous
+        $em->flush();
+
+        $this->addFlash('success', 'Votre réservation a été prise en compte.');
+    } else {
+        $this->addFlash('danger', 'Ce créneau est déjà réservé.');
+    }
+
+    return $this->redirectToRoute('user_rendezvous_list');
+}
+
 
 
 }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ form.vars.value.id ? 'Modifier un créneau' : 'Ajouter un créneau' }}</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.heureDebut) }}
+        {{ form_row(form.heureFin) }}
+        {{ form_row(form.disponible) }}
+        <button class="btn btn-success">{{ form.vars.value.id ? 'Enregistrer les modifications' : 'Ajouter' }}</button>
+    {{ form_end(form) }}
+    <a href="{{ path('admin_rendezvous_list') }}" class="btn btn-primary">Retour à la liste</a>
+{% endblock %}

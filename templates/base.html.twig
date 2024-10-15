@@ -39,18 +39,26 @@
                     <a class="nav-link" href="{{ path('contact') }}">Contact</a>
                 </li>
 
-                {# Si l'utilisateur est connecté, afficher le lien vers l'espace client et le bouton "Déconnexion" #}
+                {# Si l'utilisateur est connecté, afficher le lien vers le bon tableau de bord et le bouton "Déconnexion" #}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">
                             Déconnexion
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-login-icon" href="{{ path('user_dashboard', {id: app.user.id}) }}">
-                            <i class="fas fa-user-circle"></i>
-                        </a>
+                        {# Vérifie si l'utilisateur a le rôle d'administrateur #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-login-icon" href="{{ path('admin_dashboard') }}">
+                                <i class="fas fa-user-circle"></i>
+                                
+                            </a>
+                        {% else %}
+                            <a class="btn btn-login-icon" href="{{ path('user_dashboard', {id: app.user.id}) }}">
+                                <i class="fas fa-user-circle"></i>
+                                
+                            </a>
+                        {% endif %}
                     </li>
                 {% else %}
                     {# Si l'utilisateur n'est pas connecté, afficher le bouton "Connexion" #}
@@ -64,6 +72,7 @@
         </div>
     </div>
 </nav>
+
 
 
 

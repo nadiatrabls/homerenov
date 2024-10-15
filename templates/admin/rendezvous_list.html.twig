@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des Rendez-vous Disponibles</h1>
+    <a href="{{ path('admin_rendezvous_new') }}" class="btn btn-primary">Ajouter un créneau</a>
+    <ul>
+        {% for rendezvous in rendezvous %}
+            <li>
+                {{ rendezvous.date|date('d/m/Y') }} de {{ rendezvous.heureDebut|date('H:i') }} à {{ rendezvous.heureFin|date('H:i') }}
+                - {% if rendezvous.disponible %} Disponible {% else %} Réservé {% endif %}
+                <a href="{{ path('admin_rendezvous_edit', {id: rendezvous.id}) }}" class="btn btn-warning">Modifier</a>
+                <form action="{{ path('admin_rendezvous_delete', {id: rendezvous.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce créneau ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendezvous.id) }}">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li>Aucun rendez-vous disponible pour le moment.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

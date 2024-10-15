@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des rendez-vous{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <h1>Gestion des rendez-vous</h1>
+
+    <!-- Bouton pour revenir au Dashboard Admin -->
+    <div class="mb-4 text-start">
+        <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary">Retour au Dashboard Admin</a>
+    </div>
+
+    <!-- Bouton pour créer une nouvelle disponibilité -->
+    <div class="mb-3 text-end">
+        <a href="{{ path('admin_disponibilite_new') }}" class="btn btn-success">Créer une nouvelle disponibilité</a>
+    </div>
+
+    <!-- Si aucune disponibilité n'est trouvée -->
+    {% if disponibilites is empty %}
+        <p>Aucune disponibilité n'a été créée.</p>
+    {% else %}
+        <!-- Affichage des disponibilités -->
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Heure de début</th>
+                    <th>Heure de fin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disponibilite in disponibilites %}
+                <tr>
+                    <td>{{ disponibilite.date|date('d/m/Y') }}</td>
+                    <td>{{ disponibilite.heureDebut|date('H:i') }}</td>
+                    <td>{{ disponibilite.heureFin|date('H:i') }}</td>
+                    <td>
+                        <!-- Boutons d'actions : Editer et Supprimer -->
+                        <a href="{{ path('admin_disponibilite_edit', {id: disponibilite.id}) }}" class="btn btn-warning btn-sm">
+                            Éditer
+                        </a>
+                        <form method="post" action="{{ path('admin_disponibilite_delete', {id: disponibilite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');" style="display:inline-block;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disponibilite.id) }}">
+                            <button class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+<!-- Affichage du calendrier -->
+  <!-- Contrôles du calendrier -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <button id="prevMonthBtn" class="btn btn-outline-primary">Précédent</button>
+        <span id="currentMonth" class="h5"></span>
+        <button id="nextMonthBtn" class="btn btn-outline-primary">Suivant</button>
+    </div>
+    <div id="calendar">
+        <!-- Le calendrier sera généré ici par le JS -->
+    </div>
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let disponibilites = {{ disponibilites|json_encode|raw }};
+        let calendar = document.getElementById('calendar');
+        let currentDate = new Date();
+        let year = currentDate.getFullYear();
+        let month = currentDate.getMonth();
+
+        // Tableau des mois en français
+        const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        // Fonction pour mettre à jour l'affichage du mois
+        function updateMonthDisplay() {
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+        }
+
+        function createCalendar(year, month) {
+            let firstDay = new Date(year, month, 1);
+            let lastDay = new Date(year, month + 1, 0);
+
+            // Générer le tableau du calendrier
+            let table = '<table class="table table-bordered"><thead><tr>';
+            let days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+            days.forEach(day => table += `<th>${day}</th>`);
+            table += '</tr></thead><tbody><tr>';
+
+            // Remplir les jours avant le premier jour du mois
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                table += '<td></td>';
+            }
+
+            // Remplir les jours du mois
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                let date = new Date(year, month, day);
+
+                // Générer la date en format YYYY-MM-DD
+                let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                table += `<td data-date="${dateStr}">${day}</td>`;
+
+                if (date.getDay() === 6) {
+                    table += '</tr><tr>';
+                }
+            }
+
+            table += '</tr></tbody></table>';
+            calendar.innerHTML = table;
+
+            // Marquer les disponibilités en vert
+            disponibilites.forEach(event => {
+                let cell = document.querySelector(`td[data-date="${event.date}"]`);
+                if (cell) {
+                    cell.style.backgroundColor = 'green'; // Marquer en vert
+                    cell.innerHTML += `<br><small>${event.heureDebut} - ${event.heureFin}</small>`;
+                }
+            });
+        }
+
+        createCalendar(year, month);
+        updateMonthDisplay();
+
+        // Ajouter des boutons de navigation pour le mois
+        document.getElementById('prevMonthBtn').addEventListener('click', function () {
+            month--;
+            if (month < 0) {
+                month = 11;
+                year--;
+            }
+            createCalendar(year, month);
+            updateMonthDisplay(); // Met à jour l'affichage du mois
+        });
+
+        document.getElementById('nextMonthBtn').addEventListener('click', function () {
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+            createCalendar(year, month);
+            updateMonthDisplay(); // Met à jour l'affichage du mois
+        });
+    });
+</script>
+
+
+
+  
+</div>
+{% endblock %}

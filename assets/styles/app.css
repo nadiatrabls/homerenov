@@ -1844,11 +1844,95 @@ iframe {
 }
 
 
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/*calendrier*/
+/* .calendar-container {
+    margin: 20px;
+}
+
+#calendar-controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#calendar-body td {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#calendar-body td:hover {
+    background-color: #f0f0f0;
+}
+
+.rendezvous-form {
+    margin-top: 20px;
+}
+
+.rendezvous-form input {
+    margin: 5px 0;
+} */
 
 
+#calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
 
+#calendar-table {
+    width: 100%;
+    table-layout: fixed;
+}
 
+#calendar-table th, #calendar-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
 
+.rendezvous-form {
+    margin-top: 20px;
+}
+
+.rendezvous-form input {
+    margin-right: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#calendar-table td {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#calendar-table td:hover {
+    background-color: #f0f0f0;
+}
+
+.available-day {
+    background-color: lightgreen !important;
+    font-weight: bold;
+    border-radius: 4px;
+}
 
 
 

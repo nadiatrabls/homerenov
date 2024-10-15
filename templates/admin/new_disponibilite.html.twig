@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une Disponibilité{% endblock %}
+
+{% block body %}
+<div class="container mt-5 back">
+    <h1>Ajouter une Disponibilité</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.date) }}
+            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.date) }}
+        </div>
+
+        <div class="form-group mt-3">
+            {{ form_label(form.heureDebut) }}
+            {{ form_widget(form.heureDebut, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.heureDebut) }}
+        </div>
+
+        <div class="form-group mt-3">
+            {{ form_label(form.heureFin) }}
+            {{ form_widget(form.heureFin, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.heureFin) }}
+        </div>
+
+        <button type="submit" class="btn btn-success mt-4">Ajouter</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
