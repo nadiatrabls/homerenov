@@ -1051,7 +1051,10 @@ iframe {
     font-size: 16px;
     color: #666;
 }
-
+.domaines-options li a {
+    color: #0056b3;
+    text-decoration: none;
+}
 
 /***************************page revetement*************************************/
 
