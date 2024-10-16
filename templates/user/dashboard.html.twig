@@ -1,105 +1,245 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Espace client{% endblock %}
-
-{% block body %}
-<div class="container my-5 back">
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-            <h2>Bienvenue, {{ user.prenom }} {{ user.nom }}</h2>
-        </div>
-        <div class="card-body">
-
-            <!-- Affichage des messages d'alerte -->
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
-
-            {% for message in app.flashes('error') %}
-                <div class="alert alert-danger">
-                    {{ message }}
-                </div>
-            {% endfor %}
-
-            <div class="row">
-                <!-- Informations personnelles -->
-                <div class="col-md-6">
-                    <h5 class="mb-3">Vos informations personnelles :</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong>Email :</strong> {{ user.email }}</li>
-                        <li class="list-group-item"><strong>Date de naissance :</strong> {{ user.dateNaissance|date('d/m/Y') }}</li>
-                        <li class="list-group-item"><strong>Téléphone :</strong> {{ user.telephone }}</li>
-                        <li class="list-group-item"><strong>Adresse :</strong> {{ user.adressePostale }}</li>
-                    </ul>
-                </div>
-
-                <!-- Actions utilisateur -->
-                <div class="col-md-6">
-                    <h5 class="mb-3">Actions :</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="{{ path('demander_facture', {'id': user.id}) }}" class="btn btn-outline-primary btn-block">Demander une facture</a></li>
-                        <li class="list-group-item"><a href="#" class="btn btn-outline-success btn-block">Demander un rendez-vous</a></li>
-                        <li class="list-group-item"><a href="#factures" class="btn btn-outline-info btn-block">Consulter vos factures</a></li>
-                        <li class="list-group-item"><a href="#devis" class="btn btn-outline-warning btn-block">Consulter vos devis</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <hr>
-
-            <!-- Liste des factures -->
-            <h5 id="factures" class="mb-3">Vos factures :</h5>
-            {% if factures is not empty %}
-                <div class="row">
-                    {% for facture in factures %}
-                        <div class="col-md-4">
-                            <div class="card mb-3">
-                                <div class="card-header bg-secondary text-white">Facture N° {{ facture.numero }}</div>
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Montant :</strong> {{ facture.montant }} €</p>
-                                    <p class="card-text"><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</p>
-                                    <a href="{{ path('user_download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
-                                    <a href="{{ path('user_view_facture', {id: facture.id}) }}" class="btn btn-info">Voir la facture</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-muted">Aucune facture trouvée.</p>
-            {% endif %}
-
-            <hr>
-
-            <!-- Liste des devis -->
-            <h5 id="devis" class="mb-3">Vos devis :</h5>
-            {% if devis is not empty %}
-                <div class="row">
-                    {% for devis in devis %}
-                        <div class="col-md-4">
-                            <div class="card mb-3">
-                                <div class="card-header bg-success text-white">Devis N° {{ devis.numero }}</div>
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Montant :</strong> {{ devis.montant }} €</p>
-                                    <p class="card-text"><strong>Date de création :</strong> {{ devis.dateCreation|date('d/m/Y') }}</p>
-                                    <a href="{{ path('user_download_devis', {id: devis.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
-                                    <a href="{{ path('user_view_devis', {id: devis.id}) }}" class="btn btn-info">Voir le devis</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-muted">Aucun devis trouvé.</p>
-            {% endif %}
-
-        </div>
-        <div class="card-footer text-center">
-            <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
-        </div>
-    </div>
-</div>
+{% block title %}Espace client
 {% endblock %}
 
+{% block body %}
+	<div class="container my-5 back">
+		<div class="card shadow-lg border-0">
+			<div class="card-header  text-white text-center">
+				<h2>Bienvenue,
+					{{ user.prenom }}
+					{{ user.nom }}</h2>
+			</div>
+			<div
+				class="card-body">
+				<!-- Affichage des messages d'alerte -->
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success">
+						{{ message }}
+					</div>
+				{% endfor %}
+
+				{% for message in app.flashes('error') %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
+
+				<div
+					class="row">
+					<!-- Informations personnelles -->
+					<div class="col-md-6">
+						<h5 class="mb-3">Vos informations personnelles :</h5>
+						<ul class="list-group shadow-sm">
+							<li class="list-group-item">
+								<strong>Nom et Prénom :</strong>
+								{{ user.prenom }}
+								{{ user.nom }}</li>
+							<li class="list-group-item">
+								<strong>Email :</strong>
+								{{ user.email }}</li>
+							<li class="list-group-item">
+								<strong>Date de naissance :</strong>
+								{{ user.dateNaissance|date('d/m/Y') }}</li>
+							<li class="list-group-item">
+								<strong>Téléphone :</strong>
+								{{ user.telephone }}</li>
+							<li class="list-group-item">
+								<strong>Adresse :</strong>
+								{{ user.adressePostale }}</li>
+						</ul>
+					</div>
+
+					<!-- Actions utilisateur -->
+					<div class="col-md-6">
+						<h5 class="mb-3">Actions :</h5>
+						<ul class="list-group shadow-sm">
+							<li class="list-group-item">
+								<a href="{{ path('demander_facture', {'id': user.id}) }}" class="btn btn-outline-primary btn-block">Demander une facture</a>
+							</li>
+							<li class="list-group-item">
+								<a href="{{ path('user_rendezvous', {'id': user.id}) }}" class="btn btn-outline-primary btn-block">Prendre un rendez-vous</a>
+							</li>
+							<li class="list-group-item">
+								<a href="{{ path('user_factures', {'id': user.id}) }}" class="btn btn-outline-info btn-block">Consulter vos factures</a>
+							</li>
+							<li class="list-group-item">
+								<a href="{{ path('user_devis', {'id': user.id}) }}" class="btn btn-outline-info btn-block">Consulter vos devis</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+
+				<hr>
+
+				<!-- Liste des factures -->
+<h5 id="factures" class="mb-3">Vos factures :</h5>
+{% if factures is not empty %}
+    <div class="row">
+        {% for facture in factures %}
+            <div class="col-md-4">
+                <div class="card mb-3 shadow-sm border-light">
+                    <div class="card-header bg-secondary text-white">Facture N° {{ facture.numero }}</div>
+                    <div class="card-body">
+                        <p class="card-text-user"><strong>Montant :</strong> {{ facture.montant }} €</p>
+                        <p class="card-text-user"><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('user_download_facture', {id: facture.id}) }}" class="btn btn-outline-primary tel-fac-dev" target="_blank">Télécharger</a>
+                            <a href="{{ path('user_view_facture', {id: facture.id}) }}" class="btn btn-outline-info tel-fac-dev">Voir la facture</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Aucune facture trouvée.</p>
+{% endif %}
+ <div class="text-center mt-5">
+        <a href="{{ path('user_factures', {id: user.id}) }}" class="btn btn-secondary btn-lg">voir d'autres factures</a>
+    </div>
+
+
+
+<!-- Liste des devis -->
+<h5  class="mb-3">Vos devis :</h5>
+{% if devis is not empty %}
+    <div class="row">
+        {% for devis in devis %}
+            <div class="col-md-4">
+                <div class="card mb-3 shadow-sm border-light">
+                    <div class="card-header bg-secondary text-white">Devis N° {{ devis.numero }}</div>
+                    <div class="card-body">
+                        <p class="card-text-user"><strong>Montant :</strong> {{ devis.montant }} €</p>
+                        <p class="card-text-user"><strong>Date de création :</strong> {{ devis.dateCreation|date('d/m/Y') }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('user_download_devis', {id: devis.id}) }}" class="btn btn-outline-primary tel-fac-dev" target="_blank" id="devis">Télécharger</a>
+                            <a href="{{ path('user_view_devis', {id: devis.id}) }}" class="btn btn-outline-info tel-fac-dev" id="devis">Voir le devis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Aucun devis trouvé.</p>
+{% endif %}
+                <div class="text-center mt-5">
+        <a href="{{ path('user_factures', {id: user.id}) }}" class="btn btn-secondary btn-lg">voir d'autres devis</a>
+    </div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CSS personnalisé -->
+	<style>
+		.espace-client {
+			background-color: #1d4e89;
+		}
+		.btn-outline-primary {
+			color: white;
+			border-color: #1d4e89;
+			background-color: #17a2b8;
+			width: 50%;
+			margin-left: 25%;
+
+		}
+
+		.btn-outline-primary:hover {
+			background-color: #1d4e89;
+			color: white;
+		}
+
+		.btn-outline-info {
+			color: white;
+			border-color: #1d4e89;
+			background-color: #17a2b8;
+			width: 50%;
+			margin-left: 25%;
+		}
+
+		.btn-outline-info:hover {
+			background-color: #1d4e89;
+			color: white;
+		}
+
+		.card-header {
+			background-color: #1d4e89;
+		}
+		/* Style spécifique pour la section des devis */
+
+/* Appliquer un style uniforme aux boutons dans les cartes */
+.tel-fac-dev {
+    width: 48%; /* Ajuster à 48% pour laisser de l'espace entre les deux boutons */
+    margin: 0; /* Supprimer tout espace extérieur */
+    padding: 10px; /* Ajouter du padding pour uniformiser la taille du bouton */
+    text-align: center; /* Centrer le texte */
+    font-size: 1rem; /* Ajuster la taille du texte */
+    border-radius: 5px; /* Arrondir les bords */
+    border: 1px solid #1d4e89; /* Définir la bordure de la couleur du logo */
+}
+
+.tel-fac-dev.btn-outline-primary {
+    background-color: #1d4e89; /* Couleur de fond principale */
+    color: white;
+}
+
+.tel-fac-dev.btn-outline-primary:hover {
+    background-color: #17a2b8; /* Couleur de fond au survol */
+    color: white;
+}
+
+.tel-fac-dev.btn-outline-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.tel-fac-dev.btn-outline-info:hover {
+    background-color: #1d4e89;
+    color: white;
+}
+
+/* Aligner les boutons sur une seule ligne et leur donner la même taille */
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Espace entre les boutons */
+}
+
+
+
+
+
+
+    
+
+    
+
+    .shadow-sm {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    
+
+    .justify-content-between {
+        justify-content: space-between;
+    }
+
+    .card-body {
+        background-color: #ffffff;
+    }
+
+    h5 {
+        font-size: 1.25rem;
+        color: #1d4e89;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+	</style>
+{% endblock %}

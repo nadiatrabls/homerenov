@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Factures{% endblock %}
+
+{% block body %}
+<div class="container my-5 back">
+    <h1 class="text-center text-primary mb-4">Vos Factures</h1>
+
+    {% if factures is not empty %}
+        <div class="row">
+            {% for facture in factures %}
+                <div class="col-md-4">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            Facture N° {{ facture.numero }}
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Montant :</strong> {{ facture.montant }} €</p>
+                            <p><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</p>
+                            <p><strong>Référence du Chantier :</strong> {{ facture.refChantier }}</p>
+                            <p><strong>Statut de Paiement :</strong> {{ facture.statusPaiement }}</p>
+                            <a href="{{ path('user_download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
+                            <a href="{{ path('user_view_facture', {id: facture.id}) }}" class="btn btn-info">Voir la facture</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted text-center">Aucune facture trouvée.</p>
+    {% endif %}
+
+    <!-- Bouton pour revenir au tableau de bord -->
+    <div class="text-center mt-5">
+        <a href="{{ path('user_dashboard', {id: user.id}) }}" class="btn btn-secondary btn-lg">Retour au tableau de bord</a>
+    </div>
+</div>
+
+
+
+<!-- Style personnalisé -->
+<style>
+    .btn-primary {
+    background-color: #0056b3; /* Couleur inspirée du logo */
+    border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    background-color: #004494; /* Couleur plus foncée pour hover */
+    border-color: #004494;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.container {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+</style>
+
+
+{% endblock %}

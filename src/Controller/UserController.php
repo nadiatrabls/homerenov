@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Abonne;
 use App\Entity\Devis;
+use App\Entity\Disponibilite;
 use App\Entity\Facture;
 use App\Entity\RendezVous;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,11 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AbonneRepository;
 use App\Repository\FactureRepository;
 use App\Repository\DevisRepository;
+use App\Repository\DisponibiliteRepository;
 use App\Repository\RendezVousRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -45,6 +48,32 @@ class UserController extends AbstractController
             'devis' => $devis,
         ]);
     }
+
+    #[Route('/user/{id}/factures', name: 'user_factures')]
+    public function voirFactures(int $id, EntityManagerInterface $em): Response
+    {
+        $factures = $em->getRepository(Facture::class)->findBy(['user' => $id]);
+    
+        return $this->render('user/factures.html.twig', [
+            'factures' => $factures,
+            'user' => $em->getRepository(Abonne::class)->find($id),
+        ]);
+    }
+    
+
+    #[Route('/user/{id}/devis', name: 'user_devis')]
+    public function devis(int $id, EntityManagerInterface $em): Response
+    {
+        $user = $em->getRepository(Abonne::class)->find($id);
+        $devis = $em->getRepository(Devis::class)->findBy(['user' => $user]);
+
+        return $this->render('user/devis.html.twig', [
+            'devis' => $devis,
+            'user' => $user
+        ]);
+    }
+    
+    
 
     // Téléchargement d'une facture
     #[Route('/user/facture/{id}/telecharger', name: 'user_download_facture')]
@@ -149,36 +178,60 @@ public function demanderFacture(Request $request, Abonne $user, EntityManagerInt
         'user' => $user, // Ajouter l'utilisateur ici pour le template
     ]);
 }
-//voir les rdv disponibles
-#[Route('/rendezvous', name: 'user_rendezvous_list')]
-public function listRendezVous(RendezVousRepository $rendezVousRepository): Response
+//prise des rdv 
+#[Route('/user/{id}/rendezvous', name: 'user_rendezvous')]
+public function rendezvous(int $id, EntityManagerInterface $em): Response
 {
-    // Récupérer uniquement les rendez-vous disponibles
-    $rendezVousDispos = $rendezVousRepository->findBy(['disponible' => true]);
+    $disponibilites = $em->getRepository(Disponibilite::class)->findAll();
 
-    return $this->render('rendezvous/list.html.twig', [
-        'rendezvous' => $rendezVousDispos,
+    // Passer uniquement les créneaux disponibles au template
+    $formattedDisponibilites = [];
+    foreach ($disponibilites as $disponibilite) {
+        $formattedDisponibilites[] = [
+            'id' => $disponibilite->getId(),
+            'date' => $disponibilite->getDate()->format('Y-m-d'),
+            'heureDebut' => $disponibilite->getHeureDebut()->format('H:i'),
+            'heureFin' => $disponibilite->getHeureFin()->format('H:i'),
+            'disponible' => $disponibilite->isDisponible(),
+        ];
+    }
+
+    return $this->render('user/rendezvous.html.twig', [
+        'disponibilites' => $formattedDisponibilites,
+        'id' => $id,
     ]);
 }
-//reserver un rdv
 
-#[Route('/rendezvous/{id}/reserver', name: 'user_rendezvous_reserver')]
-public function reserver(RendezVous $rendezVous, EntityManagerInterface $em, Security $security): Response
+//reservation du rdv
+
+#[Route('/user/{userId}/rendezvous/{id}/reserver', name: 'user_reserver_rendezvous')]
+public function reserverRendezVous(Disponibilite $disponibilite, Security $security, EntityManagerInterface $em): Response
 {
     $user = $security->getUser();
 
-    if ($rendezVous->getDisponible()) {
-        $rendezVous->setDisponible(false);
-        $rendezVous->setClient($user); // Associe l'utilisateur au rendez-vous
-        $em->flush();
-
-        $this->addFlash('success', 'Votre réservation a été prise en compte.');
-    } else {
-        $this->addFlash('danger', 'Ce créneau est déjà réservé.');
+    // Vérifiez que $user est bien une instance de User
+    if (!$user instanceof Abonne) {
+        throw new \Exception('Utilisateur non valide');
     }
 
-    return $this->redirectToRoute('user_rendezvous_list');
+    // Vérifiez que la disponibilité est encore disponible
+    if ($disponibilite->isDisponible()) {
+        // Marquer comme réservé
+        $disponibilite->setDisponible(false); // Indique que ce créneau n'est plus disponible
+        $disponibilite->setClient($user); // Associe le client qui a réservé
+
+        $em->flush();
+
+        // Afficher un message de succès ou rediriger
+        $this->addFlash('success', 'Votre rendez-vous a été réservé avec succès.');
+    } else {
+        $this->addFlash('error', 'Ce créneau n\'est plus disponible.');
+    }
+
+    // Redirection avec l'ID de l'utilisateur
+    return $this->redirectToRoute('user_dashboard', ['id' => $user->getId()]);
 }
+
 
 
 

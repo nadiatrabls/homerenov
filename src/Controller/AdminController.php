@@ -545,161 +545,23 @@ public function edit_chantier(Request $request, Chantier $chantier, EntityManage
     ]);
 }
 
-//  //   #[Route('/admin/rendezvous/events', name: 'admin_rendezvous_events')]
-// //public function getRendezVousEvents(RendezVousRepository $rendezVousRepository): JsonResponse
-// //{
-//   //  $rendezVous = $rendezVousRepository->findAll();
-//     $events = [];
-
-//     foreach ($rendezVous as $rdv) {
-//         $events[] = [
-//             'id' => $rdv->getId(),
-//             'title' => $rdv->getHeureDebut()->format('H:i') . ' - ' . $rdv->getHeureFin()->format('H:i'),
-//             'start' => $rdv->getDate()->format('Y-m-d'),
-//             'extendedProps' => [
-//                 'csrfToken' => $this->get('security.csrf.token_manager')->getToken('delete' . $rdv->getId())->getValue()
-//             ]
-//         ];
-//     }
-
-//     return new JsonResponse($events);
-// }
-
-//ajouter un nouveau rdv
-// #[Route('/admin/rendezvous/new', name: 'admin_rendezvous_new', methods: ['POST'])]
-// public function newRendezVous(Request $request, EntityManagerInterface $em): JsonResponse
-// {
-//     $data = json_decode($request->getContent(), true);
-
-//     $rendezVous = new RendezVous();
-//     $rendezVous->setDate(new \DateTime($data['date']));
-//     [$heureDebut, $heureFin] = explode(' - ', $data['time']);
-//     $rendezVous->setHeureDebut(new \DateTime($heureDebut));
-//     $rendezVous->setHeureFin(new \DateTime($heureFin));
-//     $rendezVous->setDisponible(true);
-
-//     $em->persist($rendezVous);
-//     $em->flush();
-
-//     return new JsonResponse(['status' => 'success']);
-// }
-
-
-
-
-// #[Route('/admin/rendezvous/{id}/delete', name: 'admin_rendezvous_delete', methods: ['POST'])]
-// public function deleteRendezVous(Request $request, RendezVous $rendezVous, EntityManagerInterface $em): JsonResponse
-// {
-//     $data = json_decode($request->getContent(), true);
-    
-//     if ($this->isCsrfTokenValid('delete' . $rendezVous->getId(), $data['_token'])) {
-//         $em->remove($rendezVous);
-//         $em->flush();
-//         return new JsonResponse(['status' => 'success']);
-//     }
-
-//     return new JsonResponse(['status' => 'error'], 400);
-// }
-
-// #[Route('/admin/disponibilites', name: 'admin_disponibilites_calendar')]
-// public function disponibilitesCalendar(DisponibiliteRepository $disponibiliteRepository): Response
-// {
-//     $disponibilites = $disponibiliteRepository->findAll();
-
-//     $events = [];
-
-//     // Transformer les créneaux en événements pour le calendrier
-//     foreach ($disponibilites as $disponibilite) {
-//         $events[] = [
-//             'title' => 'Disponible',
-//             'start' => $disponibilite->getDate()->format('Y-m-d') . 'T' . $disponibilite->getHeureDebut()->format('H:i:s'),
-//             'end' => $disponibilite->getDate()->format('Y-m-d') . 'T' . $disponibilite->getHeureFin()->format('H:i:s'),
-//         ];
-//     }
-
-//     return $this->render('admin/disponibilites_calendar.html.twig', [
-//         'events' => json_encode($events), // Envoyer les événements en JSON
-//     ]);
-// }
-
-// #[Route('/admin/disponibilite/new', name: 'admin_disponibilite_new', methods: ['POST'])]
-// public function newDisponibiliteFromCalendar(Request $request, EntityManagerInterface $em): Response
-// {
-//     $data = json_decode($request->getContent(), true);
-
-//     $disponibilite = new Disponibilite();
-//     $disponibilite->setDate(new \DateTime($data['date']));
-//     $disponibilite->setHeureDebut(new \DateTime($data['heureDebut']));
-//     $disponibilite->setHeureFin(new \DateTime($data['heureFin']));
-
-//     $em->persist($disponibilite);
-//     $em->flush();
-
-//     return new Response('Disponibilité ajoutée avec succès', Response::HTTP_CREATED);
-// }
-// #[Route('/admin/rendezvous', name: 'admin_rendezvous_list', methods: ['GET'])]
-// public function listRendezVous(DisponibiliteRepository $disponibiliteRepository): Response
-// {
-//     $rendezVousDispos = $disponibiliteRepository->findBy(['disponible' => true]);
-
-//     // Formater la réponse pour le JS
-//     $rendezVousArray = [];
-//     foreach ($rendezVousDispos as $rendezVous) {
-//         $rendezVousArray[] = [
-//             'date' => $rendezVous->getDate()->format('Y-m-d'),
-//             'heureDebut' => $rendezVous->getHeureDebut()->format('H:i'),
-//             'heureFin' => $rendezVous->getHeureFin()->format('H:i')
-//         ];
-//     }
-
-//     return $this->json($rendezVousArray);
-// }
-
-
-// #[Route('/admin/rendezvous/new', name: 'admin_rendezvous_new', methods: ['POST'])]
-//     public function newRendezVous(Request $request, EntityManagerInterface $em): Response
-//     {
-//         $data = json_decode($request->getContent(), true);
-//         $date = new \DateTime($data['date']);
-//         $heureDebut = new \DateTime($data['heureDebut']);
-//         $heureFin = new \DateTime($data['heureFin']);
-
-//         $rendezVous = new Disponibilite();
-//         $rendezVous->setDate($date)
-//                    ->setHeureDebut($heureDebut)
-//                    ->setHeureFin($heureFin)
-//                    ->setDisponible(true);
-
-//         $em->persist($rendezVous);
-//         $em->flush();
-
-//         return new Response('Créneau ajouté avec succès', Response::HTTP_CREATED);
-//     }
-
-
-//     #[Route('/admin/rendezvous/{id}/delete', name: 'admin_rendezvous_delete', methods: ['POST'])]
-//     public function deleteRendezVous(Disponibilite $disponibilite, EntityManagerInterface $em): Response
-//     {
-//         $em->remove($disponibilite);
-//         $em->flush();
-
-//         return new Response('Créneau supprimé', Response::HTTP_OK);
-//     }
-
 
 #[Route('/admin/dashboard/disponibilites', name: 'admin_disponibilites')]
 public function index(EntityManagerInterface $em): Response
 {
     $disponibilites = $em->getRepository(Disponibilite::class)->findAll();
-    
+
     // Formater les disponibilités pour l'affichage
     $formattedDisponibilites = [];
     foreach ($disponibilites as $disponibilite) {
+        $client = $disponibilite->getClient(); // Récupérer le client s'il existe
         $formattedDisponibilites[] = [
-            'id' => $disponibilite->getId(), 
+            'id' => $disponibilite->getId(),
             'date' => $disponibilite->getDate()->format('Y-m-d'),
             'heureDebut' => $disponibilite->getHeureDebut()->format('H:i'),
             'heureFin' => $disponibilite->getHeureFin()->format('H:i'),
+            'disponible' => $disponibilite->isDisponible(),
+            'client' => $client ? $client->getPrenom() : null, // Vérifiez si un client existe
         ];
     }
 
@@ -707,6 +569,8 @@ public function index(EntityManagerInterface $em): Response
         'disponibilites' => $formattedDisponibilites,
     ]);
 }
+
+
 
 
 #[Route('/admin/dashboard/disponibilites/new', name: 'admin_disponibilite_new')]

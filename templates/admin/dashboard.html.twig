@@ -4,8 +4,8 @@
 
 {% block body %}
 <div class="container-fluid my-5 back">
-    <div class="card shadow-sm">
-        <div class="card-header bg-dark text-white text-center">
+    <div class="card shadow-sm border-0">
+        <div class="card-header text-white text-center">
             <h2>Tableau de bord administrateur</h2>
         </div>
         <div class="card-body">
@@ -46,7 +46,7 @@
                                 <!-- Icône pour supprimer l'utilisateur -->
                                 <form method="post" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display:inline-block;">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                                    <button class="btn btn-danger btn-sm">
+                                    <button class="btn btn-danger btn-sm mb-1">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
@@ -64,66 +64,113 @@
     </div>
 </div>
 
-{# <!-- Gestion des rendez-vous -->
-<div class="container my-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h5>Gestion des rendez-vous</h5>
-        </div>
-        <div class="card-body">
-            <!-- Contrôles du calendrier -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <button id="prevMonthBtn" class="btn btn-outline-primary">Précédent</button>
-                <span id="currentMonth" class="h5"></span>
-                <button id="nextMonthBtn" class="btn btn-outline-primary">Suivant</button>
-            </div>
-
-            <!-- Table du calendrier -->
-            <div class="table-responsive">
-                <table class="table table-bordered text-center" id="calendar-table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Dim</th>
-                            <th>Lun</th>
-                            <th>Mar</th>
-                            <th>Mer</th>
-                            <th>Jeu</th>
-                            <th>Ven</th>
-                            <th>Sam</th>
-                        </tr>
-                    </thead>
-                    <tbody id="calendar-body">
-                        <!-- Le calendrier sera généré ici par le JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Formulaire de création de rendez-vous -->
-            <div class="rendezvous-form mt-4">
-                <h6>Créer un Rendez-vous</h6>
-                <form id="rendezvous-form" class="d-flex align-items-center">
-                    <input type="text" id="selectedDate" class="form-control me-2" placeholder="Date" readonly>
-                    <label for="heureDebut" class="me-2">Heure de début :</label>
-                    <input type="time" id="heureDebut" class="form-control me-2">
-                    <label for="heureFin" class="me-2">Heure de fin :</label>
-                    <input type="time" id="heureFin" class="form-control me-2">
-                    <button type="submit" class="btn btn-success">Ajouter</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> #}
-
-
     <!-- Bouton pour accéder au calendrier et gestion des disponibilités -->
     <div class="text-center mt-5">
-        <a href="{{ path('admin_disponibilites') }}" class="btn btn-primary">Gérer les Disponibilités</a>
+        <a href="{{ path('admin_disponibilites') }}" class="btn btn-primary btn-lg shadow-lg">Gérer les Disponibilités</a>
     </div>
 </div>
 
+<style>
+.card {
+    padding: 2rem;
+    background-color: #f8f9fa; /* Couleur de fond clair pour un contraste agréable */
+}
+.card-header {
+    background-color: #1d4e89;
+   
+    border-radius: 5px;
+    padding: 10px;
+}
 
+.card-body h5 {
+    color: #1d4e89; /* Utiliser la couleur du logo pour les titres */
+    font-weight: bold;
+}
+
+.table thead {
+    background-color: #343a40; /* En-tête de tableau sombre */
+    color: white;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Ajoute un effet de survol sur les lignes du tableau */
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    border-radius: 4px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #1d4e89;
+    border-color: #1d4e89;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #16477a;
+}
+
+.table-responsive {
+    margin-top: 1rem;
+}
+
+/* Bouton gérer les disponibilités */
+.btn-lg {
+    background-color: #1d4e89;
+    border-color: #17a2b8;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.btn-lg:hover {
+    background-color: #16477a;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset('js/calendar.js') }}"></script>
-{% endblock %}
+

@@ -4,28 +4,70 @@
 
 {% block body %}
 <div class="container mt-5 back">
-    <h1>Ajouter une Disponibilité</h1>
-
-    {{ form_start(form) }}
-        <div class="form-group">
-            {{ form_label(form.date) }}
-            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.date) }}
+    <div class="card shadow-lg border-0">
+        <div class="card-header  text-white text-center">
+            <h2>Ajouter une Disponibilité</h2>
         </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.date, 'Date de disponibilité') }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.date) }}
+                </div>
 
-        <div class="form-group mt-3">
-            {{ form_label(form.heureDebut) }}
-            {{ form_widget(form.heureDebut, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.heureDebut) }}
+                <div class="form-group mt-3">
+                    {{ form_label(form.heureDebut, 'Heure de début') }}
+                    {{ form_widget(form.heureDebut, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.heureDebut) }}
+                </div>
+
+                <div class="form-group mt-3">
+                    {{ form_label(form.heureFin, 'Heure de fin') }}
+                    {{ form_widget(form.heureFin, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.heureFin) }}
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">Ajouter</button>
+                    <a href="{{ path('admin_disponibilites') }}" class="btn btn-secondary">Annuler</a>
+                </div>
+            {{ form_end(form) }}
         </div>
-
-        <div class="form-group mt-3">
-            {{ form_label(form.heureFin) }}
-            {{ form_widget(form.heureFin, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.heureFin) }}
-        </div>
-
-        <button type="submit" class="btn btn-success mt-4">Ajouter</button>
-    {{ form_end(form) }}
+    </div>
 </div>
+
+<!-- Styles personnalisés -->
+<style>
+    .card-header {
+        background-color: #1d4e89;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .form-control {
+        box-shadow: none;
+        border: 1px solid #ced4da;
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin-bottom: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+    }
+</style>
 {% endblock %}

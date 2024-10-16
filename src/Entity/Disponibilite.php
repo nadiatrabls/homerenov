@@ -26,6 +26,11 @@ class Disponibilite
     #[ORM\Column(type: 'boolean')]
     private ?bool $disponible = true;
 
+
+    #[ORM\ManyToOne(targetEntity: Abonne::class)]
+    private ?Abonne $client = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,4 +83,19 @@ class Disponibilite
 
         return $this;
     }
+
+    
+// Getter pour le client
+public function getClient(): ?Abonne
+{
+    return $this->client;
+}
+
+// Setter pour le client
+public function setClient(?Abonne $client): self
+{
+    $this->client = $client;
+
+    return $this;
+}
 }

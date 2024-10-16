@@ -21,35 +21,43 @@
         <p>Aucune disponibilité n'a été créée.</p>
     {% else %}
         <!-- Affichage des disponibilités -->
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Heure de début</th>
-                    <th>Heure de fin</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for disponibilite in disponibilites %}
-                <tr>
-                    <td>{{ disponibilite.date|date('d/m/Y') }}</td>
-                    <td>{{ disponibilite.heureDebut|date('H:i') }}</td>
-                    <td>{{ disponibilite.heureFin|date('H:i') }}</td>
-                    <td>
-                        <!-- Boutons d'actions : Editer et Supprimer -->
-                        <a href="{{ path('admin_disponibilite_edit', {id: disponibilite.id}) }}" class="btn btn-warning btn-sm">
-                            Éditer
-                        </a>
-                        <form method="post" action="{{ path('admin_disponibilite_delete', {id: disponibilite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');" style="display:inline-block;">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disponibilite.id) }}">
-                            <button class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+       <table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Heure de début</th>
+            <th>Heure de fin</th>
+            <th>Client</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for disponibilite in disponibilites %}
+        <tr>
+            <td>{{ disponibilite.date|date('d/m/Y') }}</td>
+            <td>{{ disponibilite.heureDebut }}</td>
+            <td>{{ disponibilite.heureFin }}</td>
+            <td>
+               {% if disponibilite.client %}
+                Client : {{ disponibilite.client }}
+            {% else %}
+                Disponible
+            {% endif %}
+
+            </td>
+            <td>
+                <a href="{{ path('admin_disponibilite_edit', {id: disponibilite.id}) }}" class="btn btn-warning btn-sm">Éditer</a>
+                <form method="post" action="{{ path('admin_disponibilite_delete', {id: disponibilite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');" style="display:inline-block;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disponibilite.id) }}">
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</table>
     {% endif %}
 </div>
 <!-- Affichage du calendrier -->
@@ -63,7 +71,7 @@
         <!-- Le calendrier sera généré ici par le JS -->
     </div>
 
- <script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         let disponibilites = {{ disponibilites|json_encode|raw }};
         let calendar = document.getElementById('calendar');
@@ -74,7 +82,6 @@
         // Tableau des mois en français
         const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
-        // Fonction pour mettre à jour l'affichage du mois
         function updateMonthDisplay() {
             document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
         }
@@ -97,8 +104,6 @@
             // Remplir les jours du mois
             for (let day = 1; day <= lastDay.getDate(); day++) {
                 let date = new Date(year, month, day);
-
-                // Générer la date en format YYYY-MM-DD
                 let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
                 table += `<td data-date="${dateStr}">${day}</td>`;
@@ -111,11 +116,17 @@
             table += '</tr></tbody></table>';
             calendar.innerHTML = table;
 
-            // Marquer les disponibilités en vert
+            // Marquer les disponibilités en fonction de leur statut
             disponibilites.forEach(event => {
                 let cell = document.querySelector(`td[data-date="${event.date}"]`);
                 if (cell) {
-                    cell.style.backgroundColor = 'green'; // Marquer en vert
+                    if (event.client) {
+                        // Si la disponibilité a été réservée, mettre en bleu
+                        cell.style.backgroundColor = 'blue';
+                    } else {
+                        // Si la disponibilité est encore disponible, mettre en vert
+                        cell.style.backgroundColor = 'green';
+                    }
                     cell.innerHTML += `<br><small>${event.heureDebut} - ${event.heureFin}</small>`;
                 }
             });
@@ -132,7 +143,7 @@
                 year--;
             }
             createCalendar(year, month);
-            updateMonthDisplay(); // Met à jour l'affichage du mois
+            updateMonthDisplay();
         });
 
         document.getElementById('nextMonthBtn').addEventListener('click', function () {
@@ -142,7 +153,7 @@
                 year++;
             }
             createCalendar(year, month);
-            updateMonthDisplay(); // Met à jour l'affichage du mois
+            updateMonthDisplay();
         });
     });
 </script>

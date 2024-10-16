@@ -4,12 +4,12 @@
 
 {% block body %}
 <div class="container my-5 back">
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h2 class="text-center">Détails de la facture</h2>
+    <div class="card shadow-lg border-0">
+        <div class="card-header  text-white text-center">
+            <h2>Détails de la facture</h2>
         </div>
         <div class="card-body">
-            <ul class="list-group mb-4">
+            <ul class="list-group mb-4 shadow-sm">
                 <li class="list-group-item"><strong>Numéro de facture :</strong> {{ facture.numero }}</li>
                 <li class="list-group-item"><strong>Date d'émission :</strong> {{ facture.dateEmission|date('d/m/Y') }}</li>
                 <li class="list-group-item"><strong>Montant :</strong> {{ facture.montant }} €</li>
@@ -18,29 +18,99 @@
                 <li class="list-group-item">
                     <strong>Fichier PDF :</strong>
                     {% if facture.fichier %}
-                      {% if facture.fichier %}
-                        {% if facture.fichier %}
-    <a href="{{ path('download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">Télécharger</a>
-{% endif %}
-
-                    {% endif %}
-
-
+                        <a href="{{ path('download_facture', {id: facture.id}) }}" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-download"></i> Télécharger
+                        </a>
                     {% else %}
                         <span>Aucun fichier associé.</span>
                     {% endif %}
                 </li>
             </ul>
 
-            <div class="text-center">
-                <a href="{{ path('user_show', {id: facture.user.id}) }}" class="btn btn-secondary">Retour aux détails de l'utilisateur</a>
-                <a href="{{ path('edit_facture', {userId: facture.user.id, factureId: facture.id}) }}" class="btn btn-warning">Modifier</a>
+            <div class="text-center mt-4">
+                <a href="{{ path('user_show', {id: facture.user.id}) }}" class="btn btn-secondary mx-2">
+                    <i class="fas fa-arrow-left"></i> Retour aux détails de l'utilisateur
+                </a>
+                <a href="{{ path('edit_facture', {userId: facture.user.id, factureId: facture.id}) }}" class="btn btn-warning mx-2">
+                    <i class="fas fa-edit"></i> Modifier
+                </a>
                 <form method="post" action="{{ path('delete_facture', {userId: facture.user.id, factureId: facture.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette facture ?');" style="display:inline-block;">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ facture.id) }}">
-                    <button class="btn btn-danger">Supprimer</button>
+                    <button class="btn btn-danger mx-2">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Styles personnalisés -->
+<style>
+    .card-header {
+        background-color: #1d4e89; /* Couleur principale du logo */
+        font-size: 1.5rem;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 15px;
+        font-size: 1.1rem;
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        background-color: #1d4e89;
+        border-color: #1d4e89;
+    }
+
+    .btn-primary:hover {
+        background-color: #135a94;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mx-2 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 767px) {
+        /* Styles pour petits écrans */
+        .list-group-item {
+            font-size: 1rem;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+        }
+
+        .card-header {
+            font-size: 1.3rem;
+        }
+    }
+</style>
 {% endblock %}
