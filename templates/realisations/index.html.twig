@@ -33,7 +33,9 @@
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title-realisations">{{ chantier.nom }}</h5>
-                            <p class="card-text-realisations">{{ chantier.description }}</p>
+                            <p class="card-text-realisations">
+                                {{ chantier.description|slice(0, 100)|nl2br }}...
+                            </p>
                             <a href="{{ path('chantier_show', {id: chantier.id}) }}" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
                         </div>
                     </div>

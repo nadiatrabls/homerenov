@@ -544,6 +544,17 @@ public function edit_chantier(Request $request, Chantier $chantier, EntityManage
         'chantier' => $chantier,
     ]);
 }
+//delete chantier
+#[Route('/admin/chantier/{id}/delete', name: 'admin_chantier_delete', methods: ['POST'])]
+public function delete_chantier(Request $request, Chantier $chantier, EntityManagerInterface $em): Response
+{
+    if ($this->isCsrfTokenValid('delete'.$chantier->getId(), $request->request->get('_token'))) {
+        $em->remove($chantier);
+        $em->flush();
+    }
+
+    return $this->redirectToRoute('app_realisations');
+}
 
 
 #[Route('/admin/dashboard/disponibilites', name: 'admin_disponibilites')]

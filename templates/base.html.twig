@@ -24,26 +24,26 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
+                    <a class="nav-link active" href="{{ path('app_home') }}">ACCUEIL</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_expertises') }}">Expertises</a>
+                    <a class="nav-link" href="{{ path('app_expertises') }}">EXPERTISES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_realisations') }}">Réalisations</a>
+                    <a class="nav-link" href="{{ path('app_realisations') }}">REALISATIONS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_equipe') }}">Équipe</a>
+                    <a class="nav-link" href="{{ path('app_equipe') }}">EQUIPE</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    <a class="nav-link" href="{{ path('contact') }}">ETUDE</a>
                 </li>
 
                 {# Si l'utilisateur est connecté, afficher le lien vers le bon tableau de bord et le bouton "Déconnexion" #}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">
-                            Déconnexion
+                            DECONNEXION
                         </a>
                     </li>
                     <li class="nav-item">
@@ -99,11 +99,11 @@
             <div class="footer-column">
                 <h3>Navigation</h3>
                 <ul class="footer-links">
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/expertises">Expertises</a></li>
-                    <li><a href="/realisations">Réalisations</a></li>
-                    <li><a href="/equipe">Équipe</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_expertises') }}">Expertises</a></li>
+                    <li><a href="{{ path('app_realisations') }}">Réalisations</a></li>
+                    <li><a href="{{ path('app_equipe') }}">Équipe</a></li>
+                    <li><a href="{{ path('contact') }}">Etude</a></li>
                 </ul>
             </div>
 
@@ -111,9 +111,9 @@
             <div class="footer-column">
                 <h3>Nous contacter</h3>
                 <ul class="footer-contact">
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Rue de la Construction, Paris, 75001</li>
-                    <li><i class="fas fa-phone-alt"></i> +33 1 23 45 67 89</li>
-                    <li><i class="fas fa-envelope"></i> contact@homerenov91.fr</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 26 Rue gabriel péri, Draveil, 91210</li>
+                    <li><i class="fas fa-phone-alt"></i> +33 7 61 10 69 59</li>
+                    <li><i class="fas fa-envelope"></i>homerenovations91@gmail.com</li>
                 </ul>
             </div>
 
@@ -151,6 +151,9 @@
     <!-- JS Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <!-- Correct Bootstrap JS sans intégrité -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     {% endblock %}
 </body>
 </html>

@@ -70,24 +70,23 @@
    <section class="gallery-section">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
-                <a href="#">
-                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 1" class="img-fluid">
-                </a>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
-                <a href="#">
-                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 2" class="img-fluid">
-                </a>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
-                <a href="#">
-                    <img src="{{ asset('images/image3.jpg') }}" alt="Image 3" class="img-fluid">
-                </a>
-            </div>
+            {% for chantier in chantiersSpecifiques %}
+                <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
+                    <a href="{{ path('chantier_show', {'id': chantier.id}) }}">
+                        <img src="{{ asset(chantier.images[0]) }}" alt="{{ chantier.nom }}" class="img-fluid">
+                        <div class="hover-overlay">
+                            <span>{{ chantier.nom }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+
+
+
+
 
    <section class="services-section text-center py-5">
         <h1 class="services-tech">Nos services techniques</h1>
@@ -178,105 +177,39 @@
         </div>
     </section>
     <section class="realisations-section text-center py-5">
-        <h1>Nos réalisations</h1>
-        <div class="container bg-lightblue py-4">
-            <div class="row justify-content-center">
-                <!-- Première ligne avec 4 images liens -->
+    <h1>Nos réalisations</h1>
+    <div class="container bg-lightblue py-4">
+        <div class="row justify-content-center">
+            {% for chantier in chantiers|slice(0, 8) %}
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 1" class="img-fluid">
+                        <a href="{{ path('chantier_show', {id: chantier.id}) }}">
+                            {% if chantier.images|length > 0 %}
+                                <img src="{{ asset(chantier.images[0]) }}" alt="{{ chantier.nom }}" class="img-fluid">
+                            {% else %}
+                                <img src="{{ asset('images/default.jpg') }}" alt="Chantier sans image" class="img-fluid">
+                            {% endif %}
                             <div class="hover-overlay">
-                                <span>Chantier 1</span>
+                                <span>{{ chantier.nom }}</span>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 2" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 2</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 3" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 3</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 4" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 4</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Deuxième ligne avec 4 images liens -->
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 5" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 5</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 6" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 6</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 7" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 7</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="img-hover">
-                        <a href="#">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Chantier 8" class="img-fluid">
-                            <div class="hover-overlay">
-                                <span>Chantier 8</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <p><a href="{{path('app_realisations')}}" class="realisations"> DECOUVREZ NOS AUTRES REALISATIONS</a></p>
+            {% else %}
+                <p>Aucun chantier disponible pour le moment.</p>
+            {% endfor %}
         </div>
-    </section>
+        <p><a href="{{path('app_realisations')}}" class="realisations"> DECOUVREZ NOS AUTRES REALISATIONS</a></p>
+    </div>
+</section>
+
     <!-- Nouvelle section - Pourquoi s'inscrire -->
 <section class=" py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <h2 class="mb-4">Pourquoi créer un compte chez HomeRenov91 ?</h2>
-                <p class="lead">Profitez d'avantages exclusifs en créant un compte sur notre site :</p>
+                <p class="lead-2">Profitez d'avantages exclusifs en créant un compte sur notre site :</p>
             </div>
         </div>
         <div class="row text-center avantages">
@@ -435,6 +368,51 @@
         </form>
     </div>
 </section>
+<style>
+.gallery img {
+    width: 100%; /* La largeur de l'image occupe toute la largeur du conteneur */
+    height: 250px; /* Fixe une hauteur égale pour toutes les images */
+    object-fit: cover; /* Permet de couvrir toute la zone définie tout en gardant le ratio de l'image */
+    border-radius: 8px; /* Ajoute des coins arrondis aux images */
+    transition: all 0.3s ease;
+}
 
+.gallery {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery .hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Un effet overlay avec une opacité */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    border-radius: 8px; /* Assurez-vous que l'overlay a aussi des coins arrondis */
+    transition: opacity 0.3s ease;
+}
+
+.gallery:hover .hover-overlay {
+    opacity: 1; /* L'overlay devient visible au survol */
+}
+
+.gallery .hover-overlay span {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center; /* Centrer le texte */
+}
+
+
+
+
+
+
+</style>
 {% endblock %}
 

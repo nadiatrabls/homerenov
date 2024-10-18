@@ -6,8 +6,10 @@
 <div class="container mt-5 back chantier-detail">
     <h1 class="text-center nom-chantier">{{ chantier.nom }}</h1>
     
-    <p class="text-center mt-3 description-chantier">{{ chantier.description }}</p>
-    
+    <div class="description-container mx-auto mt-3 p-4">
+        <p class="description-chantier">{{ chantier.description|nl2br|raw }}</p>
+    </div>
+
     {# Carrousel d'images s'il y a des images pour le chantier #}
     {% if chantier.images|length > 0 %}
         <div id="chantierCarousel" class="carousel slide mt-5" data-ride="carousel">
@@ -31,23 +33,80 @@
         <p class="text-center mt-4">Aucune image disponible pour ce chantier.</p>
     {% endif %}
 
-    <div class="text-center mt-5">
-        <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
-    </div>
-
     {# Afficher les boutons "Modifier" et "Supprimer" uniquement si l'utilisateur est admin #}
     {% if is_granted('ROLE_ADMIN') %}
-        <div class="text-center mt-4">
-            <a href="{{ path('admin_chantier_edit', {id: chantier.id}) }}" class="btn btn-warning">Modifier le chantier</a>
-       <form action="{{ path('admin_chantier_delete', {id: chantier.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce chantier ?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chantier.id) }}">
-    <br>
-    <button type="submit" class="btn btn-danger suppr">Supprimer le chantier</button>
-</form>
-
-
-
+        <div class="text-center mt-4 btn-container">
+            <a href="{{ path('admin_chantier_edit', {id: chantier.id}) }}" class="btn btn-warning btn-chantier">Modifier le chantier</a>
+            <form action="{{ path('admin_chantier_delete', {id: chantier.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce chantier ?');" style="display:inline-block;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chantier.id) }}">
+                <button type="submit" class="btn btn-danger btn-chantier">Supprimer le chantier</button>
+            </form>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
         </div>
     {% endif %}
 </div>
+
+<!-- Styles ajoutés pour les boutons -->
+<style>
+    .description-container {
+        width: 90%; /* Définit la largeur de la description */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre */
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+
+    /* Ajustement pour les petits écrans */
+    @media (max-width: 768px) {
+        .description-container {
+            width: 90%; /* Réduit la largeur sur les petits écrans */
+        }
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center; /* Centre les boutons horizontalement */
+        gap: 5px; /* Espace entre les boutons */
+      
+        margin-top: 20px;
+    }
+
+    .btn-chantier {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        width: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Couleurs inspirées du logo */
+    .btn-primary {
+        background-color: #1d4e89; /* Couleur principale du logo */
+        border-color: #1d4e89;
+        color: white;
+        margin-bottom: 80px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: white;
+        width: 300px;
+        margin-left: -40px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+        width:300px;
+    }
+
+    .btn-chantier:hover {
+        opacity: 0.9;
+    }
+</style>
 {% endblock %}
