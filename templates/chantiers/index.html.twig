@@ -42,10 +42,11 @@
                 <button type="submit" class="btn btn-danger btn-chantier">Supprimer le chantier</button>
             </form>
         </div>
-        <div class="text-center mt-5">
+        
+    {% endif %}
+    <div class="text-center mt-5">
             <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
         </div>
-    {% endif %}
 </div>
 
 <!-- Styles ajoutés pour les boutons -->
@@ -61,10 +62,12 @@
     /* Ajustement pour les petits écrans */
     @media (max-width: 768px) {
         .description-container {
-            width: 90%; /* Réduit la largeur sur les petits écrans */
+            width: 90%; 
         }
     }
-
+.chantierCarousel img{
+    height: 200px;
+}
     .btn-container {
         display: flex;
         justify-content: center; /* Centre les boutons horizontalement */
@@ -104,7 +107,9 @@
         color: white;
         width:300px;
     }
-
+.chantier-detail{
+    margin-bottom: 30px;
+}
     .btn-chantier:hover {
         opacity: 0.9;
     }
