@@ -10,7 +10,7 @@
                 <h2>Connexion</h2>
             </div>
             <form method="post" action="{{ path('app_login') }}">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <div class="form-group mb-3 password">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="email" placeholder="Adresse email" class="form-control" required autofocus>
@@ -28,8 +28,12 @@
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
             </form>
+
             <div class="text-center inscrivez-vous">
                 <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous ici</a>
+            </div>
+            <div class="text-center mt-3">
+                <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a> <!-- Lien vers le processus de récupération -->
             </div>
         </div>
     </div>
