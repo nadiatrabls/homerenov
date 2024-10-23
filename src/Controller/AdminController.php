@@ -556,7 +556,7 @@ public function delete_chantier(Request $request, Chantier $chantier, EntityMana
     return $this->redirectToRoute('app_realisations');
 }
 
-
+//voir les disponibilités
 #[Route('/admin/dashboard/disponibilites', name: 'admin_disponibilites')]
 public function index(EntityManagerInterface $em): Response
 {

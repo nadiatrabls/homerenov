@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\ChantierRepository; // Assurez-vous d'importer le bon repository
+use App\Repository\ChantierRepository; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
