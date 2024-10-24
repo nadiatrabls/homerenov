@@ -2070,11 +2070,12 @@ button {
 /* Ajustement responsive pour les petits écrans */
 @media (max-width: 768px) {
     body{
-        width: 100vw;
+        width: 100vw !important;
+        margin: 0 !important;
     }
     .nav-link{
-        background-color: #dcdada;
-        width: 100%;
+        background-color: #dcdada !important;
+        width: 100% !important;
     }
     .nav-border{
         z-index: 10;
@@ -2083,7 +2084,7 @@ button {
         font-size: 2.7rem; /* Plus grand pour les tablettes */
         text-align: center !important;
         margin-left: 55px;
-        margin-top: -30px;
+        margin-top: 10px;
         margin-bottom: 40px;
     }
     .lead{
@@ -2091,10 +2092,7 @@ button {
         margin-left: 36px !important;
         
     }
-    .carousel-control-next 
-    {
-        display: none;
-    }
+    
 .carousel-caption {
     z-index: 0;
     bottom: 10%;
