@@ -2069,6 +2069,9 @@ button {
 
 /* Ajustement responsive pour les petits écrans */
 @media (max-width: 768px) {
+    body{
+        width: 100vw;
+    }
     .nav-link{
         background-color: #dcdada;
         width: 100%;
@@ -2077,16 +2080,20 @@ button {
         z-index: 10;
     }
     .carousel-caption h1.display-1 {
-        font-size: 3.5rem; /* Plus grand pour les tablettes */
+        font-size: 2.7rem; /* Plus grand pour les tablettes */
         text-align: center !important;
         margin-left: 55px;
         margin-top: -30px;
         margin-bottom: 40px;
     }
     .lead{
-        margin-top: 100px;
-        margin-left: 55px !important;
+        margin-top: 50px;
+        margin-left: 36px !important;
         
+    }
+    .carousel-control-next 
+    {
+        display: none;
     }
 .carousel-caption {
     z-index: 0;
@@ -2106,7 +2113,7 @@ button {
         font-size: 1rem;
         padding: 10px 20px;
         margin-top: 5%;
-        margin-left: 38% !important;
+        margin-left: 32% !important;
     }
     .team-presentation h2 {
         font-size: 28px;
