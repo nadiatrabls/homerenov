@@ -2103,14 +2103,14 @@ button {
         z-index: 10;
     }
     .carousel-caption h1.display-1 {
-        font-size: 2.7rem; /* Plus grand pour les tablettes */
+        font-size: 2.7rem !important; /* Plus grand pour les tablettes */
         text-align: center !important;
-        margin-left: 55px;
-        margin-top: 10px;
-        margin-bottom: 40px;
+        margin-left: 55px !important;
+        margin-top: 10px !important;
+        margin-bottom: 40px !important;
     }
     .lead{
-        margin-top: 80px;
+        margin-top: 80px !important;
         margin-left: 55px !important;
         
     }
