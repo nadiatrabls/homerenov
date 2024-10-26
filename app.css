@@ -2093,42 +2093,12 @@ button {
         width: 100vw !important;
         margin-top: 0 !important;
     }
-    /* La zone qui contient le menu burger */
-    .navbar-collapse {
-        position: absolute; /* Assure que le menu occupe toute la largeur */
-        top: 100%; /* Positionne le menu juste en dessous de la barre de navigation */
-        left: 0;
-        width: 100vw; /* Occupe toute la largeur de l'écran */
-        background-color: #dcdada; /* Arrière-plan du menu */
-        padding: 0; /* Supprime les marges internes */
+    .nav-link{
+        background-color: #dcdada !important;
+        width: 100% !important;
+        
     }
-
-    /* Les liens à l'intérieur du menu burger */
-    .navbar-nav {
-        display: flex;
-        flex-direction: column; /* Affiche les éléments en colonne */
-        align-items: center; /* Centre les éléments */
-        width: 100%; /* Assure que chaque lien prend toute la largeur */
-    }
-
-    /* Chaque lien dans le menu */
-    .nav-link {
-        width: 100%; /* Chaque lien occupe toute la largeur */
-        text-align: center; /* Centre le texte des liens */
-        padding: 15px 0; /* Ajoute de l'espace autour des liens */
-        background-color: #dcdada; /* Assure que le fond des liens correspond à celui du menu */
-        margin: 0; /* Supprime les marges autour des liens */
-    }
-
-    /* Le bouton burger */
-    .navbar-toggler {
-        margin: 0;/* Centre le bouton burger */
-    }
-
-    /* Ajustement pour s'assurer que tout reste bien à l'intérieur */
-    .container-fluid {
-        padding: 0; /* Supprime les marges internes du conteneur */
-    }
+    
     .nav-border{
         z-index: 10;
     }
