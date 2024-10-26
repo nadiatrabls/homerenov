@@ -170,6 +170,40 @@
 .shadow-sm {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+/* Empêche tout débordement globalement */
+body, html {
+    overflow-x: hidden; /* Empêche tout débordement horizontal global */
+    width: 100vw; /* Force la largeur de la page à 100% de la fenêtre */
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+    /* Activer le défilement horizontal pour la table */
+    .table-responsive {
+        display: block;
+        width: 100%;  /* Assure que le conteneur ne dépasse pas la largeur de l'écran */
+        overflow-x: auto;  /* Permet le défilement horizontal */
+        -webkit-overflow-scrolling: touch;  /* Rend le défilement fluide sur mobile */
+        padding: 0;  /* Supprime les marges pour éviter le débordement */
+    }
+
+    /* Garder le tableau sur une seule ligne et permettre le défilement */
+    table {
+        width: 100%;  /* Le tableau occupe toute la largeur disponible */
+        min-width: 700px;  /* Assure que toutes les colonnes sont visibles avec défilement si nécessaire */
+    }
+
+    /* Réduction des tailles de texte pour une meilleure lisibilité sur mobile */
+    .table th, .table td {
+        font-size: 0.875rem;  /* Légère réduction de la taille des textes */
+        padding: 8px;  /* Réduction du padding pour économiser de l'espace */
+    }
+
+    /* Redimensionner les boutons pour les rendre plus compacts sur mobile */
+    .btn-sm i {
+        font-size: 0.8rem;  /* Réduction de la taille des icônes pour économiser de l'espace */
+    }
+}
 </style>
 {% endblock %}
 

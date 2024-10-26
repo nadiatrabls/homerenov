@@ -20,56 +20,53 @@
     {% if disponibilites is empty %}
         <p>Aucune disponibilité n'a été créée.</p>
     {% else %}
-        <!-- Affichage des disponibilités -->
-       <table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Heure de début</th>
-            <th>Heure de fin</th>
-            <th>Client</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for disponibilite in disponibilites %}
-        <tr>
-            <td>{{ disponibilite.date|date('d/m/Y') }}</td>
-            <td>{{ disponibilite.heureDebut }}</td>
-            <td>{{ disponibilite.heureFin }}</td>
-            <td>
-               {% if disponibilite.client %}
-                Client : {{ disponibilite.client }}
-            {% else %}
-                Disponible
-            {% endif %}
-
-            </td>
-            <td>
-                <a href="{{ path('admin_disponibilite_edit', {id: disponibilite.id}) }}" class="btn btn-warning btn-sm">Éditer</a>
-                <form method="post" action="{{ path('admin_disponibilite_delete', {id: disponibilite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');" style="display:inline-block;">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disponibilite.id) }}">
-                    <button class="btn btn-danger btn-sm">Supprimer</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-</table>
+        <!-- Table responsive pour éviter le débordement -->
+        <div class="table-responsive">
+           <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Heure de début</th>
+                        <th>Heure de fin</th>
+                        <th>Client</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for disponibilite in disponibilites %}
+                    <tr>
+                        <td>{{ disponibilite.date|date('d/m/Y') }}</td>
+                        <td>{{ disponibilite.heureDebut }}</td>
+                        <td>{{ disponibilite.heureFin }}</td>
+                        <td>
+                           {% if disponibilite.client %}
+                            Client : {{ disponibilite.client }}
+                        {% else %}
+                            Disponible
+                        {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_disponibilite_edit', {id: disponibilite.id}) }}" class="btn btn-warning btn-sm">Éditer</a>
+                            <form method="post" action="{{ path('admin_disponibilite_delete', {id: disponibilite.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');" style="display:inline-block;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disponibilite.id) }}">
+                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 </div>
+
 <!-- Affichage du calendrier -->
-  <!-- Contrôles du calendrier -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <button id="prevMonthBtn" class="btn btn-outline-primary">Précédent</button>
-        <span id="currentMonth" class="h5"></span>
-        <button id="nextMonthBtn" class="btn btn-outline-primary">Suivant</button>
-    </div>
-    <div id="calendar">
-        <!-- Le calendrier sera généré ici par le JS -->
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <button id="prevMonthBtn" class="btn btn-outline-primary">Précédent</button>
+    <span id="currentMonth" class="h5"></span>
+    <button id="nextMonthBtn" class="btn btn-outline-primary">Suivant</button>
+</div>
+<div id="calendar"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -78,8 +75,8 @@
         let currentDate = new Date();
         let year = currentDate.getFullYear();
         let month = currentDate.getMonth();
+        let today = new Date(); // La date du jour pour la comparaison
 
-        // Tableau des mois en français
         const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
         function updateMonthDisplay() {
@@ -106,7 +103,12 @@
                 let date = new Date(year, month, day);
                 let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-                table += `<td data-date="${dateStr}">${day}</td>`;
+                // Vérifier si la date est passée
+                if (date < today) {
+                    table += `<td class="past-date" data-date="${dateStr}">${day}</td>`;
+                } else {
+                    table += `<td data-date="${dateStr}">${day}</td>`;
+                }
 
                 if (date.getDay() === 6) {
                     table += '</tr><tr>';
@@ -121,14 +123,20 @@
                 let cell = document.querySelector(`td[data-date="${event.date}"]`);
                 if (cell) {
                     if (event.client) {
-                        // Si la disponibilité a été réservée, mettre en bleu
-                        cell.style.backgroundColor = 'blue';
+                        // Si la disponibilité a été réservée, mettre en bleu ciel clair
+                        cell.style.backgroundColor = '#96c9fb'; // Bleu ciel clair
                     } else {
-                        // Si la disponibilité est encore disponible, mettre en vert
-                        cell.style.backgroundColor = 'green';
+                        // Si la disponibilité est encore disponible, mettre en vert clair
+                        cell.style.backgroundColor = '#B0F2B6'; // Vert clair
                     }
                     cell.innerHTML += `<br><small>${event.heureDebut} - ${event.heureFin}</small>`;
                 }
+            });
+
+            // Désactiver les dates passées (non clicables)
+            document.querySelectorAll('.past-date').forEach(function (cell) {
+                cell.style.pointerEvents = 'none';
+                cell.style.opacity = '0.5';
             });
         }
 
@@ -157,22 +165,64 @@
         });
     });
 </script>
-
-
-
-  
-</div>
+<!-- Styles personnalisés -->
 <style>
-.titre{
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Titre */
+.titre {
     text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
-.text-start{
-    margin-top: 50px;
-    margin-bottom: -50px;
-    margin-left: 40%;
+
+/* Alignement des boutons */
+.text-start {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: left;
 }
-.text-end{
-    margin-right: 42%;
+.past-date {
+    background-color: #f5f5f5; /* Gris clair pour indiquer une date passée */
+    color: #aaa; /* Texte gris */
+    cursor: not-allowed; /* Indique que la date n'est pas cliquable */
+}
+
+.text-end {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+/* Table responsive */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Marges pour mobile */
+@media (max-width: 768px) {
+    .text-start {
+        margin-left: 0;
+    }
+
+    .text-end {
+        margin-right: 0;
+    }
+
+    /* Ajuster la largeur des boutons */
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Réduire la taille du texte des titres sur mobile */
+    .titre {
+        font-size: 1.2rem;
+    }
 }
 </style>
 {% endblock %}

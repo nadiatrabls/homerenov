@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container my-5 back">
-    <h1 class="text-center  reserver mb-4">Réserver un rendez-vous</h1>
+    <h1 class="text-center reserver mb-4">Réserver un rendez-vous</h1>
 
     <!-- Contrôles du calendrier -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -14,22 +14,20 @@
     </div>
 
     <!-- Affichage du calendrier -->
-    <div id="calendar" class="calendar-container mb-5">
-        <!-- Le calendrier sera généré ici par le JS -->
+    <div class="table-responsive">
+        <div id="calendar" class="calendar-container mb-5">
+            <!-- Le calendrier sera généré ici par le JS -->
+        </div>
     </div>
 
     <!-- Section pour afficher les créneaux horaires disponibles -->
     <div id="timeSlots" class="mt-4">
         <!-- Les créneaux horaires seront générés ici par le JS -->
     </div>
+
     <div class="text-center mt-5">
-    <a href="{{ path('user_dashboard', {'id': id}) }}" class="btn btn-secondary btn-lg">
-        Retour au tableau de bord
-    </a>
-</div>
-
-
-    
+        <a href="{{ path('user_dashboard', {'id': id}) }}" class="btn btn-secondary btn-lg">Retour au tableau de bord</a>
+    </div>
 </div>
 
 <!-- Style personnalisé -->
@@ -62,12 +60,13 @@
         background-color: #e9ecef;
     }
 
+    /* Couleur vert d'eau pour les disponibilités */
     .calendar-container td[data-date]:hover {
-        background-color: #28a745;
+        background-color: #76D7C4;
         color: white;
     }
 
-    /* Créneaux disponibles en vert */
+    /* Créneaux disponibles en vert d'eau */
     .calendar-container td[data-date] {
         position: relative;
     }
@@ -110,143 +109,165 @@
     #timeSlots .slot-btn {
         margin: 0 10px 10px 0;
     }
+
     .reserver {
         color: #1d4e89;
+    }
+
+    /* Réduire la hauteur des cellules sur mobile */
+    @media (max-width: 768px) {
+        .calendar-container td {
+            padding: 10px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
     }
 </style>
 
 <!-- Script pour le calendrier et les créneaux -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    let disponibilites = {{ disponibilites|json_encode|raw }};
-    let calendar = document.getElementById('calendar');
-    let currentDate = new Date();
-    let year = currentDate.getFullYear();
-    let month = currentDate.getMonth();
+        let disponibilites = {{ disponibilites|json_encode|raw }};
+        let calendar = document.getElementById('calendar');
+        let currentDate = new Date();
+        let year = currentDate.getFullYear();
+        let month = currentDate.getMonth();
+        let today = new Date(); // La date actuelle pour la comparaison
 
-    const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+        const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
-    function updateMonthDisplay() {
-        document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
-    }
-
-    function createCalendar(year, month) {
-        let firstDay = new Date(year, month, 1);
-        let lastDay = new Date(year, month + 1, 0);
-
-        // Générer le tableau du calendrier
-        let table = '<table class="table table-bordered"><thead><tr>';
-        let days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-        days.forEach(day => table += `<th>${day}</th>`);
-        table += '</tr></thead><tbody><tr>';
-
-        // Remplir les jours avant le premier jour du mois
-        for (let i = 0; i < firstDay.getDay(); i++) {
-            table += '<td></td>';
+        function updateMonthDisplay() {
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
         }
 
-        // Remplir les jours du mois
-        for (let day = 1; day <= lastDay.getDate(); day++) {
-            let date = new Date(year, month, day);
-            let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        function createCalendar(year, month) {
+            let firstDay = new Date(year, month, 1);
+            let lastDay = new Date(year, month + 1, 0);
 
-            // Ajouter la cellule
-            table += `<td data-date="${dateStr}">${day}</td>`;
+            // Générer le tableau du calendrier
+            let table = '<table class="table table-bordered"><thead><tr>';
+            let days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+            days.forEach(day => table += `<th>${day}</th>`);
+            table += '</tr></thead><tbody><tr>';
 
-            if (date.getDay() === 6) {
-                table += '</tr><tr>';
+            // Remplir les jours avant le premier jour du mois
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                table += '<td></td>';
             }
-        }
 
-        table += '</tr></tbody></table>';
-        calendar.innerHTML = table;
+            // Remplir les jours du mois
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                let date = new Date(year, month, day);
+                let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-        // Marquer les disponibilités en vert si elles sont disponibles
-        disponibilites.forEach(event => {
-            if (event.disponible) {
-                let cell = document.querySelector(`td[data-date="${event.date}"]`);
-                if (cell) {
-                    cell.style.backgroundColor = 'green';
-                    cell.innerHTML += `<br><small>${event.heureDebut} - ${event.heureFin}</small>`;
-                    cell.addEventListener('click', function () {
-                        displayTimeSlots(event.date, event.id); // Afficher les créneaux pour réserver
-                    });
+                // Ajouter la cellule
+                if (date < today) {
+                    table += `<td class="past-date" data-date="${dateStr}">${day}</td>`; // Date passée, non cliquable
+                } else {
+                    table += `<td data-date="${dateStr}">${day}</td>`;
+                }
+
+                if (date.getDay() === 6) {
+                    table += '</tr><tr>';
                 }
             }
-        });
-    }
 
-    function displayTimeSlots(date, id) {
-    // Filtrer les disponibilités pour la date sélectionnée
-    let slots = disponibilites.filter(event => event.date === date && event.disponible);
-    
-    let selectedDateSection = document.getElementById('timeSlots');
-    
-    // Si des créneaux sont disponibles, les afficher
-    if (slots.length > 0) {
-        let slotButtons = '';
-        slots.forEach(slot => {
-            slotButtons += `<button class="btn btn-outline-dark slot-btn" data-time="${slot.heureDebut}">${slot.heureDebut} - ${slot.heureFin}</button>`;
-        });
+            table += '</tr></tbody></table>';
+            calendar.innerHTML = table;
 
-        selectedDateSection.innerHTML = `
-            <h3>Choisir un créneau pour le ${date}</h3>
-            ${slotButtons}
-            <button class="btn btn-success mt-3" id="confirmBooking">Confirmer le rendez-vous</button>
-        `;
-
-        // Gérer la sélection des créneaux
-        document.querySelectorAll('.slot-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                document.querySelectorAll('.slot-btn').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+            // Marquer les disponibilités en vert d'eau si elles sont disponibles
+            disponibilites.forEach(event => {
+                if (event.disponible) {
+                    let cell = document.querySelector(`td[data-date="${event.date}"]`);
+                    if (cell) {
+                        cell.style.backgroundColor = '#76D7C4'; // Vert d'eau
+                        cell.innerHTML += `<br><small>${event.heureDebut} - ${event.heureFin}</small>`;
+                        cell.addEventListener('click', function () {
+                            displayTimeSlots(event.date, event.id); // Afficher les créneaux pour réserver
+                        });
+                    }
+                }
             });
-        });
 
-        // Confirmation du rendez-vous
-        document.getElementById('confirmBooking').addEventListener('click', function () {
-            let selectedSlot = document.querySelector('.slot-btn.active');
-            if (selectedSlot) {
-                let time = selectedSlot.getAttribute('data-time');
-                if (confirm('Voulez-vous réserver ce créneau à ' + time + ' ?')) {
-                    window.location.href = '/user/{{ id }}/rendezvous/' + id + '/reserver';
-                }
+            // Désactiver les dates passées (non cliquables)
+            document.querySelectorAll('.past-date').forEach(function (cell) {
+                cell.style.pointerEvents = 'none';
+                cell.style.opacity = '0.5';
+            });
+        }
+
+        function displayTimeSlots(date, id) {
+            // Filtrer les disponibilités pour la date sélectionnée
+            let slots = disponibilites.filter(event => event.date === date && event.disponible);
+
+            let selectedDateSection = document.getElementById('timeSlots');
+
+            // Si des créneaux sont disponibles, les afficher
+            if (slots.length > 0) {
+                let slotButtons = '';
+                slots.forEach(slot => {
+                    slotButtons += `<button class="btn btn-outline-dark slot-btn" data-time="${slot.heureDebut}">${slot.heureDebut} - ${slot.heureFin}</button>`;
+                });
+
+                selectedDateSection.innerHTML = `
+                    <h3>Choisir un créneau pour le ${date}</h3>
+                    ${slotButtons}
+                    <button class="btn btn-success mt-3" id="confirmBooking">Confirmer le rendez-vous</button>
+                `;
+
+                // Gérer la sélection des créneaux
+                document.querySelectorAll('.slot-btn').forEach(button => {
+                    button.addEventListener('click', function () {
+                        document.querySelectorAll('.slot-btn').forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                });
+
+                // Confirmation du rendez-vous
+                document.getElementById('confirmBooking').addEventListener('click', function () {
+                    let selectedSlot = document.querySelector('.slot-btn.active');
+                    if (selectedSlot) {
+                        let time = selectedSlot.getAttribute('data-time');
+                        if (confirm('Voulez-vous réserver ce créneau à ' + time + ' ?')) {
+                            window.location.href = '/user/{{ id }}/rendezvous/' + id + '/reserver';
+                        }
+                    } else {
+                        alert('Veuillez sélectionner un créneau.');
+                    }
+                });
+
             } else {
-                alert('Veuillez sélectionner un créneau.');
+                // Si aucun créneau disponible pour cette date
+                selectedDateSection.innerHTML = '<p class="text-muted">Aucun créneau disponible pour cette date.</p>';
             }
+        }
+
+        createCalendar(year, month);
+        updateMonthDisplay();
+
+        document.getElementById('prevMonthBtn').addEventListener('click', function () {
+            month--;
+            if (month < 0) {
+                month = 11;
+                year--;
+            }
+            createCalendar(year, month);
+            updateMonthDisplay();
         });
 
-    } else {
-        // Si aucun créneau disponible pour cette date
-        selectedDateSection.innerHTML = '<p class="text-muted">Aucun créneau disponible pour cette date.</p>';
-    }
-}
-
-
-    createCalendar(year, month);
-    updateMonthDisplay();
-
-    document.getElementById('prevMonthBtn').addEventListener('click', function () {
-        month--;
-        if (month < 0) {
-            month = 11;
-            year--;
-        }
-        createCalendar(year, month);
-        updateMonthDisplay();
+        document.getElementById('nextMonthBtn').addEventListener('click', function () {
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+            createCalendar(year, month);
+            updateMonthDisplay();
+        });
     });
-
-    document.getElementById('nextMonthBtn').addEventListener('click', function () {
-        month++;
-        if (month > 11) {
-            month = 0;
-            year++;
-        }
-        createCalendar(year, month);
-        updateMonthDisplay();
-    });
-});
-
 </script>
 
 {% endblock %}

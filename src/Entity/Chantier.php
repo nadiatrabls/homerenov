@@ -26,23 +26,8 @@ class Chantier
     #[ORM\Column(type: Types::JSON, nullable: true)]  // Utilisation de JSON pour stocker un tableau d'images
     private array $images = [];
 
-    // Ajout de la relation Many-to-One avec Abonne
-    #[ORM\ManyToOne(targetEntity: Abonne::class)]
-    #[ORM\JoinColumn(nullable: true)] // Rends temporairement cette colonne nullable
-    private ?Abonne $client = null;
+    
 
-    // Getters et setters pour la nouvelle relation
-    public function getClient(): ?Abonne
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Abonne $client): static
-    {
-        $this->client = $client;
-
-        return $this;
-    }
 
     // Les autres méthodes existantes
     public function getId(): ?int

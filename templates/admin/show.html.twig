@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row informations">
                 
-                    <ul class="list-group mb-4 shadow-sm">
+                    <ul class="list-group mb-4">
                         <li class="list-group-item"><strong>Nom :</strong> {{ user.nom }}</li>
                         <li class="list-group-item"><strong>Prénom :</strong> {{ user.prenom }}</li>
                         <li class="list-group-item"><strong>Email :</strong> {{ user.email }}</li>
@@ -164,77 +164,113 @@
 
 <!-- Styles personnalisés -->
 <style>
-.dev{
-    margin-bottom: 50px;
-}
+/* Conteneur principal des informations */
 .informations {
-    width: 100%;
+    margin-bottom: 20px;
 }
-.ajout{
-    height: 400px;
+
+/* Modernisation des cartes pour les formulaires */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
-.env-devis{
-    margin-top: 10px;
+
+/* Titres des formulaires */
+.titres {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1d4e89;
+    margin-bottom: 20px;
+    text-align: center;
 }
-    .card-header {
+   .card-header {
         background-color: #1d4e89; /* Couleur principale du logo */
     }
+/* Style général pour les champs de formulaire */
+.card input[type="text"],
+.card input[type="number"],
+.card input[type="date"],
+.card input[type="file"],
+.card select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+}
 
-    .btn-primary {
-        background-color: #1d4e89;
-        border-color: #1d4e89;
-    }
+/* Amélioration du bouton de soumission */
+.card button {
+    background-color: #1d4e89;
+    color: white;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
 
-    .btn-info {
-        background-color: #17a2b8;
-        border-color: #17a2b8;
-    }
+.card button:hover {
+    background-color: #16477a;
+}
 
-    .btn-warning {
-        background-color: #ffc107;
-        border-color: #ffc107;
-    }
+/* Ombres sur les éléments interactifs */
+.card input:focus,
+.card select:focus,
+.card button:focus {
+    outline: none;
+    border-color: #1d4e89;
+    box-shadow: 0 0 5px rgba(29, 78, 137, 0.3);
+}
 
-    .btn-danger {
+/* Styles spécifiques pour les fichiers */
+.card input[type="file"]::file-selector-button {
+    background-color: #1d4e89;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.card input[type="file"]::file-selector-button:hover {
+    background-color: #16477a;
+}
+
+/* Style des boutons de facture et devis */
+.env-devis, .btn-primary {
+    font-size: 1rem;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+/* Ajustement des ombrages */
+.shadow-sm {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
         background-color: #dc3545;
         border-color: #dc3545;
     }
-
-    .d-flex {
-        display: flex;
-        justify-content: space-between;
+/* Responsive : s'assurer que tout s'adapte bien sur mobile */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
     }
 
-    .titres {
-        color: #1d4e89;
+    .ajout {
+        height: auto;
+        margin-bottom: 20px;
     }
+}
 
-    .shadow-sm {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
-    .w-100 {
-        width: 100%;
-        
-    }
-
-    .mb-2 {
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 767px) {
-        /* Styles pour petits écrans */
-        .card-title {
-            font-size: 1.1rem;
-        }
-
-        .card-text {
-            font-size: 0.9rem;
-        }
-
-        .btn {
-            font-size: 0.85rem;
-        }
-    }
 </style>
 {% endblock %}

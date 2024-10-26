@@ -2217,23 +2217,60 @@ button {
     .demolition-content {
         display: flex;
         flex-direction: column;
+        width: 100vw; /* Assure que l'élément prend bien toute la largeur */
+        overflow-x: hidden; /* Empêche le débordement horizontal */
+        
+        padding: 0;
+    }
+
+    .demoli {
+        width: 100vw !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        overflow-x: hidden; /* Empêche tout débordement horizontal */
     }
 
     .image-section {
-        order: 1;
-        margin-left: -30px !important;
+        margin-left: -17px !important; /* Supprime la marge négative */
+        width: 100%; /* S'assure que la section image prend toute la largeur */
     }
 
     .order-2 {
         order: 2;
         margin-top: 20px;
         max-width: 100% !important;
+        padding: 0 10px; /* Ajoute un peu de padding pour le texte */
         text-align: center;
     }
+
     .btn-study{
         margin-left: 30% !important;
     }
+
+    /* Ajustement pour les images */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .image-thumbnails {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .thumbnail-item {
+        width: 45%; /* Ajuste la taille des images pour les mobiles */
+        margin-bottom: 10px;
+    }
     /*page maçonnerie*/
+    .macon{
+        width: 100vw !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        overflow-x: hidden;
+    }
     .maconnerie-content {
         display: flex;
         flex-direction: column;
@@ -2331,10 +2368,4 @@ button {
     font-size: 1rem;
     padding: 10px 20px;
 }
-}
-@media (max-width: 576px) {
-    .btn-study-acceuil {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-    }
 }
