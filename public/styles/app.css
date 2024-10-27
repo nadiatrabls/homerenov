@@ -437,6 +437,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px !important;
+    max-width: 100%;
+    height: 250px;
+    
 }
 
 
@@ -462,13 +465,15 @@ body {
 }
 .testimonial-card {
     width: 100%; /* S'assure que chaque carte occupe la largeur disponible */
-    max-width: 300px; /* Limite la largeur maximale de chaque carte */
+    max-width: 350px; /* Limite la largeur maximale de chaque carte */
 }
 .card-text {
     color: #f5c518;
     font-size: 15px;
 }
-
+.carousel-inner{
+    margin-right: -7%;
+}
 .quote-box p {
     font-style: italic;
     
