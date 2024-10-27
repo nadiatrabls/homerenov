@@ -37,7 +37,10 @@ body {
     color: #6a6868;
     font-weight: bold;
 }
-
+.nav-link{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    
+}
 .nav-border {
     height: 4px;
     background-color: #003366;
@@ -188,6 +191,7 @@ body {
 }
 
 .gallery a {
+    position: relative;
     display: block;
     width: 100%;
     max-width: 300px;
@@ -199,13 +203,47 @@ body {
 
 .gallery a:hover {
     transform: scale(1.05);
+    width: 100%;
 }
 
 .gallery img {
     width: 100%;
     height: 300px;
+    object-fit: cover;
     display: block;
     border-radius: 8px;
+    overflow: hidden;
+}
+.pres-nom-chantier {
+    color: white;
+    font-size: 1rem; /* Taille du texte */
+    white-space: normal; /* Permet le retour à la ligne */
+    word-wrap: break-word; /* Permet de couper le mot si nécessaire */
+    display: inline-block;
+    width: 100%; /* S'assure que le texte occupe toute la largeur disponible */
+}
+
+/* Ajout du style pour la superposition au survol */
+.gallery a .hover-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond sombre transparent */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 1rem; /* Taille du texte */
+    white-space: nowrap; /* Évite le retour à la ligne du texte */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 10;
+}
+
+.gallery a:hover .hover-overlay {
+    opacity: 1;
 }
 /* Section de services */
 .services-section {
@@ -2092,6 +2130,7 @@ button {
     body{
         width: 100vw !important;
         margin-top: 0 !important;
+        top: 0 !important;
     }
     /* La zone qui contient le menu burger */
     .navbar-collapse {
@@ -2144,7 +2183,12 @@ button {
         margin-left: 55px !important;
         
     }
-   
+   .carousel-control-prev-icon {
+    display: none;
+   }
+    .carousel-control-next-icon {
+     display: none;
+    }
 .carousel-caption {
     z-index: 0;
     bottom: 10%;
