@@ -351,10 +351,18 @@
             </div>
         </div>
     </section>
+    {% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
     <section class="contact-section">
     <div class="contact-container">
         <h2>Contactez nous</h2>
-        <form action="" method="post">
+        <form action="{{ path('send_message') }}" method="post">
             <label for="name">Nom et prénom :</label>
             <input type="text" id="name" name="name" required>
             
