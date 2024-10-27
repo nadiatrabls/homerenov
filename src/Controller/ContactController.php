@@ -30,29 +30,4 @@ class ContactController extends AbstractController
 
 
 
-    public function contact(Request $request, MailerInterface $mailer): Response
-    {
-        if ($request->isMethod('POST')) {
-            $name = $request->request->get('name');
-            $email = $request->request->get('email');
-            $messageContent = $request->request->get('message');
-
-            // Créer l'email
-            $emailMessage = (new Email())
-                ->from($email)
-                ->to('contact@homerenov91.fr') // Votre adresse email IONOS
-                ->subject('Nouveau message de contact')
-                ->text("Nom: $name\nEmail: $email\nMessage:\n$messageContent");
-
-            // Envoyer l'email
-            $mailer->send($emailMessage);
-
-            // Optionnel : ajouter un message flash de confirmation
-            $this->addFlash('success', 'Votre message a bien été envoyé.');
-
-            return $this->redirectToRoute('contact_page');
-        }
-
-        return $this->render('home/index.html.twig');
-    }
 }
