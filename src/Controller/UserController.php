@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Abonne;
+use App\Entity\DemandeFacture;
 use App\Entity\Devis;
 use App\Entity\Disponibilite;
 use App\Entity\Facture;
 use App\Entity\RendezVous;
+use App\Form\FactureDemandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +18,7 @@ use App\Repository\DevisRepository;
 use App\Repository\DisponibiliteRepository;
 use App\Repository\RendezVousRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +26,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class UserController extends AbstractController
@@ -118,66 +122,56 @@ class UserController extends AbstractController
             'devis' => $devis,
         ]);
     }
-//  méthode demanderFacture avec l'envoi d'email
-#[Route('/user/{id}/demander-facture', name: 'demander_facture', methods: ['GET', 'POST'])]
-public function demanderFacture(Request $request, Abonne $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-{
-    $form = $this->createFormBuilder()
-        ->add('referenceChantier', TextType::class, [
-            'label' => 'Référence du chantier',
-            'required' => true,
-            'attr' => ['placeholder' => 'Référence du chantier']
-        ])
-        ->add('factureAuNomDe', TextType::class, [
-            'label' => 'Facture au nom de',
-            'required' => true,
-            'attr' => ['placeholder' => 'Nom de la personne ou société']
-        ])
-        ->add('message', TextareaType::class, [
-            'label' => 'Message (facultatif)',
-            'required' => false,
-            'attr' => ['placeholder' => 'Ajoutez un message si nécessaire']
-        ])
-        ->getForm();
 
-    $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $referenceChantier = $form->get('referenceChantier')->getData();
-        $factureAuNomDe = $form->get('factureAuNomDe')->getData();
-        $message = $form->get('message')->getData();
 
-        try {
-            // Envoyer l'email
-            $email = (new Email())
-                ->from($user->getEmail())  // Utilisez l'email du client
-                ->to('homerenovations91@gmail.com')  // Email de l'admin
-                ->subject('Demande de facture de la part de ' . $user->getNom())
-                ->html(
-                    '<p>Une nouvelle demande de facture a été faite par ' . $user->getPrenom() . ' ' . $user->getNom() . '</p>' .
-                    '<p>Référence du chantier : ' . $referenceChantier . '</p>' .
-                    '<p>Facture au nom de : ' . $factureAuNomDe . '</p>' .
-                    '<p>Message : ' . ($message ?: 'Pas de message fourni') . '</p>'
-                );
+    // Demande de facture
+    #[Route('/user/{id}/demander-facture', name: 'demander_facture', methods: ['GET', 'POST'])]
+    public function demandeFacture(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+        if (!$user) {
+            // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Créer le formulaire lié à une nouvelle DemandeFacture
+        $demandeFacture = new DemandeFacture();
+        $form = $this->createForm(FactureDemandeType::class, $demandeFacture);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Associez l'utilisateur à la demande de facture et enregistrez dans la base de données
+            $demandeFacture->setUser($user);
+            $entityManager->persist($demandeFacture);
+            $entityManager->flush();
+
+            // Envoi de l'email
+            $email = (new TemplatedEmail())
+                ->from(new Address('contact@webdev77.fr', 'Web Dev Contact')) 
+                ->to('kolonelaboki78@gmail.com')
+                ->subject('Nouvelle demande de facture')
+                ->htmlTemplate("emails/index.html.twig")
+                ->context(['data'=>$demandeFacture]);
+                
 
             $mailer->send($email);
 
-            // Message de succès
-            $this->addFlash('success', 'Votre demande de facture a bien été envoyée.');
-
-        } catch (\Exception $e) {
-            // Message d'erreur si l'envoi échoue
-            $this->addFlash('error', 'Votre message n\'a pas pu être envoyé. Veuillez réessayer plus tard.');
+            // Message de confirmation et redirection
+            $this->addFlash('success', 'Votre demande de facture a été envoyée avec succès.');
+            return $this->redirectToRoute('user_dashboard', ['id' => $user->getId()]);
         }
 
-        return $this->redirectToRoute('user_dashboard', ['id' => $user->getId()]);
+        // Passer l'utilisateur connecté au template
+        return $this->render('user/request_facture.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
     }
+    
 
-    return $this->render('user/request_facture.html.twig', [
-        'form' => $form->createView(),
-        'user' => $user, // Ajouter l'utilisateur ici pour le template
-    ]);
-}
+
 //prise des rdv 
 #[Route('/user/{id}/rendezvous', name: 'user_rendezvous')]
 public function rendezvous(int $id, EntityManagerInterface $em): Response
