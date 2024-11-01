@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactFormType;
-use App\Form\ContactFormType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(Request $request, MailerInterface $mailer, ChantierRepository $chantierRepository): Response
-    public function index(Request $request, MailerInterface $mailer, ChantierRepository $chantierRepository): Response
+   
     {
         $chantiersSpecifiques = $chantierRepository->findBy(['id' => [5, 8, 14]]);
         $chantiers = $chantierRepository->findBy([], null, 8);
