@@ -3,33 +3,63 @@
 {% block title %}Mot de passe oublié{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h2 class="back">Réinitialisation du mot de passe</h2>
-    
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
+<div class="container my-5 back">
+    <div class="card mx-auto shadow-lg p-4" style="max-width: 500px;">
+        <h2 class="text-center mb-4" style="color: #1d4e89;">Réinitialisation du mot de passe</h2>
+        
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
 
-    {% if error is defined and error %}
-    <div class="alert alert-danger">{{ error }}</div>
-{% endif %}
+        {% if error is defined and error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
 
-    
-    <form method="post">
-        <div class="form-group">
-            <label for="email">Entrez votre adresse email</label>
-            <input type="email" name="email" id="email" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Envoyer le lien de réinitialisation</button>
-    </form>
+        <form method="post" class="mt-4">
+            <div class="form-group mb-3">
+                <label for="email" class="form-label" style="font-weight: bold;">Entrez votre adresse email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Votre email" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3" style="background-color: #1d4e89; border: none;">Envoyer le lien de réinitialisation</button>
+        </form>
+    </div>
 </div>
 
 <style>
-.back{
-    width: 60%;
-}
+    .container {
+        max-width: 600px;
+        margin-top: 40px;
+    }
+
+    /* Custom styling for the card and form */
+    .card {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Style for button hover */
+    .btn-primary:hover {
+        background-color: #16477a;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .card {
+            margin: 20px;
+            padding: 20px;
+        }
+    }
 </style>
 {% endblock %}
-
