@@ -1,5 +1,4 @@
 framework:
-    messenger:
-        routing:
-            'Symfony\Component\Mailer\Messenger\SendEmailMessage': null
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
 

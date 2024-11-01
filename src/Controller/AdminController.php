@@ -30,7 +30,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 
 class AdminController extends AbstractController
@@ -131,7 +133,7 @@ public function show(Request $request, Abonne $user, EntityManagerInterface $ent
  /**
  * @Route("/admin/user/{id}/devis/new", name="user_devis_new", methods={"GET", "POST"})
  */
-public function createDevis(Request $request, Abonne $user, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+public function createDevis(Request $request, Abonne $user, EntityManagerInterface $entityManager, SluggerInterface $slugger, MailerInterface $mailer): Response
 {
     $devis = new Devis();
     $devis->setUser($user);
@@ -158,15 +160,35 @@ public function createDevis(Request $request, Abonne $user, EntityManagerInterfa
                 );
             } catch (FileException $e) {
                 // Gérer l'erreur si le fichier ne peut pas être uploadé
+                $this->addFlash('error', 'Erreur lors de l\'upload du fichier.');
+                return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
             }
 
             // Enregistrer le nom du fichier dans l'entité `Devis`
             $devis->setFichier($newFilename);
         }
 
+        // Sauvegarder le devis dans la base de données
         $entityManager->persist($devis);
         $entityManager->flush();
 
+        // Envoi de l'email de notification au client
+        $email = (new TemplatedEmail())
+            ->from(new Address('contact@homerenov91.fr', 'Homerenov91'))
+            ->to($user->getEmail())
+            ->subject('Nouveau document disponible dans votre espace client')
+            ->htmlTemplate('emails/new_document_notification.html.twig')
+            ->context([
+                'user' => $user,
+                'typeDocument' => 'devis', 
+            ]);
+
+        $mailer->send($email);
+
+        // Message de confirmation
+        $this->addFlash('success', 'Le devis a été créé avec succès et une notification a été envoyée au client.');
+
+        // Redirection vers la page utilisateur
         return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
     }
 
@@ -175,6 +197,8 @@ public function createDevis(Request $request, Abonne $user, EntityManagerInterfa
         'user' => $user,
     ]);
 }
+
+
 //voir devis 
 #[Route('/admin/user/{userId}/devis/{devisId}', name: 'view_devis', methods: ['GET'])]
 public function viewDevis(int $userId, int $devisId, DevisRepository $devisRepository): Response

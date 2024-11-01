@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau document disponible</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1d4e89;
+        }
+        .header h1 {
+            color: #1d4e89;
+            font-size: 24px;
+            margin: 0;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1d4e89;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nouveau document disponible</h1>
+        </div>
+        <div class="content">
+            <p>Bonjour {{ user.prenom }} {{ user.nom }},</p>
+            <p>Un nouveau <strong>{{ typeDocument }}</strong> est disponible dans votre espace client.</p>
+            <p>Connectez-vous pour le consulter et découvrir les informations importantes pour votre projet.</p>
+            <div class="button-container">
+                <a href="https://homerenov91.fr/login" class="button">Accéder à mon espace client</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Merci de votre confiance,</p>
+            <p>L'équipe de Homerenov91</p>
+        </div>
+    </div>
+</body>
+</html>

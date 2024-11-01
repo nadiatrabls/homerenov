@@ -372,30 +372,9 @@
         {{ form_end(form) }}
     </div>
 </section>
-{% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+
     
-<!-- Bannière de consentement aux cookies -->
-<div class="cookie-banner" id="cookieBanner">
-    <p class="cookie-p">Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre politique de confidentialité.</p>
-    <div class="button-container">
-        <button id="acceptCookiesBtn">Accepter</button>
-        <button id="refuseCookiesBtn" class="btn-refuser">Refuser</button>
-    </div>
-</section>
-{% for type, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    
+
 <!-- Bannière de consentement aux cookies -->
 <div class="cookie-banner" id="cookieBanner">
     <p class="cookie-p">Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre politique de confidentialité.</p>
