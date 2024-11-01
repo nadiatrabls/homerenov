@@ -34,7 +34,7 @@ public function forgotPassword(Request $request, AbonneRepository $abonneReposit
 
             // Envoyer l'email de réinitialisation
             $emailMessage = (new Email())
-                ->from('no-reply@yourdomain.com')
+                ->from('contact@homerenov91.fr')
                 ->to($user->getEmail())
                 ->subject('Réinitialisation de mot de passe')
                 ->html($this->renderView('password_reset/emails.html.twig', [
