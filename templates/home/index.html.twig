@@ -358,20 +358,32 @@
         </div>
     {% endfor %}
 {% endfor %}
-
-   <section class="contact-section">
-   <section class="contact-section">
-    <div class="contact-container">
-        <h2>Contactez nous</h2>
-        
-        {{ form_start(form) }}
-            {{ form_row(form.name) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.message) }}
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        {{ form_end(form) }}
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="contact-container p-4 rounded shadow">
+                    <h2 class="text-center mb-4">Contactez-nous</h2>
+                    
+                    {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_row(form.message, {'attr': {'class': 'form-control', 'rows': '4'}}) }}
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+
 
     
 
@@ -459,6 +471,71 @@
         color: white;
     }
 
+/* Section Contactez-nous */
+.contact-section {
+    overflow-x: hidden; /* Évite le débordement horizontal */
+    margin-left: 17%;
+}
+
+.contact-container {
+    background-color: #d9e9f7;
+    border-radius: 15px;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.contact-container h2 {
+    color: #003366;
+    font-size: 1.75rem;
+}
+
+.contact-container .form-control {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.contact-container .btn-primary {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.contact-container .btn-primary:hover {
+    background-color: #215992;
+    border-color: #215992;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .contact-section {
+        margin-left: 1px; /* Remove the left margin */
+        margin-right: 1px; /* Remove the right margin */
+    }
+    .contact-container {
+        padding: 10px; /* Réduit le padding en version mobile */
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .contact-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .contact-container .form-control {
+        font-size: 0.9rem;
+    }
+
+    .contact-container .btn-primary {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    .text-centre{
+        width: 40%;
+    }
+}
 
 </style>
 
