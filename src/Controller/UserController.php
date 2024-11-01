@@ -118,66 +118,68 @@ class UserController extends AbstractController
             'devis' => $devis,
         ]);
     }
-//  méthode demanderFacture avec l'envoi d'email
+
+
+
+
+// Demande de facture
 #[Route('/user/{id}/demander-facture', name: 'demander_facture', methods: ['GET', 'POST'])]
-public function demanderFacture(Request $request, Abonne $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+public function demandeFacture(Request $request, MailerInterface $mailer): Response
 {
+    // Récupérer l'utilisateur connecté
+    $user = $this->getUser();
+    if (!$user) {
+        // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+        return $this->redirectToRoute('app_login');
+    }
+
+    
     $form = $this->createFormBuilder()
         ->add('referenceChantier', TextType::class, [
             'label' => 'Référence du chantier',
-            'required' => true,
-            'attr' => ['placeholder' => 'Référence du chantier']
+            'attr' => ['placeholder' => 'Référence du chantier'],
         ])
         ->add('factureAuNomDe', TextType::class, [
             'label' => 'Facture au nom de',
-            'required' => true,
-            'attr' => ['placeholder' => 'Nom de la personne ou société']
+            'attr' => ['placeholder' => 'Nom de la personne ou société'],
         ])
         ->add('message', TextareaType::class, [
             'label' => 'Message (facultatif)',
             'required' => false,
-            'attr' => ['placeholder' => 'Ajoutez un message si nécessaire']
+            'attr' => ['placeholder' => 'Ajoutez un message si nécessaire'],
         ])
         ->getForm();
 
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
-        $referenceChantier = $form->get('referenceChantier')->getData();
-        $factureAuNomDe = $form->get('factureAuNomDe')->getData();
-        $message = $form->get('message')->getData();
+        // Récupérer les données du formulaire
+        $data = $form->getData();
 
-        try {
-            // Envoyer l'email
-            $email = (new Email())
-                ->from($user->getEmail())  // Utilisez l'email du client
-                ->to('homerenovations91@gmail.com')  // Email de l'admin
-                ->subject('Demande de facture de la part de ' . $user->getNom())
-                ->html(
-                    '<p>Une nouvelle demande de facture a été faite par ' . $user->getPrenom() . ' ' . $user->getNom() . '</p>' .
-                    '<p>Référence du chantier : ' . $referenceChantier . '</p>' .
-                    '<p>Facture au nom de : ' . $factureAuNomDe . '</p>' .
-                    '<p>Message : ' . ($message ?: 'Pas de message fourni') . '</p>'
-                );
+        // Envoi de l'email
+        $email = (new TemplatedEmail())
+            ->from(new Address('contact@homerenov91.fr', 'Homerenov 91 : demande de facture'))
+            ->to('homerenovations91@gmail.com')
+            ->subject('Nouvelle demande de facture')
+            ->htmlTemplate("emails/index.html.twig")
+            ->context(['data' => $data]); // Passez les données du formulaire
 
-            $mailer->send($email);
+        $mailer->send($email);
 
-            // Message de succès
-            $this->addFlash('success', 'Votre demande de facture a bien été envoyée.');
-
-        } catch (\Exception $e) {
-            // Message d'erreur si l'envoi échoue
-            $this->addFlash('error', 'Votre message n\'a pas pu être envoyé. Veuillez réessayer plus tard.');
-        }
-
+        // Message de confirmation et redirection
+        $this->addFlash('success', 'Votre demande de facture a été envoyée avec succès.');
         return $this->redirectToRoute('user_dashboard', ['id' => $user->getId()]);
     }
 
+    // Passer l'utilisateur connecté au template
     return $this->render('user/request_facture.html.twig', [
         'form' => $form->createView(),
-        'user' => $user, // Ajouter l'utilisateur ici pour le template
+        'user' => $user,
     ]);
 }
+
+
+
+
 //prise des rdv 
 #[Route('/user/{id}/rendezvous', name: 'user_rendezvous')]
 public function rendezvous(int $id, EntityManagerInterface $em): Response
@@ -205,7 +207,7 @@ public function rendezvous(int $id, EntityManagerInterface $em): Response
 //reservation du rdv
 
 #[Route('/user/{userId}/rendezvous/{id}/reserver', name: 'user_reserver_rendezvous')]
-public function reserverRendezVous(Disponibilite $disponibilite, Security $security, EntityManagerInterface $em): Response
+public function reserverRendezVous(Disponibilite $disponibilite, Security $security, EntityManagerInterface $em, MailerInterface $mailer): Response
 {
     $user = $security->getUser();
 
@@ -221,7 +223,31 @@ public function reserverRendezVous(Disponibilite $disponibilite, Security $secur
         $disponibilite->setClient($user); // Associe le client qui a réservé
 
         $em->flush();
+        // Envoyer un email de notification à l'administrateur
+        $adminEmail = (new TemplatedEmail())
+            ->from(new Address('contact@homerenov91.fr', 'Notification Rendez-vous homerenov91'))
+            ->to('homerenovations91@gmail.com') // Adresse email de l'administrateur
+            ->subject('Nouveau Rendez-vous Réservé')
+            ->htmlTemplate('emails/rendezvous_notification.html.twig')
+            ->context([
+                'disponibilite' => $disponibilite,
+                'user' => $user
+            ]);
 
+        $mailer->send($adminEmail);
+
+        // Envoyer un email de confirmation au client
+        $confirmationEmail = (new TemplatedEmail())
+            ->from(new Address('contact@homerenov91.fr', 'Homerenov91'))
+            ->to($user->getEmail()) // Email de l'utilisateur
+            ->subject('Confirmation de votre rendez-vous')
+            ->htmlTemplate('emails/rendezvous_confirmation.html.twig')
+            ->context([
+                'disponibilite' => $disponibilite,
+                'user' => $user
+            ]);
+
+        $mailer->send($confirmationEmail);
         // Afficher un message de succès ou rediriger
         $this->addFlash('success', 'Votre rendez-vous a été réservé avec succès.');
     } else {
