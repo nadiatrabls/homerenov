@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de Rendez-vous</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmation de votre rendez-vous</h1>
+        <p>Bonjour {{ user.prenom }} {{ user.nom }},</p>
+        <p>Nous confirmons que votre rendez-vous a été réservé avec succès. Voici les détails de votre réservation :</p>
+        <p><strong>Date :</strong> {{ disponibilite.date|date('d/m/Y') }}</p>
+        <p><strong>Heure :</strong> {{ disponibilite.heureDebut|date('H:i') }}</p>
+        <p>Merci de nous contacter si vous avez des questions ou si vous devez annuler le rendez-vous.</p>
+        <p>À bientôt,</p>
+        <p>L'équipe de Homerenov91</p>
+    </div>
+</body>
+</html>
