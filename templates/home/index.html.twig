@@ -360,6 +360,7 @@
 {% endfor %}
 
    <section class="contact-section">
+   <section class="contact-section">
     <div class="contact-container">
         <h2>Contactez nous</h2>
         
@@ -387,6 +388,23 @@
         <button id="refuseCookiesBtn" class="btn-refuser">Refuser</button>
     </div>
 </section>
+{% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+<!-- Bannière de consentement aux cookies -->
+<div class="cookie-banner" id="cookieBanner">
+    <p class="cookie-p">Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre politique de confidentialité.</p>
+    <div class="button-container">
+        <button id="acceptCookiesBtn">Accepter</button>
+        <button id="refuseCookiesBtn" class="btn-refuser">Refuser</button>
+    </div>
+</div>
+
 <style>
 .gallery img {
     width: 100%; /* La largeur de l'image occupe toute la largeur du conteneur */
@@ -427,11 +445,69 @@
     text-align: center; /* Centrer le texte */
 }
 
+/* Styles de la bannière cookies */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%; /* Position from the left */
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center; /* Center items inside the banner */
+}
+
+.cookie-p{
+    color:white;
+}
 
 
+    .button-container {
+        display: flex;
+        justify-content: space-between; /* Space between buttons */
+        width: 100%; /* Full width for button container */
+    }
 
+    .btn-refuser {
+        background-color: #d9534f; /* Red for refuse button */
+        color: white;
+    }
 
 
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cookieBanner = document.getElementById('cookieBanner');
+        const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
+        const refuseCookiesBtn = document.getElementById('refuseCookiesBtn');
+
+        // Check if the user has already made a choice
+        if (!document.cookie.includes('cookies_accepted=true') && !document.cookie.includes('cookies_refused=true')) {
+            cookieBanner.style.display = 'flex'; // Show the banner
+        }
+
+        // Handle cookie acceptance
+        acceptCookiesBtn.addEventListener('click', function() {
+            document.cookie = "cookies_accepted=true; max-age=" + (60 * 60 * 24 * 365) + "; path=/";
+            cookieBanner.style.display = 'none'; // Hide the banner
+        });
+
+        // Handle cookie refusal
+        refuseCookiesBtn.addEventListener('click', function() {
+            document.cookie = "cookies_refused=true; max-age=" + (60 * 60 * 24 * 365) + "; path=/";
+            cookieBanner.style.display = 'none'; // Hide the banner
+        });
+    });
+</script>
+
+
 {% endblock %}
 

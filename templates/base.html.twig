@@ -155,7 +155,27 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
    <!-- Correct Bootstrap JS sans intégrité -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    let inactivityTime = function () {
+        let timeout;
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(logout, 600000); // 10 minutes
+        }
 
+        function logout() {
+            // Redirect to logout route
+            window.location.href = "{{ path('app_logout') }}";
+        }
+
+        // Listens for user interactions
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+        document.onclick = resetTimer;
+        document.onscroll = resetTimer;
+    };
+    </script>
     {% endblock %}
 </body>
 </html>
