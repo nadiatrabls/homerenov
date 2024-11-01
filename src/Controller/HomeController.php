@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
@@ -17,10 +18,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Request $request, MailerInterface $mailer, ChantierRepository $chantierRepository): Response
     {
-        // Récupérer les chantiers avec les IDs 5, 8 et 14
         $chantiersSpecifiques = $chantierRepository->findBy(['id' => [5, 8, 14]]);
-
-        // Récupérer les 8 premiers chantiers dans la base de données
         $chantiers = $chantierRepository->findBy([], null, 8);
 
         // Créer le formulaire de contact
@@ -59,6 +57,10 @@ class HomeController extends AbstractController
             'chantiersSpecifiques' => $chantiersSpecifiques,
             'form' => $form->createView(),
         ]);
-    }
-}
 
+        
+    }
+
+    
+
+}

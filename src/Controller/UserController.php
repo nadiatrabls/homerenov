@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Abonne;
+use App\Entity\DemandeFacture;
 use App\Entity\Devis;
 use App\Entity\Disponibilite;
 use App\Entity\Facture;
 use App\Entity\RendezVous;
+use App\Form\FactureDemandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +18,7 @@ use App\Repository\DevisRepository;
 use App\Repository\DisponibiliteRepository;
 use App\Repository\RendezVousRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,6 +26,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 class UserController extends AbstractController
