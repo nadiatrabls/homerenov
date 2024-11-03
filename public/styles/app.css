@@ -2075,6 +2075,31 @@ button {
     padding-top: 20px;
 }
 
+#scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #699fd5;
+    color: white;
+    border-radius: 50%;
+    display: none; /* Caché par défaut */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    z-index: 1000;
+}
+
+#scroll-top i {
+    font-size: 1.5rem;
+}
+
+#scroll-top:hover {
+    background-color: #4075ab;
+}
 
 
 /* Ajustement responsive pour les petits écrans */
@@ -2364,5 +2389,6 @@ button {
 .btn-study-acceuil {
     font-size: 1rem;
     padding: 10px 20px;
+}
 }
 }

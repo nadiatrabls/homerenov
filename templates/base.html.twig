@@ -146,6 +146,11 @@
         </div>
     </div>
 </footer>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+
 
     {% block javascripts %}
     <!-- JavaScript inclus avec Webpack Encore -->
@@ -177,6 +182,31 @@
         document.onscroll = resetTimer;
     };
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scrollTopButton = document.getElementById('scroll-top');
+
+        // Afficher ou masquer le bouton de retour en haut
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 200) { // Si on a fait défiler de 200px
+                scrollTopButton.style.display = 'flex';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+
+        // Gérer le clic pour remonter en haut de la page
+        scrollTopButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+
     {% endblock %}
 </body>
 </html>
