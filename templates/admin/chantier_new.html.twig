@@ -25,9 +25,12 @@
             {{ form_errors(form.images) }}
         </div>
 
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success">Ajouter le Chantier</button>
-        </div>
+   <div class="text-center mt-4 button-group">
+    <button type="submit" class="btn btn-success">Ajouter le Chantier</button>
+    <a href="{{ path('app_realisations') }}" class="btn btn-secondary">Annuler</a>
+</div>
+
+
     {{ form_end(form) }}
 </div>
 <style>
@@ -36,5 +39,22 @@
     border-color: #1d4e89;
     margin-bottom: 80px;
 }
+.button-group {
+    display: flex;
+    gap: 10px; /* Ajuste l'espacement entre les boutons */
+    justify-content: center;
+}
+
+.button-group .btn {
+    min-width: 150px; /* Assure une largeur minimale pour les boutons */
+    padding: 10px 20px; /* Ajuste le remplissage pour une taille uniforme */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+
+
 </style>
 {% endblock %}
