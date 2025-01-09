@@ -32,9 +32,18 @@ use Symfony\Component\Mime\Email;
 class UserController extends AbstractController
 {
     #[Route('/user/{id}/dashboard', name: 'user_dashboard')]
-    public function dashboard(int $id, AbonneRepository $abonneRepository, FactureRepository $factureRepository, DevisRepository $devisRepository): Response
+    public function dashboard(int $id, AbonneRepository $abonneRepository, FactureRepository $factureRepository, DevisRepository $devisRepository, Security $security): Response
     {
-        // Récupérer les informations de l'utilisateur connecté via son ID
+        // Récupérer l'utilisateur connecté
+        $userConnected = $security->getUser();
+
+        // Vérifier si l'utilisateur connecté correspond à l'ID dans l'URL
+        if ($userConnected->getId() !== $id) {
+            // Si l'utilisateur connecté n'est pas celui de l'ID dans l'URL, rediriger ou afficher une erreur
+            return $this->redirectToRoute('user_dashboard', ['id' => $userConnected->getId()]);
+        }
+
+        // Récupérer les informations de l'utilisateur via son ID
         $user = $abonneRepository->find($id);
 
         // Vérifier si l'utilisateur existe

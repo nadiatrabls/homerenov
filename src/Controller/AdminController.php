@@ -117,16 +117,23 @@ public function show(Request $request, Abonne $user, EntityManagerInterface $ent
     ]);
 }
 
-    #[Route('/admin/user/{id}', name: 'user_delete', methods: ['POST'])]
-    public function delete(Request $request, Abonne $abonne, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$abonne->getId(), $request->request->get('_token'))) {
+#[Route('/admin/user/{id}/delete', name: 'user_delete', methods: ['POST'])]
+public function delete(Request $request, Abonne $abonne, EntityManagerInterface $entityManager): Response
+{
+    if ($this->isCsrfTokenValid('delete'.$abonne->getId(), $request->request->get('_token'))) {
+        try {
             $entityManager->remove($abonne);
             $entityManager->flush();
+            $this->addFlash('success', 'L\'abonné a été supprimé avec succès.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Erreur lors de la suppression de l\'abonné : ' . $e->getMessage());
         }
-
-        return $this->redirectToRoute('admin_dashboard');
+    } else {
+        $this->addFlash('error', 'Erreur de token CSRF.');
     }
+
+    return $this->redirectToRoute('admin_dashboard');
+}
 
 /*************************crud devis  ********************************/
 //crée un devis

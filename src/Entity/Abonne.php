@@ -43,12 +43,11 @@ class Abonne implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Devis::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Devis::class, cascade: ['remove'])]
     private Collection $devis;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Facture::class)]
+    
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Facture::class, cascade: ['remove'])]
     private Collection $factures;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
 private ?string $resetToken = null;
 

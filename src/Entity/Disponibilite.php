@@ -28,6 +28,7 @@ class Disponibilite
 
 
     #[ORM\ManyToOne(targetEntity: Abonne::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Abonne $client = null;
 
 
