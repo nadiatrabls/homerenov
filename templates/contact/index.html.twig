@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Demande d'étude{% endblock %}
+{% block title %}Demande d'Étude pour Projet de Rénovation - Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Contactez Homerenov91 pour toutes vos demandes d'étude et pour obtenir un devis gratuit pour vos projets de rénovation. Nous sommes à votre écoute.">
+{% endblock %}
 
 {% block body %}
-
 <div class="container mt-5">
-
     <h1 class="text-center" id="etude">Demande d'étude</h1>
     <h2 class="text-center" id="projet">Dites-nous en plus sur votre projet et nous vous rappellerons pour en parler</h2>
     {% for type, messages in app.flashes %}
@@ -61,8 +63,6 @@
                     </select>
                 </div>
 
-               
-
                 <div class="mb-3">
                     <label for="location" class="form-label">Localisation du projet *</label>
                     <input type="text" id="location" name="location" class="form-control" required>
@@ -109,7 +109,9 @@
             <div class="mb-4">
                 <h4 class="adress">Notre adresse</h4>
                 <p>26 Rue gabriel péri, 91210 Draveil</p>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2636.6816946901243!2d2.4123148159291843!3d48.67400447926701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67a13f8491d91%3A0x55f25d31d5df564d!2s26%20Rue%20Gabriel%20P%C3%A9ri%2C%2091210%20Draveil!5e0!3m2!1sfr!2sfr!4v1696000075605!5m2!1sfr!2sfr" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2636.6816946901243!2d2.4123148159291843!3d48.67400447926701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67a13f8491d91%3A0x55f25d31d5df564d!2s26%20Rue%20Gabriel%20P%C3%A9ri%2C%2091210%20Draveil!5e0!3m2!1sfr!2sfr!4v1696000075605!5m2!1sfr!2sfr" 
+                        width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" 
+                        aria-label="Carte de localisation de notre adresse à Draveil"></iframe>
             </div>
 
             <div class="mb-4">

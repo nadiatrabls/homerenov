@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos Realisations{% endblock %}
+{% block title %}Nos Réalisations : Projets de Rénovation et Aménagement Réussis - Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Découvrez nos réalisations passées : des projets d'aménagement et de rénovation menés à bien avec soin et expertise. Homerenov91 vous offre des solutions de qualité.">
+{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
@@ -24,25 +28,26 @@
     <div class="container my-5">
         <div class="row">
             {% for chantier in chantiers %}
-                <div class="col-md-4 mb-4">
-                    <div class="card-realisations">
-                        {% if chantier.images|length > 0 %}
-                            <img src="{{ asset(chantier.images[0]) }}" class="card-img-realisations" alt="Image du chantier">
-                        {% else %}
-                            <img src="{{ asset('images/default.jpg') }}" class="card-img-realisations" alt="Image par défaut">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title-realisations">{{ chantier.nom }}</h5>
-                            <p class="card-text-realisations">
-                                {{ chantier.description|slice(0, 100)|nl2br }}...
-                            </p>
-                            <a href="{{ path('chantier_show', {id: chantier.id}) }}" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-md-4 mb-4">
+        <div class="card-realisations">
+            {% if chantier.images|length > 0 %}
+                <img src="{{ asset(chantier.images[0]) }}" class="card-img-realisations" alt="Vue du chantier {{ chantier.nom }} - Premier plan des travaux réalisés">
             {% else %}
-                <p>Aucun chantier disponible pour le moment.</p>
-            {% endfor %}
+                <img src="{{ asset('images/default.jpg') }}" class="card-img-realisations" alt="Image par défaut représentant un chantier typique">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title-realisations">{{ chantier.nom }}</h5>
+                <p class="card-text-realisations">
+                    {{ chantier.description|slice(0, 100)|nl2br }}...
+                </p>
+                <a href="{{ path('chantier_show', {id: chantier.id, slug: chantier.slug }) }}" class="btn btn-primary btn-chantier">+ sur ce chantier</a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>Aucun chantier disponible pour le moment.</p>
+{% endfor %}
+
         </div>
     </div>
 </div>

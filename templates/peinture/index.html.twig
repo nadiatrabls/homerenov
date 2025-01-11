@@ -1,30 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Peinture{% endblock %}
+{% block title %}Peinture Intérieure et Extérieure pour Bâtiments - Rénovation et Décoration Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Apportez de la couleur à vos espaces avec nos services de peinture. Que ce soit pour l'intérieur ou l'extérieur, nous avons la solution qu'il vous faut.">
+{% endblock %}
 
 {% block body %}
 <h1 class="text-center peinture">Peinture</h1>
 <div class="container-peinture">
     
     <div class="main-image-peinture">
-        <img src="{{ asset('images/peinture2.jpg') }}" alt="Main Image" class="img-fluid">
+        <img src="{{ asset('images/peinture2.jpg') }}" alt="Peinture intérieure d'une pièce, avec des couleurs modernes et fraîches" class="img-fluid">
     </div>
 
     <div class="thumbnail-section-peinture">
         <div class="thumbnail-peinture">
-            <img src="{{ asset('images/peinture4.jpg') }}" alt="Thumbnail 1" class="img-fluid">
+            <img src="{{ asset('images/peinture4.jpg') }}" alt="Peinture des murs et plafonds d'une pièce" class="img-fluid">
             <div class="overlay-peinture">
                 <p>Murs et plafonds</p>
             </div>
         </div>
         <div class="thumbnail-peinture">
-            <img src="{{ asset('images/peinture5.jpg') }}" alt="Thumbnail 2" class="img-fluid">
+            <img src="{{ asset('images/peinture5.jpg') }}" alt="Peinture d'un sol avec finition lisse et durable" class="img-fluid">
             <div class="overlay-peinture">
                 <p>Sols</p>
             </div>
         </div>
         <div class="thumbnail-peinture">
-            <img src="{{ asset('images/peinture3.jpg') }}" alt="Thumbnail 3" class="img-fluid">
+            <img src="{{ asset('images/peinture3.jpg') }}" alt="Peinture de boiseries, portes et fenêtres en bois" class="img-fluid">
             <div class="overlay-peinture">
                 <p>Boiseries</p>
             </div>
@@ -69,11 +73,10 @@
 
         <!-- Image et bouton -->
         <div class="col-md-6 image-et-bouton">
-            <img src="{{ asset('images/peinture1.jpg') }}" alt="Image description" class="img-fluid">
+            <img src="{{ asset('images/peinture1.jpg') }}" alt="Peinture extérieure d'une façade de bâtiment avec une finition soignée" class="img-fluid">
             <button class="dm-etude"><a href="{{ path('contact') }}">DEMANDE D'ÉTUDE</a></button>
         </div>
     </div>
 </div>
-
 
 {% endblock %}

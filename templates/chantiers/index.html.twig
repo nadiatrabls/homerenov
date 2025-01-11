@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails du Chantier{% endblock %}
+{% block title %}Détails du Chantier de Rénovation et Construction - Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Consultez la liste de nos chantiers en cours et passés. Homerenov91 vous offre des solutions sur mesure pour tous vos besoins en rénovation.">
+{% endblock %} 
 
 {% block body %}
 <div class="container mt-5 back chantier-detail">
@@ -16,7 +20,7 @@
             <div class="carousel-inner chantier-inner">
                 {% for image in chantier.images %}
                     <div class="carousel-item {% if loop.first %}active{% endif %} item-chantier">
-                        <img src="{{ asset(image) }}" class="d-block w-100" alt="Image du chantier">
+                        <img src="{{ asset(image) }}" class="d-block w-100" alt="Image du chantier : {{ chantier.nom }} - {{ loop.index }}">
                     </div>
                 {% endfor %}
             </div>
@@ -42,37 +46,34 @@
                 <button type="submit" class="btn btn-danger btn-chantier">Supprimer le chantier</button>
             </form>
         </div>
-        
     {% endif %}
     <div class="text-center mt-5">
-            <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
-        </div>
+        <a href="{{ path('app_realisations') }}" class="btn btn-primary retour">Retour à la liste des chantiers</a>
+    </div>
 </div>
 
 <!-- Styles ajoutés pour les boutons -->
 <style>
     .description-container {
-        width: 90%; /* Définit la largeur de la description */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre */
+        width: 90%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
         background-color: #fff;
         border-radius: 8px;
     }
 
-    /* Ajustement pour les petits écrans */
     @media (max-width: 768px) {
         .description-container {
             width: 90%; 
         }
     }
-.chantierCarousel img{
-    height: 200px;
-}
+    .chantierCarousel img {
+        height: 200px;
+    }
     .btn-container {
         display: flex;
-        justify-content: center; /* Centre les boutons horizontalement */
-        gap: 5px; /* Espace entre les boutons */
-      
+        justify-content: center;
+        gap: 5px;
         margin-top: 20px;
     }
 
@@ -80,14 +81,12 @@
         padding: 10px 20px;
         font-size: 1.2rem;
         border-radius: 5px;
-        width: auto;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease;
     }
 
-    /* Couleurs inspirées du logo */
     .btn-primary {
-        background-color: #1d4e89; /* Couleur principale du logo */
+        background-color: #1d4e89;
         border-color: #1d4e89;
         color: white;
         margin-bottom: 80px;
@@ -105,11 +104,11 @@
         background-color: #dc3545;
         border-color: #dc3545;
         color: white;
-        width:300px;
+        width: 300px;
     }
-.chantier-detail{
-    margin-bottom: 30px;
-}
+    .chantier-detail {
+        margin-bottom: 30px;
+    }
     .btn-chantier:hover {
         opacity: 0.9;
     }

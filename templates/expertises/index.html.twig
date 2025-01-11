@@ -1,29 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Domaines d'interventions{% endblock %}
+{% block title %}Nos Domaines d'Intervention : Rénovation, Construction et Aménagement - Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Homerenov91 intervient dans divers domaines tels que l'aménagement d'intérieur, la rénovation de bâtiments, la pose de sols et bien plus. Découvrez toutes nos prestations.">
+{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
-    <h1 class="text-center expertises">Domaines d'interventions</h1>
+    <h1 class="text-center expertises">Domaines d'intervention</h1>
 
+    <!-- Présentation générale -->
     <section class="intervention-section">
         <h2>Nous intervenons dans tous les corps d’état nécessaires à votre chantier de rénovation</h2>
         <p>
-            Dans le cadre de notre offre de rénovation globale pour réaliser vos projets de rénovation, 
-            nous pouvons intervenir sur l’ensemble des périmètres principaux détaillés ci-dessous. 
-            Que nous intervenions de bout en bout dans le cadre d’une proposition clé en main ou sur un périmètre réduit, 
-            nous sommes à vos côtés pour faire de votre chantier une réussite.
+            Chez Homerenov91, nous proposons une offre de rénovation globale pour réaliser vos projets avec succès. 
+            Que ce soit pour un service clé en main ou pour une intervention sur un domaine spécifique, 
+            nous garantissons un accompagnement de qualité tout au long de votre chantier.
         </p>
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores voluptatem omnis necessitatibus, 
-            suscipit nulla dolores fugiat, quos eos accusamus officia possimus nobis nesciunt nihil optio labore 
-            recusandae veritatis dolorum veniam. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Notre expertise couvre une large gamme de services pour répondre à vos besoins spécifiques. 
+            Avec Homerenov91, vous bénéficiez de solutions fiables, adaptées et réalisées dans les délais impartis.
         </p>
         <a href="{{ path('contact') }}" class="btn btn-primary btn-intervention">DEMANDE D'ÉTUDE</a>
-        
     </section>
 
-    <!-- Section avant/après -->
+    <!-- Avant / Après -->
     <section class="before-after-section mt-5 text-center">
         <div class="row">
             <div class="col-md-6">
@@ -37,7 +39,7 @@
         </div>
     </section>
 
-    <!-- Section des domaines techniques -->
+    <!-- Domaines techniques -->
     <section class="technical-domains mt-5 text-center">
         <h3 class="domaines">Domaines techniques en second œuvre</h3>
         <div class="row mt-4">
@@ -61,9 +63,9 @@
             </div>
         </div>
         <div class="row mt-4 justify-content-center deuxieme-partie">
-        <div class="col-md-4">
+            <div class="col-md-4">
                 <a href="{{ path('app_peinture') }}">
-                    <img src="{{ asset('images/peinture.jpg') }}" alt="peinture" class="img-fluid">
+                    <img src="{{ asset('images/peinture.jpg') }}" alt="Peinture" class="img-fluid">
                     <p>Peinture</p>
                 </a>
             </div>

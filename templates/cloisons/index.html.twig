@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cloisons mobiles et plafonds{% endblock %}
+{% block title %}Cloisons Mobiles et Plafonds Modulaires pour Espaces Professionnels - Homerenov91{% endblock %}
+
+{% block head %}
+    <meta name="description" content="Homerenov91 vous propose des solutions d'aménagement avec des cloisons mobiles et des plafonds suspendus pour optimiser vos espaces et améliorer l'acoustique de vos pièces.">
+{% endblock %}
 
 {% block body %}
 <h2 class="section-title-cloisons">Cloisons mobiles et plafonds</h2>
@@ -18,18 +22,18 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-6">
-                    <img src="{{ asset('images/placo3.jpg') }}" alt="Cloisons mobiles 1" class="img-fluid img-hover-cloisons">
+                    <img src="{{ asset('images/placo3.jpg') }}" alt="Cloisons mobiles installées dans une pièce lumineuse" class="img-fluid img-hover-cloisons">
                 </div>
                 <div class="col-6">
-                    <img src="{{ asset('images/placo4.jpg') }}" alt="Cloisons mobiles 2" class="img-fluid img-hover-cloisons">
+                    <img src="{{ asset('images/placo4.jpg') }}" alt="Cloisons mobiles pour un bureau professionnel" class="img-fluid img-hover-cloisons">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-6">
-                    <img src="{{ asset('images/placo1.jpg') }}" alt="Cloisons mobiles 3" class="img-fluid img-hover-cloisons">
+                    <img src="{{ asset('images/placo1.jpg') }}" alt="Exemple de cloison mobile dans un salon moderne" class="img-fluid img-hover-cloisons">
                 </div>
                 <div class="col-6">
-                    <img src="{{ asset('images/placo2.jpg') }}" alt="Cloisons mobiles 4" class="img-fluid img-hover-cloisons">
+                    <img src="{{ asset('images/placo2.jpg') }}" alt="Cloisons modulaires en cours d'installation" class="img-fluid img-hover-cloisons">
                 </div>
             </div>
         </div>
@@ -39,7 +43,8 @@
             <br>
             <h3>Plafonds</h3>
             <p>
-Les plafonds en BA13 sont une solution idéale pour moderniser et améliorer vos intérieurs. Reconnu pour sa légèreté et sa facilité d’installation, le BA13 permet de créer des finitions lisses et élégantes, adaptées à tous types de pièces. Que ce soit pour abaisser une hauteur sous plafond, intégrer des systèmes d’éclairage ou améliorer l’isolation acoustique et thermique, les plafonds en plaques de plâtre BA13 offrent une grande polyvalence. Ils s’intègrent aussi bien dans les projets de rénovation que dans les nouvelles constructions, garantissant un résultat propre et professionnel.</p>
+                Les plafonds en BA13 sont une solution idéale pour moderniser et améliorer vos intérieurs. Reconnu pour sa légèreté et sa facilité d’installation, le BA13 permet de créer des finitions lisses et élégantes, adaptées à tous types de pièces. Que ce soit pour abaisser une hauteur sous plafond, intégrer des systèmes d’éclairage ou améliorer l’isolation acoustique et thermique, les plafonds en plaques de plâtre BA13 offrent une grande polyvalence. Ils s’intègrent aussi bien dans les projets de rénovation que dans les nouvelles constructions, garantissant un résultat propre et professionnel.
+            </p>
         </div>
     </div>
 </div>
@@ -47,21 +52,20 @@ Les plafonds en BA13 sont une solution idéale pour moderniser et améliorer vos
 <div class="container services">
     <div class="row">
         <!-- Autres services -->
-       <div class="col-md-6 autres-services">
-    <h2>Autres services</h2>
-    <ul>
-        <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_demolition') }}">Démolition et curage</a></li>
-        <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_maconnerie') }}">Maçonnerie</a></li>
-        <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_peinture') }}">Peinture</a></li>
-        <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_revetements') }}">Sols et revêtements muraux</a></li>
-        <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_isolation') }}">Solutions acoustiques</a></li>
-    </ul>
-</div>
-
+        <div class="col-md-6 autres-services">
+            <h2>Autres services</h2>
+            <ul>
+                <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_demolition') }}">Démolition et curage</a></li>
+                <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_maconnerie') }}">Maçonnerie</a></li>
+                <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_peinture') }}">Peinture</a></li>
+                <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_revetements') }}">Sols et revêtements muraux</a></li>
+                <li><i class="fa fa-chevron-right"></i> <a href="{{ path('app_isolation') }}">Solutions acoustiques</a></li>
+            </ul>
+        </div>
 
         <!-- Image et bouton -->
         <div class="col-md-6 image-et-bouton">
-            <img src="{{ asset('images/placo5.jpg') }}" alt="Image description" class="img-fluid">
+            <img src="{{ asset('images/placo5.jpg') }}" alt="Exemple de plafond BA13 avec éclairage intégré" class="img-fluid">
             <button class="dm-etude"><a href="{{ path('contact') }}">DEMANDE D'ÉTUDE</a></button>
         </div>
     </div>
