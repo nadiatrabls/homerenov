@@ -12,15 +12,25 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use App\Repository\ChantierRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(Request $request, MailerInterface $mailer, ChantierRepository $chantierRepository): Response
+    public function index(Request $request, MailerInterface $mailer, ChantierRepository $chantierRepository, SluggerInterface $slugger): Response
    
     {
         $chantiersSpecifiques = $chantierRepository->findBy(['id' => [5, 8, 14]]);
         $chantiers = $chantierRepository->findBy([], null, 8);
+       // Ajout des slugs pour chaque chantier
+    
+
+    foreach ($chantiersSpecifiques as $chantier) {
+        $chantier->slug = $slugger->slug($chantier->getNom())->lower();
+    }
+foreach ($chantiers as $chantier) {
+        $chantier->slug = $slugger->slug($chantier->getNom())->lower();
+    }
 
         // Créer le formulaire de contact
         $form = $this->createForm(ContactFormType::class);

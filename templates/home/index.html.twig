@@ -76,7 +76,8 @@
         <div class="row">
             {% for chantier in chantiersSpecifiques %}
                 <div class="col-12 col-sm-6 col-md-4 mb-4 gallery">
-                    <a href="{{ path('chantier_show', {'id': chantier.id, 'slug': chantier.nom|url_encode }) }}">
+                
+                    <a href="{{ path('chantier_show', {'id': chantier.id, slug: chantier.slug }) }}">
                         <img src="{{ asset(chantier.images[0]) }}" alt="Chantier {{ chantier.nom }} réalisé par Homerenov91" class="img-fluid">
                         <div class="hover-overlay">
                             <span class="pres-nom-chantier">{{ chantier.nom }}</span>
@@ -181,7 +182,7 @@
         {% for chantier in chantiers|slice(0, 8) %}
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="img-hover">
-                    <a href="{{ path('chantier_show', {'id': chantier.id, 'slug': chantier.nom|url_encode }) }}">
+                    <a href="{{ path('chantier_show', {'id': chantier.id, slug: chantier.slug }) }}">
 
                         {% if chantier.images|length > 0 %}
                             <img src="{{ asset(chantier.images[0]) }}" alt="Image du chantier {{ chantier.nom }}" class="img-fluid">
